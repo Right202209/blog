@@ -5,6 +5,8 @@ date: 2024-02-07
 Author: Right
 tags: [sample, document]
 comments: true
+toc: true
+pinned: true
 ---
 # 数据结构
 

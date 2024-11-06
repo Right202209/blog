@@ -5,6 +5,8 @@ date: 2024-02-08
 Author: Right
 tags: [sample, document]
 comments: true
+toc: true
+pinned: true
 ---
 
 # 数据库原理主要内容
