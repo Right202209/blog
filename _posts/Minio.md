@@ -11,7 +11,7 @@ comments: true
 
 Github [github.com/minio/minio](https://link.juejin.cn?target=https%3A%2F%2Fgithub.com%2Fminio%2Fminio)
 
-官网 [MinIO | 用于AI的S3 & Kubernetes原生对象存储](https://www.minio.org.cn)
+官网 [MinIO](https://www.minio.org.cn)
 
 ## **部署与安装**
 
