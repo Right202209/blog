@@ -1,0 +1,113 @@
+---
+layout: post
+title: Minio 
+date: 2024-08-24
+Author: Right
+tags: [sample, document]
+comments: true
+---
+
+## **Minio**
+
+Github [github.com/minio/minio](https://link.juejin.cn?target=https%3A%2F%2Fgithub.com%2Fminio%2Fminio)
+
+官网 [MinIO | 用于AI的S3 & Kubernetes原生对象存储](https://www.minio.org.cn)
+
+## **部署与安装**
+
+### **Docker安装**
+
+运行以下命令以使用临时数据卷将 MinIO 的最新稳定映像作为容器运行：
+
+```bash
+docker pull minio/minio  
+docker run -d -p 9000:9000 --name=minio --restart=always -e "MINIO_ROOT_USER=minioadmin" -e "MINIO_ROOT_PASSWORD=minioadmin" -v /home/data:/data -v /home/config:/root/.minio  minio/minio server /data --console-address ":9000" --address ":9090"
+ 
+ -d 后台运行容器
+ --name 为容器名称
+ --restart docker重启或者开启时自动启动镜像
+ -p 端口映射，宿主机端口:容器端口 访问9010，映射到9000端口
+ -e 设置Minio的ACCESS_KEY和SECRET_KEY
+ -v 挂载  宿主机目录:容器内目录。
+```
+
+MinIO 部署开始使用凭据 `minioadmin:minioadmin`。可以使用 MinIO 控制台测试部署，嵌入式内置于 MinIO 服务器的对象浏览器。将主机上运行的 Web 浏览器指向 http://127.0.0.1:9000 并使用根凭据。可以使用浏览器来创建桶、上传对象以及浏览 MinIO 服务器的内容。
+
+### **Linux安装**
+
+使用以下命令在运行 64 位 Intel/AMD 架构的 Linux 主机上运行独立的 MinIO 服务器。将`/data` 替换为您希望 MinIO 存储数据的驱动器或目录的路径。
+
+```bash
+wget http://dl.minio.org.cn/server/minio/release/linux-amd64/minio
+chmod +x minio
+./minio server /data
+```
+
+将`/data` 替换为您希望 MinIO 存储数据的驱动器或目录的路径。
+### **Windows**
+
+[服务端下载](https://dl.minio.io/server/minio/release/windows-amd64/minio.exe)
+[客户端下载](https://dl.minio.io/client/mc/release/windows-amd64/mc.exe)
+
+使用以下命令在 Windows 主机上运行独立的 MinIO 服务器。将 “**C:\**" 替换为希望 MinIO 存储数据的驱动器或目录的路径。将终端或 powershell 目录更改为 `minio.exe` 可执行文件的位置，*或*将该目录的路径添加到系统 `$PATH` 中：
+```
+minio.exe server C:\
+```
+MinIO 部署开始使用默认的 root 凭据 `minioadmin:minioadmin`。可以使用 MinIO 控制台测试部署，这是一个内置在 MinIO 服务器中的基于 Web 的嵌入式对象浏览器。将主机上运行的 Web 浏览器指向 http://127.0.0.1:9000 并使用 root 凭据登录。使用浏览器来创建桶、上传对象以及浏览 MinIO 服务器的内容。
+## **使用**
+#### 使用命令行工具
+MinIO 提供了命令行工具 mc，可以方便地管理 MinIO 服务器。可以使用 mc 命令来创建、删除、上传、下载文件等操作。
+列出存储桶
+```bash
+ ls <alias>
+```
+这会列出指定 MinIO 服务器上的所有存储桶。
+创建存储桶
+```
+mc mb <alias>/<bucket_name>
+```
+这会在指定 MinIO 服务器上创建一个新的存储桶。
+上传文件
+```xml
+mc cp <file_path> <alias>/<bucket_name>
+```
+这会将本地文件上传到指定的 MinIO 存储桶中。
+下载文件
+```xml
+mc cp <alias>/<bucket_name>/<file_name> <local_file_path>
+```
+这会将 MinIO 存储桶中的文件下载到本地。
+复制对象
+```bash
+mc cp <source> <target>
+```
+这会复制对象从一个位置到另一个位置，可以是存储桶内的对象或不同存储桶间的对象。
+移动对象
+```bash
+mc mv <source> <target>
+```
+这会移动对象从一个位置到另一个位置，与复制不同的是，移动后源位置的对象将被删除。
+删除对象
+```xml
+mc rm <alias>/<bucket_name>/<object_name>
+```
+这会删除指定的对象。
+删除存储桶
+```xml
+mc rb <alias>/<bucket_name>
+```
+这会删除指定的存储桶及其中的所有对象。
+
+#### **WEBUI**
+
+![(image.png)](https://p3-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/313ec38167ba4b06b05b53cde791b6c0~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg6Zi_55m9NjMwNQ==:q75.awebp?rk3s=f64ab15b&x-expires=1731140772&x-signature=%2FFuiANN8%2FNr6WAVvTxNgfBM1fEs%3D)
+![image.png](https://p3-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/900aba0c17534d6fb69f8526b84c7956~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg6Zi_55m9NjMwNQ==:q75.awebp?rk3s=f64ab15b&x-expires=1731140772&x-signature=74H1lFR9oWm4CfDGTDXqzYxoKI4%3D)
+![1](https://p3-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/083766564ed147a194671db848ff0208~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg6Zi_55m9NjMwNQ==:q75.awebp?rk3s=f64ab15b&x-expires=1731140772&x-signature=55lMLkAKtRYYu%2FGYSWoUifojB7U%3D)
+
+#### 新建用户及ACCESS_KEY
+
+![](https://p3-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/ced7cbc90b2e4b1882695ad0ecb1edf7~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg6Zi_55m9NjMwNQ==:q75.awebp?rk3s=f64ab15b&x-expires=1731140772&x-signature=UHpZAYyo8sEQWaqrxBtdJYzeXd4%3D)
+
+![](https://p3-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/7d13ce58bdf442908bb27761823e3c93~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg6Zi_55m9NjMwNQ==:q75.awebp?rk3s=f64ab15b&x-expires=1731140772&x-signature=SlB2lGE7dvBbpM%2FBKcfpUlIwpNM%3D)
+
+![](https://p3-xtjj-sign.byteimg.com/tos-cn-i-73owjymdk6/2fc820498ec749bd92e42b4a2360109b~tplv-73owjymdk6-jj-mark-v1:0:0:0:0:5o6Y6YeR5oqA5pyv56S-5Yy6IEAg6Zi_55m9NjMwNQ==:q75.awebp?rk3s=f64ab15b&x-expires=1731140772&x-signature=1ECoHPJDv7JWGbixRMah2KjHRlU%3D)
