@@ -12,11 +12,11 @@ layout: default
     {% if post.pinned==true %}
       <article class="post pinned">
         <h1>
-            <span title="pinned"><i data-feather="anchor"></i></span><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+            <span title="pinned"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 5px;"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg></span><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
         </h1>
 
-        <div clsss="meta">
-          
+        <div class="meta">
+
           <span class="author">
             {{ post.author }}
           </span>
@@ -34,10 +34,6 @@ layout: default
             </li>
             {% endfor %}
           </ul>
-
-          <script>
-            feather.replace()
-          </script>
         </div>
 
        <div class="post-excerpt">
@@ -59,7 +55,7 @@ layout: default
         <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
       </h1>
 
-      <div clsss="meta">
+      <div class="meta">
         
         <span class="author">
           {{ post.author }}
