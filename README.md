@@ -45,6 +45,33 @@
 - `url`: 你的网站域名。
 - `baseurl`: 博客的子路径（默认为 `/blog`）。
 
+## 通过 GitHub Issue 更新内容
+
+使用 GitHub Issue 作为更新入口。新建 Issue 并选择 `Content Update` 模板，填写字段即可完成新增/更新/删除。
+
+### 字段说明
+- `Action`: `create` / `update` / `delete`
+- `Type`: `post` / `page` / `file`
+- `Path`: 目标文件路径（创建文章可留空）
+- `Title` / `Date`: 文章创建或更新时必填
+- `Tags`: 逗号分隔
+- `Content`: Markdown 正文
+
+### 文章示例
+- `Action`: create
+- `Type`: post
+- `Path`: 留空
+- `Title`: My Title
+- `Date`: 2026-02-09
+- `Tags`: document, continue
+- `Content`: 文章正文
+
+### 页面/文件示例
+- `Action`: update
+- `Type`: page
+- `Path`: about.md
+- `Content`: 完整文件内容
+
 ## 最近更新 (2026-02-09)
 
 - **性能提升**：全面优化了前端资源加载，升级了数学公式渲染引擎。

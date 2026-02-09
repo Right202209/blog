@@ -1,0 +1,67 @@
+name: Content Update
+description: Create/update/delete any content via Issue
+title: "[Update] <short summary>"
+labels: ["content-update"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form to update content. For posts, leave Path empty and provide Title/Date/Tags/Content.
+  - type: dropdown
+    id: action
+    attributes:
+      label: Action
+      options:
+        - create
+        - update
+        - delete
+    validations:
+      required: true
+  - type: dropdown
+    id: type
+    attributes:
+      label: Type
+      options:
+        - post
+        - page
+        - file
+    validations:
+      required: true
+  - type: input
+    id: path
+    attributes:
+      label: Path (optional for create post)
+      description: "Example: _posts/2026-02-09-hello-world.md or about.md"
+      placeholder: "_posts/2026-02-09-hello-world.md"
+    validations:
+      required: false
+  - type: input
+    id: title
+    attributes:
+      label: Title (required for post create/update)
+      placeholder: "My Title"
+    validations:
+      required: false
+  - type: input
+    id: date
+    attributes:
+      label: Date (required for post create/update)
+      description: "Format: YYYY-MM-DD"
+      placeholder: "2026-02-09"
+    validations:
+      required: false
+  - type: input
+    id: tags
+    attributes:
+      label: Tags (optional, comma-separated)
+      placeholder: "document, continue"
+    validations:
+      required: false
+  - type: textarea
+    id: content
+    attributes:
+      label: Content (Markdown)
+      description: "Full file content for page/file; for post, this is the body content."
+      render: markdown
+    validations:
+      required: false

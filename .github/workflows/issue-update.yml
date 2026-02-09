@@ -1,0 +1,19 @@
+name: Issue Content Update
+
+on:
+  issues:
+    types: [opened, edited, labeled]
+
+permissions:
+  contents: write
+  issues: read
+
+jobs:
+  update-from-issue:
+    if: contains(github.event.issue.labels.*.name, 'content-update')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Apply update from issue
+        run: node .github/scripts/issue-update.js
