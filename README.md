@@ -46,6 +46,7 @@ English version: README_EN.md
 - `Path`: 目标文件路径（创建文章可留空）
 - `Title` / `Date`: 文章创建或更新时必填
 - `Tags`: 逗号分隔
+- `Published`: `true` / `false` (默认为 `true`，设为 `false` 可隐藏文章)
 - `Content`: Markdown 正文
 
 ### 文章自动生成规则（重要）
