@@ -35,8 +35,6 @@ navigation:
     url: /archive
   - name: 标签
     url: /tags
-  - name: MY主站
-    url: https:Right202209.github.io
 
 # 每页的文章数
 paginate: 8
@@ -123,4 +121,3 @@ exclude:
   - LICENSE
   - README.md
   - CNAME
-

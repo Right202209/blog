@@ -615,16 +615,72 @@ nav {
 }
 
 // Archive
-.archive {
+.archive-timeline {
+  position: relative;
+  margin: 30px 0 10px;
+  padding-left: 28px;
+
+  &:before {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: $divider-color;
+  }
+
   a {
     color: $base-color;
   }
+
   time {
+    display: block;
     color: $base-lighten-color;
     font-size: $small-font-size;
     font-weight: 300;
-    margin-left: 3px;
+    margin-top: 2px;
   }
+}
+
+.archive-year {
+  position: relative;
+  margin: 18px 0 10px;
+  font-size: 1.2em;
+  font-weight: 600;
+  color: $base-color;
+
+  &:before {
+    content: "";
+    position: absolute;
+    left: -24px;
+    top: 0.55em;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: $background-color;
+    border: 2px solid $base-color;
+  }
+}
+
+.archive-item {
+  position: relative;
+  padding: 6px 0 6px 0;
+}
+
+.archive-marker {
+  position: absolute;
+  left: -23px;
+  top: 0.6em;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: $base-color;
+  box-shadow: 0 0 0 4px $background-color;
+}
+
+.archive-content {
+  line-height: 1.5;
 }
 
 // Tags
@@ -754,5 +810,4 @@ footer {
 // ... Otherwise it really bloats up the top of the CSS file and makes it difficult to find the start
 @import "highlights";
 @import "gitalk";
-
 
