@@ -330,6 +330,7 @@ img {
 	position: fixed;
 	z-index: 4;
   border-right: 1px solid $divider-color;
+  transition: transform 240ms ease;
 
   @include mobile {
     width: 100%;
@@ -338,6 +339,7 @@ img {
     position: relative;
     border-bottom: 1px solid $divider-color;
     border-right: 0;
+    transform: none;
   }
 }
 
@@ -431,10 +433,31 @@ nav {
 .wrapper-content {
   float: right;
   width: 70%;
+  transition: width 240ms ease;
 
   @include mobile {
     float: none;
     width: 100%;
+  }
+}
+
+body.sidebar-hidden .wrapper-sidebar {
+  transform: translateX(100%);
+}
+
+body.sidebar-hidden .wrapper-content {
+  width: 100%;
+  float: none;
+}
+
+@include mobile {
+  body.sidebar-hidden .wrapper-sidebar {
+    transform: none;
+  }
+
+  body.sidebar-hidden .wrapper-content {
+    width: 100%;
+    float: none;
   }
 }
 
@@ -810,4 +833,3 @@ footer {
 // ... Otherwise it really bloats up the top of the CSS file and makes it difficult to find the start
 @import "highlights";
 @import "gitalk";
-
