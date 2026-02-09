@@ -27,48 +27,6 @@
     {% if page.toc==true %}
     <script>
       document.getElementById("main").classList.add("withtoc");
-      (function () {
-        var mobile = window.matchMedia("(max-width: 1200px)");
-        var lastY = 0;
-        var hidden = false;
-        var ticking = false;
-
-        function setHidden(next) {
-          if (hidden === next) return;
-          hidden = next;
-          document.body.classList.toggle("sidebar-hidden", hidden);
-        }
-
-        function onScroll() {
-          if (mobile.matches) {
-            setHidden(false);
-            return;
-          }
-          var y = window.pageYOffset || document.documentElement.scrollTop || 0;
-          if (y > 120 && y > lastY + 5) {
-            setHidden(true);
-          } else if (y < lastY - 5 || y < 120) {
-            setHidden(false);
-          }
-          lastY = y;
-        }
-
-        function onScrollRaf() {
-          if (!ticking) {
-            window.requestAnimationFrame(function () {
-              onScroll();
-              ticking = false;
-            });
-            ticking = true;
-          }
-        }
-
-        window.addEventListener("scroll", onScrollRaf, { passive: true });
-        mobile.addEventListener("change", function () {
-          setHidden(false);
-          onScroll();
-        });
-      })();
     </script>
     {% endif %}
   </body>
