@@ -16,11 +16,22 @@ function parseFields(body) {
   const re = /###\s+([^\n]+)\n([\s\S]*?)(?=\n###\s+|$)/g;
   let m;
   while ((m = re.exec(text)) !== null) {
-    const key = m[1].trim().toLowerCase();
+    let key = m[1].trim().toLowerCase();
+    const parenIndex = key.indexOf(" (");
+    if (parenIndex !== -1) {
+      key = key.slice(0, parenIndex);
+    }
     const value = m[2].trim();
     fields[key] = value;
   }
   return fields;
+}
+
+function normalizeField(value) {
+  if (!value) return "";
+  const v = value.trim();
+  if (v.toLowerCase() === "no response") return "";
+  return v;
 }
 
 function slugifyTitle(title) {
@@ -89,11 +100,11 @@ function main() {
   const fields = parseFields(issue.body || "");
   const action = (fields["action"] || "").toLowerCase();
   const type = (fields["type"] || "").toLowerCase();
-  let filePath = safePath(fields["path"] || "");
-  const title = fields["title"] || "";
-  const date = fields["date"] || "";
-  const tags = fields["tags"] || "";
-  const content = fields["content"] || "";
+  let filePath = safePath(normalizeField(fields["path"]));
+  const title = normalizeField(fields["title"]);
+  const date = normalizeField(fields["date"]);
+  const tags = normalizeField(fields["tags"]);
+  const content = normalizeField(fields["content"]);
 
   if (!action || !["create", "update", "delete"].includes(action)) {
     throw new Error("Invalid action");
