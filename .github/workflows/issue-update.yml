@@ -18,4 +18,6 @@ jobs:
       - name: Apply update from issue
         run: node .github/scripts/issue-update.js
       - name: Push changes
-        run: git push
+        run: |
+          git pull --rebase origin main
+          git push
