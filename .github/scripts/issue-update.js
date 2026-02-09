@@ -30,7 +30,12 @@ function parseFields(body) {
 function normalizeField(value) {
   if (!value) return "";
   const v = value.trim();
-  if (v.toLowerCase() === "no response") return "";
+  const stripped = v
+    .replace(/^_+|_+$/g, "")
+    .replace(/^`+|`+$/g, "")
+    .trim()
+    .toLowerCase();
+  if (stripped === "no response") return "";
   return v;
 }
 
