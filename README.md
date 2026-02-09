@@ -48,6 +48,14 @@ English version: README_EN.md
 - `Tags`: 逗号分隔
 - `Content`: Markdown 正文
 
+### 文章自动生成规则（重要）
+- 当 `Type=post` 且 `Path` 留空时，会自动生成文件路径：
+  `_posts/YYYY-MM-DD-<slug>-<issue号>.md`
+- `<slug>` 由 `Title` 转成小写英文、去除特殊字符、空格转为 `-`
+- 自动补齐文章前置字段（保持项目既有样式）：
+  `layout/title/date/Author/tags/comments/toc/pinned`
+- 文章内容来自 `Content` 字段
+
 ### 文章示例
 - `Action`: create
 - `Type`: post
