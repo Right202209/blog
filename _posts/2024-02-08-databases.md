@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 数据结构 
+title: 数据库
 date: 2024-02-08
 Author: Right
 tags: [sample, document]
@@ -8,8 +8,7 @@ comments: true
 toc: true
 pinned: true
 ---
-
-# 数据库原理主要内容
+数据库原理主要内容
 
 ## 1. 数据库是什么？
 
