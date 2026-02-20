@@ -271,6 +271,13 @@ img {
   border-radius: 5px;
 }
 
+article img {
+  max-width: 100%;
+  border-radius: 6px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  margin: 1.5em 0;
+}
+
 // Fixes images in popup boxes from Google Translate
 .gmnoprint img {
   max-width: none;
