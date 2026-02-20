@@ -1,5 +1,15 @@
+{% assign lang = page.lang | default: site.lang | default: "zh" %}
+{% assign t = site.data.i18n.languages[lang] %}
+
 {% include svg-icons.html %}
 
 {% if site.footer-text %}
 <p>{{ site.footer-text }}</p>
 {% endif %}
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<p style="font-size: 0.8em; color: #888;">
+  <span id="busuanzi_container_site_pv">{{ t.site_pv }} <span id="busuanzi_value_site_pv"></span> {{ t.times }}</span>
+  <span class="post-meta-divider">|</span>
+  <span id="busuanzi_container_site_uv">{{ t.site_uv }} <span id="busuanzi_value_site_uv"></span> {{ t.people }}</span>
+</p>

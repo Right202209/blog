@@ -57,6 +57,15 @@ body:
       placeholder: "document, continue"
     validations:
       required: false
+  - type: dropdown
+    id: published
+    attributes:
+      label: Published (optional, default true)
+      options:
+        - "true"
+        - "false"
+    validations:
+      required: false
   - type: textarea
     id: content
     attributes:

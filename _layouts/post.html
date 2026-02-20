@@ -2,6 +2,9 @@
 layout: default
 ---
 
+{% assign lang = page.lang | default: site.lang | default: "zh" %}
+{% assign t = site.data.i18n.languages[lang] %}
+
 <article class="posts">
   <h1>{{ page.title }}</h1>
 
@@ -12,6 +15,10 @@ layout: default
 
     <span class="date">
       {{ page.date | date: "%Y-%m-%d" }}
+    </span>
+
+    <span id="busuanzi_container_page_pv" style="display:none; margin-left: 10px;">
+      {{ t.views }}：<span id="busuanzi_value_page_pv"></span> {{ t.times }}
     </span>
 
     <ul class="tag">
@@ -38,14 +45,14 @@ layout: default
   {% if page.previous.url %}
     <span class="prev" >
       <a href="{{ site.url }}{{ site.baseurl }}{{ page.previous.url }}">
-        ← 上一篇
+        ← {{ t.prev }}
       </a>
     </span>
   {% endif %}
   {% if page.next.url %}
     <span class="next" >
       <a href="{{ site.url }}{{ site.baseurl }}{{ page.next.url }}">
-        下一篇 →
+        {{ t.next }} →
       </a>
     </span>
   {% endif %}

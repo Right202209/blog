@@ -6,6 +6,7 @@
 # 描述/签名
 name: Right
 description: 以证据为起点，以方法为路径。
+lang: zh
 
 # 输入你的网站域名（如果你没有添加自己的域名，而是直接用GitHub pages分配的域名的话可以省略）
 url: https://right202209.github.io
@@ -50,11 +51,11 @@ footer-links:
   email: tunhe38@gmail.com #youremailaddress@mail.com
   facebook: #https://www.facebook.com/<>
   flickr: #https://www.flickr.com/<>
-  github: /Right202209 #https://github.com/<>
+  github: Right202209 #https://github.com/<>
   instagram: #https://instagram.com/<>
   linkedin: #https://www.linkedin.com/in/<>
   pinterest: #https://www.pinterest.com/<>
-  rss: #随便填点啥RSS就能用了
+  rss: true #随便填点啥RSS就能用了
   stackoverflow: # http://stackoverflow.com/<>
   tumblr: # https://<username>.tumblr.com
   twitter: # https://www.twitter.com/<your_twitter_username> 
@@ -82,7 +83,7 @@ gitalk:
 google_analytics:
 
 utteranc:
-  repo: # Your github repo path, also see: https://utteranc.es
+  repo: Right202209/blog # Your github repo path, also see: https://utteranc.es
 
 #
 # !! 以下所有设置都不需要更改 !!

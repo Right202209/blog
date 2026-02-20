@@ -841,3 +841,31 @@ footer {
 // ... Otherwise it really bloats up the top of the CSS file and makes it difficult to find the start
 @import "highlights";
 @import "gitalk";
+
+// Read Mode (No Sidebar)
+body.read-mode {
+  .wrapper-sidebar {
+    display: none !important;
+  }
+
+  .wrapper-content {
+    width: 100%;
+    float: none;
+  }
+
+  .toc {
+    left: 0;
+  }
+
+  @media screen and (min-width: 1200px) {
+    .withtoc {
+      padding-left: 260px;
+    }
+  }
+
+  @include mobile {
+    .withtoc {
+      padding-left: 0;
+    }
+  }
+}

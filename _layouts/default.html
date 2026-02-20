@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
   {% include head.html %}
-  <body>
+  <body class="{% if page.layout == 'post' %}read-mode{% endif %}">
+    {% unless page.layout == 'post' %}
     {% include nav.html %}
+    {% endunless %}
 
     {% if page.toc==true %}
       <aside class="toc">
@@ -18,11 +20,13 @@
 
     {% include analytics.html %}
 
+    {% unless page.layout == 'post' %}
     <div class="wrapper-footer-mobile">
       <footer class="footer">
         {% include footer.html %}
       </footer>
     </div>
+    {% endunless %}
 
     {% if page.toc==true %}
     <script>

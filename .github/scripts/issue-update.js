@@ -56,9 +56,10 @@ function safePath(p) {
   return norm;
 }
 
-function buildPostContent({ title, date, tags, body }) {
+function buildPostContent({ title, date, tags, published, body }) {
   const tagList = tags ? tags.split(",").map(t => t.trim()).filter(Boolean) : [];
   const tagText = tagList.length ? `[${tagList.join(", ")}]` : "[]";
+  const isPublished = published !== "false";
   const fm = [
     "---",
     "layout: post",
@@ -69,6 +70,7 @@ function buildPostContent({ title, date, tags, body }) {
     "comments: true",
     "toc: true",
     "pinned: false",
+    `published: ${isPublished}`,
     "",
     "---",
     "",
@@ -109,6 +111,7 @@ function main() {
   const title = normalizeField(fields["title"]);
   const date = normalizeField(fields["date"]);
   const tags = normalizeField(fields["tags"]);
+  const published = normalizeField(fields["published"]);
   const content = normalizeField(fields["content"]);
 
   if (!action || !["create", "update", "delete"].includes(action)) {
@@ -144,7 +147,7 @@ function main() {
       if (!title || !date) {
         throw new Error("Post create/update requires Title and Date");
       }
-      fileContent = buildPostContent({ title, date, tags, body: content || "" });
+      fileContent = buildPostContent({ title, date, tags, published, body: content || "" });
     }
 
     const dir = path.dirname(filePath);
