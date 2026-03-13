@@ -5,6 +5,10 @@ layout: default
 {% assign lang = page.lang | default: site.lang | default: "zh" %}
 {% assign t = site.data.i18n.languages[lang] %}
 
+<a class="post-back-link" href="{{ site.baseurl }}/" aria-label="返回上一页" onclick="if (window.history.length > 1) { event.preventDefault(); window.history.back(); }">
+  <span aria-hidden="true">←</span>
+</a>
+
 <article class="posts post-article">
   <h1>{{ page.title }}</h1>
 

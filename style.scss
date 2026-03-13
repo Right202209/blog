@@ -23,6 +23,32 @@ body {
     linear-gradient(180deg, #f7fbfa 0%, #f4f1ea 50%, #fbf8f3 100%);
 }
 
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(23, 54, 49, 0.28) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgba(23, 54, 49, 0.22);
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background-clip: padding-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(21, 133, 121, 0.4);
+  background-clip: padding-box;
+}
+
 .page-canvas {
   position: fixed;
   inset: 0;
@@ -619,8 +645,7 @@ body.sidebar-hidden .wrapper-content {
 .home-rail {
   display: grid;
   gap: 18px;
-  position: sticky;
-  top: 24px;
+  align-content: start;
 }
 
 .rail-card {
@@ -975,6 +1000,34 @@ body.sidebar-hidden .wrapper-content {
 .page,
 .posts.post-article {
   padding: 34px;
+}
+
+.post-back-link {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  z-index: 6;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.68);
+  background: rgba(251, 249, 244, 0.82);
+  color: #173631;
+  box-shadow: 0 18px 42px rgba(53, 70, 67, 0.12);
+  backdrop-filter: blur(18px);
+  font-family: $ui-font;
+  font-size: 1.2rem;
+  transition: transform 220ms ease, background-color 220ms ease, color 220ms ease, box-shadow 220ms ease;
+
+  &:hover {
+    color: #fff;
+    background: #158579;
+    transform: translateY(-2px);
+    box-shadow: 0 22px 52px rgba(21, 133, 121, 0.2);
+  }
 }
 
 .post-article .entry,
@@ -1340,6 +1393,12 @@ body.read-mode {
 }
 
 body.home-focus-mode {
+  .wrapper-sidebar {
+    transform: translateX(100%);
+    opacity: 0;
+    pointer-events: none;
+  }
+
   .page-aura {
     opacity: 0.32;
   }
@@ -1473,9 +1532,20 @@ body.home-focus-mode {
     font-size: 1.75rem;
   }
 
+  .post-back-link {
+    top: 16px;
+    left: 16px;
+    width: 42px;
+    height: 42px;
+  }
+
   .hero-topbar,
   .home-focus-mode .hero-body {
     display: block;
+  }
+
+  body.home-focus-mode .wrapper-sidebar {
+    display: none;
   }
 
   .focus-toggle {
