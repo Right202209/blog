@@ -2,6 +2,7 @@
 <html>
   {% include head.html %}
   <body class="{% if page.layout == 'post' %}read-mode {% endif %}layout-{{ page.layout | default: 'default' }}">
+    <div class="page-canvas"></div>
     <div class="page-aura page-aura-one"></div>
     <div class="page-aura page-aura-two"></div>
     {% unless page.layout == 'post' %}
@@ -33,7 +34,95 @@
     {% if page.toc==true %}
     <script>
       document.getElementById("main").classList.add("withtoc");
+
+      (function () {
+        const toc = document.querySelector(".toc");
+        const contentRoot = document.querySelector(".entry");
+        if (!toc || !contentRoot) return;
+
+        const links = Array.from(toc.querySelectorAll('a[href^="#"]'));
+        if (!links.length) return;
+
+        const headings = links
+          .map((link) => {
+            const target = document.getElementById(decodeURIComponent(link.getAttribute("href").slice(1)));
+            return target ? { link, target } : null;
+          })
+          .filter(Boolean);
+
+        if (!headings.length) return;
+
+        const setActive = (activeLink) => {
+          links.forEach((link) => link.classList.toggle("is-active", link === activeLink));
+          if (activeLink) {
+            activeLink.scrollIntoView({ block: "nearest", behavior: "smooth" });
+          }
+        };
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            const visible = entries
+              .filter((entry) => entry.isIntersecting)
+              .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+
+            if (visible.length) {
+              const active = headings.find((item) => item.target === visible[0].target);
+              if (active) setActive(active.link);
+              return;
+            }
+
+            const passed = headings
+              .filter((item) => item.target.getBoundingClientRect().top < 180)
+              .at(-1);
+
+            if (passed) setActive(passed.link);
+          },
+          {
+            rootMargin: "-18% 0px -62% 0px",
+            threshold: [0, 1]
+          }
+        );
+
+        headings.forEach((item) => observer.observe(item.target));
+
+        if (headings[0]) {
+          setActive(headings[0].link);
+        }
+      })();
     </script>
     {% endif %}
+
+    <script>
+      (function () {
+        const toggle = document.querySelector(".focus-toggle");
+        if (!toggle) return;
+
+        const body = document.body;
+        const storageKey = "home-focus-mode";
+
+        const applyFocusMode = (enabled) => {
+          body.classList.toggle("sidebar-hidden", enabled);
+          body.classList.toggle("home-focus-mode", enabled);
+          toggle.setAttribute("aria-pressed", enabled ? "true" : "false");
+        };
+
+        try {
+          applyFocusMode(window.localStorage.getItem(storageKey) === "1");
+        } catch (error) {
+          applyFocusMode(false);
+        }
+
+        toggle.addEventListener("click", function () {
+          const nextState = !body.classList.contains("home-focus-mode");
+          applyFocusMode(nextState);
+
+          try {
+            window.localStorage.setItem(storageKey, nextState ? "1" : "0");
+          } catch (error) {
+            // Ignore storage failures and keep the in-memory state only.
+          }
+        });
+      })();
+    </script>
   </body>
 </html>
