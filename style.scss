@@ -1566,3 +1566,242 @@ body.read-mode {
 
 @import "highlights";
 @import "gitalk";
+
+html {
+  color-scheme: dark;
+  scrollbar-color: rgba(161, 197, 189, 0.26) transparent;
+}
+
+body {
+  color: #d7e4df;
+  background:
+    radial-gradient(circle at top left, rgba(68, 198, 182, 0.18), transparent 28%),
+    radial-gradient(circle at 85% 12%, rgba(248, 183, 84, 0.16), transparent 20%),
+    linear-gradient(180deg, #081312 0%, #0d1618 48%, #101a1d 100%);
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgba(175, 206, 199, 0.24);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(93, 211, 190, 0.42);
+}
+
+.page-canvas {
+  opacity: 0.86;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.02)),
+    repeating-linear-gradient(
+      90deg,
+      rgba(189, 224, 216, 0.04) 0,
+      rgba(189, 224, 216, 0.04) 1px,
+      transparent 1px,
+      transparent 92px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      rgba(189, 224, 216, 0.035) 0,
+      rgba(189, 224, 216, 0.035) 1px,
+      transparent 1px,
+      transparent 92px
+    ),
+    radial-gradient(circle at 20% 18%, rgba(68, 198, 182, 0.14), transparent 24%),
+    radial-gradient(circle at 80% 76%, rgba(248, 183, 84, 0.12), transparent 22%);
+}
+
+.page-aura-one {
+  background: rgba(68, 198, 182, 0.22);
+}
+
+.page-aura-two {
+  background: rgba(248, 183, 84, 0.14);
+}
+
+h1, h2, h3, h4, h5, h6,
+.site-name,
+.post h1,
+.page h1,
+.rail-card h2,
+.archive-year,
+.post-back-link,
+.rail-posts a {
+  color: #eef7f3;
+}
+
+h4, h6,
+.date,
+.author,
+.site-description,
+.nav-note,
+.rail-metrics span,
+.rail-posts time,
+.archive-timeline time,
+.tags > .tag time,
+footer p,
+.lang-switcher {
+  color: rgba(208, 226, 220, 0.68) !important;
+}
+
+p,
+.post-excerpt,
+.hero-summary,
+.page .entry,
+.post-article .entry {
+  color: rgba(222, 237, 232, 0.84);
+}
+
+a {
+  color: #7de5d3;
+}
+
+a:hover,
+a:active {
+  color: #b4fff2;
+}
+
+hr,
+.footnotes,
+.archive-timeline:before,
+.rail-posts li,
+.toc:before {
+  border-color: rgba(196, 225, 217, 0.12);
+}
+
+table {
+  border-color: rgba(196, 225, 217, 0.1);
+  background: rgba(18, 31, 34, 0.8);
+}
+
+td, th {
+  border-color: rgba(196, 225, 217, 0.1);
+}
+
+tbody tr:nth-child(odd) td,
+tbody tr:nth-child(odd) th {
+  background-color: rgba(68, 198, 182, 0.06);
+}
+
+blockquote {
+  background: rgba(18, 31, 34, 0.76);
+  border-left-color: rgba(95, 226, 207, 0.6);
+}
+
+a.footnote,
+.post p a.footnote,
+.post ol a.footnote,
+.post ul a.footnote {
+  border-color: rgba(196, 225, 217, 0.16);
+}
+
+.sidebar,
+.home-hero,
+.posts > .post,
+.page,
+.posts.post-article,
+.archive-timeline,
+.tags,
+.rail-card,
+footer,
+.pagination > .prev a,
+.pagination > .next a,
+.toc,
+.post-back-link,
+.paw-bubble {
+  border-color: rgba(188, 223, 215, 0.12);
+  background:
+    linear-gradient(180deg, rgba(20, 31, 34, 0.92), rgba(12, 21, 24, 0.92));
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.34);
+}
+
+.rail-card {
+  background:
+    linear-gradient(135deg, rgba(34, 55, 58, 0.94), rgba(14, 22, 25, 0.94)),
+    rgba(12, 21, 24, 0.94);
+}
+
+.rail-card:before {
+  background: radial-gradient(circle, rgba(68, 198, 182, 0.18), transparent 68%);
+}
+
+.site-badge,
+.hero-kicker,
+.rail-kicker {
+  background: rgba(68, 198, 182, 0.12);
+  color: #7de5d3;
+}
+
+.site-stat,
+.rail-metrics div,
+nav a,
+.hero-pills span,
+.rail-links a,
+.rail-tags a {
+  background: rgba(20, 34, 37, 0.9);
+  border-color: rgba(188, 223, 215, 0.12);
+  color: rgba(226, 240, 235, 0.84);
+}
+
+nav a:hover,
+.post-link,
+.rail-links a:hover,
+.rail-tags a:hover,
+.pagination > .prev a:hover,
+.pagination > .next a:hover,
+.post-back-link:hover {
+  background: #1f8f82;
+  border-color: #1f8f82;
+  color: #f4fffd;
+}
+
+.post-link {
+  box-shadow: 0 16px 34px rgba(31, 143, 130, 0.24);
+}
+
+.posts .tag li > a,
+.tags > .label > li > a {
+  background: rgba(31, 143, 130, 0.14);
+  color: #bdece4;
+}
+
+.posts .tag li > a:hover,
+.tags > .label > li > a:hover {
+  background: rgba(31, 143, 130, 0.28);
+  color: #f4fffd;
+}
+
+.tags > .label > li > a span.count {
+  background: rgba(31, 143, 130, 0.22);
+}
+
+.toc a {
+  color: rgba(214, 232, 226, 0.7);
+}
+
+.toc a.is-active {
+  color: #f4fffd;
+  background: rgba(31, 143, 130, 0.24);
+}
+
+.archive-marker {
+  background: #7de5d3;
+  box-shadow: 0 0 0 6px #0d1618;
+}
+
+.archive-year:before {
+  background: #081312;
+  border-color: #7de5d3;
+}
+
+.paw-bubble {
+  color: #eef7f3;
+}
+
+.paw-water-wave {
+  background: linear-gradient(180deg, rgba(48, 117, 156, 0.9) 0%, rgba(31, 85, 127, 0.92) 100%);
+}
+
+.post-back-link,
+.paw-easter-egg img {
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.36);
+}
