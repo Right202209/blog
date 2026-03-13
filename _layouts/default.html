@@ -31,9 +31,15 @@
     </div>
     {% endunless %}
 
-    <button class="paw-easter-egg" type="button" aria-expanded="false" aria-label="打开彩蛋">
+    <button class="paw-easter-egg" type="button" aria-pressed="false" aria-label="触发猫主题彩蛋">
+      <span class="paw-spotlight" aria-hidden="true"></span>
+      <span class="paw-prints" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
       <img src="https://www.google.com/logos/fnbx/animal_paws/cat_kp_lm.gif" alt="" />
-      <span class="paw-bubble">喵，摸到隐藏按钮了。</span>
+      <span class="paw-bubble">Cat mode activated.</span>
     </button>
 
     {% if page.toc==true %}
@@ -101,10 +107,19 @@
       (function () {
         const paw = document.querySelector(".paw-easter-egg");
         if (!paw) return;
+        let timerId;
 
         paw.addEventListener("click", function () {
-          const expanded = paw.classList.toggle("is-open");
-          paw.setAttribute("aria-expanded", expanded ? "true" : "false");
+          paw.classList.remove("is-burst");
+          void paw.offsetWidth;
+          paw.classList.add("is-burst");
+          paw.setAttribute("aria-pressed", "true");
+
+          window.clearTimeout(timerId);
+          timerId = window.setTimeout(function () {
+            paw.classList.remove("is-burst");
+            paw.setAttribute("aria-pressed", "false");
+          }, 1800);
         });
       })();
     </script>
