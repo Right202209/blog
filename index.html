@@ -6,13 +6,26 @@ layout: default
   <h2>No post found</h2>
 {% endif %}
 
+<section class="home-hero">
+  <p class="hero-kicker">Right's Blog</p>
+  <h1>{{ site.description }}</h1>
+  <p class="hero-summary">
+    在这里归档技术实践、工具笔记与长期有效的方法论，让文章既能快速检索，也适合安静阅读。
+  </p>
+  <div class="hero-pills">
+    <span>{{ site.posts | size }} 篇文章</span>
+    <span>{{ site.tags | size }} 个标签</span>
+    <span>持续更新</span>
+  </div>
+</section>
+
 <div class="posts">
   
   {% for post in site.posts %}
     {% if post.pinned==true %}
       <article class="post pinned">
         <h1>
-            <span title="pinned"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 5px;"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg></span><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+            <span class="pin-mark" title="pinned"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 5px;"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg></span><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
         </h1>
 
         <div class="meta">

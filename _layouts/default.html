@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
   {% include head.html %}
-  <body class="{% if page.layout == 'post' %}read-mode{% endif %}">
+  <body class="{% if page.layout == 'post' %}read-mode {% endif %}layout-{{ page.layout | default: 'default' }}">
+    <div class="page-aura page-aura-one"></div>
+    <div class="page-aura page-aura-two"></div>
     {% unless page.layout == 'post' %}
     {% include nav.html %}
     {% endunless %}

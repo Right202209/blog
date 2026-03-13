@@ -4,11 +4,23 @@
 <div class="wrapper-sidebar">
   <header class="sidebar clearfix">
     <div class="site-info">
+      <p class="site-badge">Personal Journal</p>
       {% if site.avatar %}
         <a href="{{ site.baseurl }}/" class="site-avatar"><img src="{{ site.avatar }}" /></a>
       {% endif %}
       <h1 class="site-name"><a href="{{ site.baseurl }}/">{{ site.name }}</a></h1>
       <p class="site-description">{{ site.description }}</p>
+
+      <div class="site-stats">
+        <div class="site-stat">
+          <strong>{{ site.posts | size }}</strong>
+          <span>Posts</span>
+        </div>
+        <div class="site-stat">
+          <strong>{{ site.tags | size }}</strong>
+          <span>Tags</span>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -18,6 +30,8 @@
       <a href="{{ site.baseurl }}/archive">{{ t.archive }}</a>
       <a href="{{ site.baseurl }}/tags">{{ t.tags }}</a>
     </nav>
+
+    <p class="nav-note">记录技术、方法和正在形成的判断。</p>
 
     <div class="lang-switcher" style="margin-top: 20px; font-size: 0.9em; color: #888;">
       {% if lang == 'zh' %}
