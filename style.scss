@@ -609,15 +609,6 @@ nav {
   }
 }
 
-body.sidebar-hidden .wrapper-sidebar {
-  transform: translateX(100%);
-}
-
-body.sidebar-hidden .wrapper-content {
-  width: 100%;
-  float: none;
-}
-
 .home-hero,
 .page,
 .posts.post-article,
@@ -825,42 +816,6 @@ body.sidebar-hidden .wrapper-content {
   color: rgba(31, 64, 59, 0.74);
 }
 
-.focus-toggle {
-  flex-shrink: 0;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 128px;
-  padding: 10px 14px;
-  border: 0;
-  border-radius: 999px;
-  background: #173631;
-  color: #fff;
-  font-family: $ui-font;
-  font-size: 0.88rem;
-  cursor: pointer;
-  box-shadow: 0 14px 30px rgba(23, 54, 49, 0.16);
-  transition: transform 220ms ease, background-color 220ms ease, box-shadow 220ms ease;
-
-  &:hover {
-    transform: translateY(-2px);
-    background: #158579;
-    box-shadow: 0 18px 36px rgba(21, 133, 121, 0.2);
-  }
-}
-
-.focus-toggle-off {
-  display: none;
-}
-
-.home-focus-mode .focus-toggle-on {
-  display: none;
-}
-
-.home-focus-mode .focus-toggle-off {
-  display: inline;
-}
-
 .hero-pills {
   display: flex;
   flex-wrap: wrap;
@@ -1028,6 +983,57 @@ body.sidebar-hidden .wrapper-content {
     transform: translateY(-2px);
     box-shadow: 0 22px 52px rgba(21, 133, 121, 0.2);
   }
+}
+
+.paw-easter-egg {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 7;
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 10px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+
+  img {
+    width: 56px;
+    height: 56px;
+    margin: 0;
+    border-radius: 16px;
+    box-shadow: 0 14px 30px rgba(53, 70, 67, 0.16);
+    transition: transform 180ms ease, box-shadow 180ms ease;
+  }
+
+  &:hover img,
+  &.is-open img {
+    transform: rotate(-8deg) translateY(-3px);
+    box-shadow: 0 20px 38px rgba(21, 133, 121, 0.2);
+  }
+}
+
+.paw-bubble {
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 10px 0;
+  border-radius: 999px;
+  background: rgba(251, 249, 244, 0.88);
+  color: #173631;
+  box-shadow: 0 14px 34px rgba(53, 70, 67, 0.12);
+  backdrop-filter: blur(18px);
+  font-family: $ui-font;
+  font-size: 0.88rem;
+  opacity: 0;
+  transition: max-width 220ms ease, padding 220ms ease, opacity 220ms ease;
+}
+
+.paw-easter-egg.is-open .paw-bubble {
+  max-width: 220px;
+  padding: 10px 14px;
+  opacity: 1;
 }
 
 .post-article .entry,
@@ -1392,90 +1398,7 @@ body.read-mode {
   }
 }
 
-body.home-focus-mode {
-  .wrapper-sidebar {
-    transform: translateX(100%);
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-  }
-
-  .page-aura {
-    opacity: 0.32;
-  }
-
-  .page-canvas {
-    opacity: 0.36;
-  }
-
-  .wrapper-content {
-    padding-top: 22px;
-  }
-
-  .home-hero {
-    padding: 22px 26px;
-    animation: float-in 320ms ease-out both;
-  }
-
-  .hero-topbar {
-    align-items: center;
-  }
-
-  .hero-body {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    margin-top: 4px;
-  }
-
-  .hero-summary {
-    max-width: none;
-    font-size: 0.96rem;
-    opacity: 0.82;
-  }
-
-  .hero-pills span:last-child {
-    display: none;
-  }
-
-  .posts > .post {
-    filter: blur(7px) saturate(0.86);
-    opacity: 0.42;
-    transform: scale(0.988);
-    box-shadow: 0 12px 28px rgba(53, 70, 67, 0.06);
-  }
-
-  .posts > .post:hover {
-    transform: scale(0.992);
-  }
-
-  .posts > .post.is-focus-active {
-    filter: blur(0);
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    box-shadow: 0 16px 36px rgba(53, 70, 67, 0.08);
-  }
-
-  .home-layout {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .home-rail {
-    display: none;
-  }
-}
-
 @include mobile {
-  body.sidebar-hidden .wrapper-sidebar {
-    transform: none;
-  }
-
-  body.sidebar-hidden .wrapper-content {
-    width: 100%;
-    float: none;
-  }
-
   .container {
     padding: 0 18px;
   }
@@ -1554,17 +1477,18 @@ body.home-focus-mode {
     height: 42px;
   }
 
-  .hero-topbar,
-  .home-focus-mode .hero-body {
-    display: block;
+  .paw-easter-egg {
+    right: 16px;
+    bottom: 16px;
+
+    img {
+      width: 48px;
+      height: 48px;
+    }
   }
 
-  body.home-focus-mode .wrapper-sidebar {
-    display: none;
-  }
-
-  .focus-toggle {
-    margin-top: 12px;
+  .paw-easter-egg.is-open .paw-bubble {
+    max-width: 176px;
   }
 
   .wrapper-content {

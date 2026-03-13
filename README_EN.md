@@ -8,7 +8,6 @@ Chinese version: `README.md`
 
 - Canvas-like background with layered gradients, grid lines, and soft light blobs
 - Rich homepage layout with a main article column and an auxiliary info rail
-- Homepage focus mode that collapses side content into a cleaner single-column view
 - Scroll-following TOC for article pages
 - Pinned posts, tags, archive timeline, and pagination
 - Optional integrations: MathJax 3, Utterances / Gitalk / Disqus, Busuanzi stats
@@ -73,7 +72,7 @@ You can use a GitHub Issue with the `Content Update` template to create, update,
 
 ## Recent Updates
 
-- 2026-03-13: homepage upgraded to a two-column layout with focus mode
+- 2026-03-13: homepage upgraded to a two-column layout with an info rail
 - 2026-03-13: article TOC now tracks the active section while scrolling
 - 2026-03-13: full visual refresh with canvas-like background and card-based UI
 - 2026-02-09: issue-driven content update workflow added

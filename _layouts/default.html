@@ -31,6 +31,11 @@
     </div>
     {% endunless %}
 
+    <button class="paw-easter-egg" type="button" aria-expanded="false" aria-label="打开彩蛋">
+      <img src="https://www.google.com/logos/fnbx/animal_paws/cat_kp_lm.gif" alt="" />
+      <span class="paw-bubble">喵，摸到隐藏按钮了。</span>
+    </button>
+
     {% if page.toc==true %}
     <script>
       document.getElementById("main").classList.add("withtoc");
@@ -94,89 +99,15 @@
 
     <script>
       (function () {
-        const toggle = document.querySelector(".focus-toggle");
-        if (!toggle) return;
+        const paw = document.querySelector(".paw-easter-egg");
+        if (!paw) return;
 
-        const body = document.body;
-        const storageKey = "home-focus-mode";
-        const cards = Array.from(document.querySelectorAll(".posts > .post"));
-        let activeCardObserver;
-
-        const setActiveCard = (activeCard) => {
-          cards.forEach((card) => card.classList.toggle("is-focus-active", card === activeCard));
-        };
-
-        const getNearestCard = () => {
-          return cards
-            .slice()
-            .sort((a, b) => Math.abs(a.getBoundingClientRect().top - 160) - Math.abs(b.getBoundingClientRect().top - 160))[0];
-        };
-
-        const stopCardTracking = () => {
-          if (activeCardObserver) {
-            activeCardObserver.disconnect();
-            activeCardObserver = null;
-          }
-
-          cards.forEach((card) => card.classList.remove("is-focus-active"));
-        };
-
-        const startCardTracking = () => {
-          if (!cards.length) return;
-          stopCardTracking();
-          setActiveCard(getNearestCard());
-
-          activeCardObserver = new IntersectionObserver(
-            (entries) => {
-              const visibleCards = entries
-                .filter((entry) => entry.isIntersecting)
-                .sort((a, b) => Math.abs(a.boundingClientRect.top - 160) - Math.abs(b.boundingClientRect.top - 160));
-
-              if (visibleCards.length) {
-                setActiveCard(visibleCards[0].target);
-                return;
-              }
-
-              setActiveCard(getNearestCard());
-            },
-            {
-              rootMargin: "-18% 0px -42% 0px",
-              threshold: [0.15, 0.45, 0.75]
-            }
-          );
-
-          cards.forEach((card) => activeCardObserver.observe(card));
-        };
-
-        const applyFocusMode = (enabled) => {
-          body.classList.toggle("sidebar-hidden", enabled);
-          body.classList.toggle("home-focus-mode", enabled);
-          toggle.setAttribute("aria-pressed", enabled ? "true" : "false");
-
-          if (enabled) {
-            startCardTracking();
-          } else {
-            stopCardTracking();
-          }
-        };
-
-        try {
-          applyFocusMode(window.localStorage.getItem(storageKey) === "1");
-        } catch (error) {
-          applyFocusMode(false);
-        }
-
-        toggle.addEventListener("click", function () {
-          const nextState = !body.classList.contains("home-focus-mode");
-          applyFocusMode(nextState);
-
-          try {
-            window.localStorage.setItem(storageKey, nextState ? "1" : "0");
-          } catch (error) {
-            // Ignore storage failures and keep the in-memory state only.
-          }
+        paw.addEventListener("click", function () {
+          const expanded = paw.classList.toggle("is-open");
+          paw.setAttribute("aria-expanded", expanded ? "true" : "false");
         });
       })();
     </script>
+
   </body>
 </html>
