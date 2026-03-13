@@ -31,15 +31,11 @@
     </div>
     {% endunless %}
 
-    <button class="paw-easter-egg" type="button" aria-pressed="false" aria-label="触发猫主题彩蛋">
-      <span class="paw-spotlight" aria-hidden="true"></span>
-      <span class="paw-prints" aria-hidden="true">
-        <span></span>
-        <span></span>
-        <span></span>
-      </span>
+    <div class="paw-water-wave" aria-hidden="true"></div>
+
+    <button class="paw-easter-egg" type="button" aria-pressed="false" aria-label="切换猫主题彩蛋">
       <img src="https://www.google.com/logos/fnbx/animal_paws/cat_kp_lm.gif" alt="" />
-      <span class="paw-bubble">Cat mode activated.</span>
+      <span class="paw-bubble">点击开启 Cat Mode，再点页面留下猫爪。</span>
     </button>
 
     {% if page.toc==true %}
@@ -106,20 +102,184 @@
     <script>
       (function () {
         const paw = document.querySelector(".paw-easter-egg");
-        if (!paw) return;
-        let timerId;
+        const wave = document.querySelector(".paw-water-wave");
+        if (!paw || !wave) return;
+        let isActive = false;
+        let audioCtx = null;
+
+        const catSkins = [
+          { body: "#f0a33e", pads: "#ffb6c1" },
+          { body: "#2b2b2b", pads: "#4a4a4a" },
+          { body: "#f2f2f2", pads: "#ffb6c1" },
+          { body: "#7e8596", pads: "#ffb6c1" },
+          { body: "#8b4513", pads: "#ffb6c1" }
+        ];
+
+        const setMode = (nextState) => {
+          isActive = nextState;
+          document.body.classList.toggle("cat-mode-active", nextState);
+          paw.classList.toggle("is-active", nextState);
+          paw.setAttribute("aria-pressed", nextState ? "true" : "false");
+          paw.querySelector(".paw-bubble").textContent = nextState
+            ? "Cat Mode 已开启，点击空白区域试试。"
+            : "点击开启 Cat Mode，再点页面留下猫爪。";
+
+          if (nextState) {
+            if (!audioCtx) {
+              audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+
+            if (audioCtx.state === "suspended") {
+              audioCtx.resume();
+            }
+          }
+        };
+
+        const hexToRgba = (hex, alpha) => {
+          const normalized = hex.replace("#", "");
+          const value = normalized.length === 3
+            ? normalized.split("").map((part) => part + part).join("")
+            : normalized;
+          const int = parseInt(value, 16);
+          const r = (int >> 16) & 255;
+          const g = (int >> 8) & 255;
+          const b = int & 255;
+          return "rgba(" + r + "," + g + "," + b + "," + alpha + ")";
+        };
+
+        const playMeow = () => {
+          if (!audioCtx) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          }
+
+          if (audioCtx.state === "suspended") {
+            audioCtx.resume();
+          }
+
+          const osc = audioCtx.createOscillator();
+          const gainNode = audioCtx.createGain();
+          const filter = audioCtx.createBiquadFilter();
+          const baseFreq = 300 + Math.random() * 200;
+
+          osc.type = "sawtooth";
+          osc.frequency.setValueAtTime(baseFreq, audioCtx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(baseFreq * 1.5, audioCtx.currentTime + 0.1);
+          osc.frequency.exponentialRampToValueAtTime(baseFreq * 0.8, audioCtx.currentTime + 0.4);
+
+          filter.type = "bandpass";
+          filter.frequency.setValueAtTime(1200, audioCtx.currentTime);
+          filter.frequency.linearRampToValueAtTime(800, audioCtx.currentTime + 0.4);
+          filter.Q.value = 2;
+
+          gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+          gainNode.gain.linearRampToValueAtTime(0.5, audioCtx.currentTime + 0.05);
+          gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+
+          osc.connect(filter);
+          filter.connect(gainNode);
+          gainNode.connect(audioCtx.destination);
+
+          osc.start();
+          osc.stop(audioCtx.currentTime + 0.45);
+        };
+
+        const createPawPrint = (x, y, angle, skin) => {
+          const print = document.createElement("div");
+          const filterId = "paw-blur-shadow-" + Math.random().toString(36).slice(2, 10);
+          print.className = "paw-print";
+          print.style.left = x + "px";
+          print.style.top = y + "px";
+          print.style.transform = "rotate(" + angle + "deg) scale(" + (0.92 + Math.random() * 0.16) + ")";
+          print.innerHTML = `
+            <svg width="92" height="92" viewBox="-50 -50 100 100" aria-hidden="true">
+              <defs>
+                <filter id="${filterId}" x="-40%" y="-40%" width="180%" height="180%">
+                  <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="${hexToRgba(skin.body, 0.22)}" />
+                </filter>
+              </defs>
+              <g filter="url(#${filterId})">
+                <path d="M 10,-20 Q -15,-20 -15,0 Q -15,20 10,20 Q 30,20 30,0 Q 30,-20 10,-20 Z" fill="${hexToRgba(skin.body, 0.76)}" />
+                <circle cx="-20" cy="-45" r="12" fill="${hexToRgba(skin.body, 0.76)}" />
+                <circle cx="-50" cy="-20" r="12" fill="${hexToRgba(skin.body, 0.76)}" />
+                <circle cx="-50" cy="20" r="12" fill="${hexToRgba(skin.body, 0.76)}" />
+                <circle cx="-20" cy="45" r="12" fill="${hexToRgba(skin.body, 0.76)}" />
+                <path d="M 10,-18 Q -10,-18 -10,0 Q -10,18 10,18 Q 24,18 24,0 Q 24,-18 10,-18 Z" fill="${hexToRgba(skin.pads, 0.68)}" />
+                <circle cx="-20" cy="-43" r="8" fill="${hexToRgba(skin.pads, 0.62)}" />
+                <circle cx="-48" cy="-20" r="8" fill="${hexToRgba(skin.pads, 0.62)}" />
+                <circle cx="-48" cy="20" r="8" fill="${hexToRgba(skin.pads, 0.62)}" />
+                <circle cx="-20" cy="43" r="8" fill="${hexToRgba(skin.pads, 0.62)}" />
+              </g>
+            </svg>
+          `;
+          document.body.appendChild(print);
+        };
+
+        const createCatArm = (x, y) => {
+          const angle = Math.random() * 360;
+          const skin = catSkins[Math.floor(Math.random() * catSkins.length)];
+          const arm = document.createElement("div");
+          arm.className = "cat-arm";
+          arm.style.left = x + "px";
+          arm.style.top = y + "px";
+          arm.style.transform = "rotate(" + angle + "deg) translateX(150vmax)";
+          arm.innerHTML = `
+            <svg width="3000" height="200" viewBox="-100 -100 3100 200" aria-hidden="true">
+              <g>
+                <path d="M 0,-50 L 3000,-50 L 3000,50 L 0,50 Z" fill="${skin.body}" />
+                <ellipse cx="10" cy="0" rx="55" ry="55" fill="${skin.body}" />
+                <circle cx="-15" cy="-45" r="25" fill="${skin.body}" />
+                <circle cx="-45" cy="-20" r="25" fill="${skin.body}" />
+                <circle cx="-45" cy="20" r="25" fill="${skin.body}" />
+                <circle cx="-15" cy="45" r="25" fill="${skin.body}" />
+                <path d="M 10,-20 Q -15,-20 -15,0 Q -15,20 10,20 Q 30,20 30,0 Q 30,-20 10,-20 Z" fill="${skin.pads}" />
+                <circle cx="-20" cy="-45" r="12" fill="${skin.pads}" />
+                <circle cx="-50" cy="-20" r="12" fill="${skin.pads}" />
+                <circle cx="-50" cy="20" r="12" fill="${skin.pads}" />
+                <circle cx="-20" cy="45" r="12" fill="${skin.pads}" />
+              </g>
+            </svg>
+          `;
+          document.body.appendChild(arm);
+          arm.offsetWidth;
+          arm.style.transform = "rotate(" + angle + "deg) translateX(0)";
+
+          window.setTimeout(function () {
+            playMeow();
+            createPawPrint(x, y, angle + (Math.random() * 20 - 10), skin);
+            arm.style.transform = "rotate(" + angle + "deg) translateX(150vmax)";
+            window.setTimeout(function () {
+              arm.remove();
+            }, 420);
+          }, 420);
+        };
+
+        const washScreen = () => {
+          wave.classList.remove("fade");
+          wave.classList.add("wash");
+          window.setTimeout(function () {
+            document.querySelectorAll(".paw-print").forEach((print) => print.remove());
+            wave.classList.add("fade");
+            window.setTimeout(function () {
+              wave.classList.remove("wash");
+              wave.classList.remove("fade");
+            }, 500);
+          }, 760);
+        };
 
         paw.addEventListener("click", function () {
-          paw.classList.remove("is-burst");
-          void paw.offsetWidth;
-          paw.classList.add("is-burst");
-          paw.setAttribute("aria-pressed", "true");
+          if (isActive) {
+            washScreen();
+          }
 
-          window.clearTimeout(timerId);
-          timerId = window.setTimeout(function () {
-            paw.classList.remove("is-burst");
-            paw.setAttribute("aria-pressed", "false");
-          }, 1800);
+          setMode(!isActive);
+        });
+
+        document.addEventListener("click", function (event) {
+          if (!isActive) return;
+          if (event.target.closest(".paw-easter-egg")) return;
+          if (event.target.closest("a, button, input, textarea, select, summary, .toc")) return;
+
+          createCatArm(event.clientX, event.clientY);
         });
       })();
     </script>
