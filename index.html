@@ -13,15 +13,40 @@ layout: default
       <h1>{{ site.description }}</h1>
     </div>
   </div>
-  <div class="hero-body">
-    <p class="hero-summary">
-      在这里归档技术实践、工具笔记与长期有效的方法论，让文章既能快速检索，也适合安静阅读。
-    </p>
-    <div class="hero-pills">
-      <span>{{ site.posts | size }} 篇文章</span>
-      <span>{{ site.tags | size }} 个标签</span>
-      <span>持续更新</span>
+  <div class="hero-body hero-grid">
+    <div class="hero-copy">
+      <p class="hero-summary">
+        在这里归档技术实践、工具笔记与长期有效的方法论，让文章既能快速检索，也适合安静阅读。
+      </p>
+      <div class="hero-pills">
+        <span>{{ site.posts | size }} 篇文章</span>
+        <span>{{ site.tags | size }} 个标签</span>
+        <span>持续更新</span>
+      </div>
+      <div class="hero-actions">
+        <a class="hero-action hero-action-primary" href="{{ site.baseurl }}/archive">浏览归档</a>
+        <a class="hero-action" href="{{ site.baseurl }}/about">关于我</a>
+      </div>
     </div>
+
+    {% assign latest_post = site.posts.first %}
+    {% if latest_post %}
+    <a class="hero-spotlight" href="{{ site.baseurl }}{{ latest_post.url }}">
+      <span class="hero-spotlight-label">Latest Note</span>
+      <h2>{{ latest_post.title }}</h2>
+      <p>
+        {% if latest_post.content contains site.excerpt_separator or latest_post.content != latest_post.excerpt %}
+          {{ latest_post.excerpt | strip_html | strip_newlines | truncate: 96 }}
+        {% else %}
+          {{ latest_post.content | strip_html | strip_newlines | truncate: 96 }}
+        {% endif %}
+      </p>
+      <div class="hero-spotlight-meta">
+        <time>{{ latest_post.date | date: "%Y-%m-%d" }}</time>
+        <span>继续阅读</span>
+      </div>
+    </a>
+    {% endif %}
   </div>
 </section>
 

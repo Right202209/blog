@@ -156,31 +156,76 @@
             audioCtx.resume();
           }
 
-          const osc = audioCtx.createOscillator();
-          const gainNode = audioCtx.createGain();
-          const filter = audioCtx.createBiquadFilter();
-          const baseFreq = 300 + Math.random() * 200;
+          const now = audioCtx.currentTime;
+          const duration = 0.34;
+          const baseFreq = 380 + Math.random() * 90;
 
-          osc.type = "sawtooth";
-          osc.frequency.setValueAtTime(baseFreq, audioCtx.currentTime);
-          osc.frequency.exponentialRampToValueAtTime(baseFreq * 1.5, audioCtx.currentTime + 0.1);
-          osc.frequency.exponentialRampToValueAtTime(baseFreq * 0.8, audioCtx.currentTime + 0.4);
+          const oscMain = audioCtx.createOscillator();
+          const oscBody = audioCtx.createOscillator();
+          const masterGain = audioCtx.createGain();
+          const toneGain = audioCtx.createGain();
+          const bodyGain = audioCtx.createGain();
+          const bandpass = audioCtx.createBiquadFilter();
+          const lowpass = audioCtx.createBiquadFilter();
+          const vibrato = audioCtx.createOscillator();
+          const vibratoGain = audioCtx.createGain();
 
-          filter.type = "bandpass";
-          filter.frequency.setValueAtTime(1200, audioCtx.currentTime);
-          filter.frequency.linearRampToValueAtTime(800, audioCtx.currentTime + 0.4);
-          filter.Q.value = 2;
+          oscMain.type = "triangle";
+          oscBody.type = "sine";
 
-          gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
-          gainNode.gain.linearRampToValueAtTime(0.5, audioCtx.currentTime + 0.05);
-          gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+          oscMain.frequency.setValueAtTime(baseFreq * 1.7, now);
+          oscMain.frequency.exponentialRampToValueAtTime(baseFreq, now + 0.09);
+          oscMain.frequency.exponentialRampToValueAtTime(baseFreq * 0.72, now + duration);
 
-          osc.connect(filter);
-          filter.connect(gainNode);
-          gainNode.connect(audioCtx.destination);
+          oscBody.frequency.setValueAtTime(baseFreq * 0.52, now);
+          oscBody.frequency.exponentialRampToValueAtTime(baseFreq * 0.42, now + duration);
 
-          osc.start();
-          osc.stop(audioCtx.currentTime + 0.45);
+          vibrato.type = "sine";
+          vibrato.frequency.setValueAtTime(9 + Math.random() * 2, now);
+          vibratoGain.gain.setValueAtTime(10, now);
+          vibratoGain.gain.exponentialRampToValueAtTime(2.5, now + duration);
+
+          bandpass.type = "bandpass";
+          bandpass.frequency.setValueAtTime(1500, now);
+          bandpass.frequency.exponentialRampToValueAtTime(900, now + duration);
+          bandpass.Q.value = 1.5;
+
+          lowpass.type = "lowpass";
+          lowpass.frequency.setValueAtTime(2400, now);
+          lowpass.frequency.exponentialRampToValueAtTime(1200, now + duration);
+          lowpass.Q.value = 0.6;
+
+          toneGain.gain.setValueAtTime(0.0001, now);
+          toneGain.gain.linearRampToValueAtTime(0.18, now + 0.02);
+          toneGain.gain.exponentialRampToValueAtTime(0.06, now + 0.12);
+          toneGain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+          bodyGain.gain.setValueAtTime(0.0001, now);
+          bodyGain.gain.linearRampToValueAtTime(0.08, now + 0.03);
+          bodyGain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+          masterGain.gain.setValueAtTime(0.0001, now);
+          masterGain.gain.linearRampToValueAtTime(0.9, now + 0.02);
+          masterGain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+          vibrato.connect(vibratoGain);
+          vibratoGain.connect(oscMain.detune);
+
+          oscMain.connect(toneGain);
+          oscBody.connect(bodyGain);
+          toneGain.connect(bandpass);
+          bodyGain.connect(bandpass);
+          bandpass.connect(lowpass);
+          lowpass.connect(masterGain);
+          masterGain.connect(audioCtx.destination);
+
+          oscMain.start(now);
+          oscBody.start(now);
+          vibrato.start(now);
+
+          oscMain.stop(now + duration);
+          oscBody.stop(now + duration);
+          vibrato.stop(now + duration);
         };
 
         const createPawPrint = (x, y, angle, skin) => {
