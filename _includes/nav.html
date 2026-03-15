@@ -1,28 +1,12 @@
 {% assign lang = page.lang | default: site.lang | default: "zh" %}
 {% assign t = site.data.i18n.languages[lang] %}
 
-<nav class="site-nav">
+<nav>
   <a href="{{ site.baseurl }}/" class="{% if page.url == '/' %}active{% endif %}">{{ t.home }}</a>
-  <a class="clip" aria-hidden="true"></a>
+  <a class="clip"></a>
   <a href="{{ site.baseurl }}/archive" class="{% if page.url == '/archive/' %}active{% endif %}">{{ t.archive }}</a>
-  <a class="clip" aria-hidden="true"></a>
+  <a class="clip"></a>
   <a href="{{ site.baseurl }}/tags" class="{% if page.url == '/tags/' %}active{% endif %}">{{ t.tags }}</a>
-  <a class="clip" aria-hidden="true"></a>
+  <a class="clip"></a>
   <a href="{{ site.baseurl }}/about" class="{% if page.url == '/about/' %}active{% endif %}">About</a>
 </nav>
-
-<div class="site-corner">
-  <a href="{{ site.baseurl }}/" class="site-corner-name">{{ site.name }}</a>
-  <p class="site-corner-desc">{{ site.description }}</p>
-  <div class="site-corner-meta">
-    <span>{{ site.posts | size }} Posts</span>
-    <span>{{ site.tags | size }} Tags</span>
-  </div>
-  <div class="lang-switcher">
-    {% if lang == 'zh' %}
-      <strong>中文</strong> / <a href="{{ site.baseurl }}/en/">English</a>
-    {% else %}
-      <a href="{{ site.baseurl }}/">中文</a> / <strong>English</strong>
-    {% endif %}
-  </div>
-</div>

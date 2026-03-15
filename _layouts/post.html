@@ -5,36 +5,28 @@ layout: default
 {% assign lang = page.lang | default: site.lang | default: "zh" %}
 {% assign t = site.data.i18n.languages[lang] %}
 
-<a class="post-back-link" href="{{ site.baseurl }}/" aria-label="返回上一页" onclick="if (window.history.length > 1) { event.preventDefault(); window.history.back(); }">
-  <span aria-hidden="true">←</span>
-</a>
+<div class="content-wrap ch">
+  <div class="container">
+    <article class="page-block post-block">
+      <a class="back-link" href="{{ site.baseurl }}/">← Home</a>
+      <p class="section-label">Post</p>
+      <h1>{{ page.title }}</h1>
 
-<section class="content-section content-page-section">
-  <div class="content-shell article-shell {% if page.toc==true %}has-toc-shell{% endif %}">
-    <article class="posts post-article">
-      <header class="page-header post-header">
-        <p class="page-kicker">Post</p>
-        <h1>{{ page.title }}</h1>
-      </header>
-
-      <div class="meta">
-        <span class="author">{{ page.author }}</span>
-        <span class="date">{{ page.date | date: "%Y-%m-%d" }}</span>
-
+      <div class="post-meta-row">
+        <span>{{ page.author }}</span>
+        <span>{{ page.date | date: "%Y-%m-%d" }}</span>
         <span id="busuanzi_container_page_pv" style="display:none;">
-          {{ t.views }}：<span id="busuanzi_value_page_pv"></span> {{ t.times }}
+          {{ t.views }} <span id="busuanzi_value_page_pv"></span> {{ t.times }}
         </span>
-
-        <ul class="tag">
-          {% for tag in page.tags %}
-          <li>
-            <a href="{{ site.url }}{{ site.baseurl }}/tags#{{ tag }}">
-              {{ tag }}
-            </a>
-          </li>
-          {% endfor %}
-        </ul>
       </div>
+
+      {% if page.tags and page.tags.size > 0 %}
+      <div class="topic-list post-topics">
+        {% for tag in page.tags %}
+        <a href="{{ site.url }}{{ site.baseurl }}/tags#{{ tag }}">{{ tag }}</a>
+        {% endfor %}
+      </div>
+      {% endif %}
 
       <div class="entry">
         {{ content }}
@@ -44,6 +36,12 @@ layout: default
       {% include utteranc.html %}
       {% include gitalk.html %}
     </article>
+
+    {% if page.toc == true %}
+    <aside class="toc-box">
+      {% include toc.html html=content %}
+    </aside>
+    {% endif %}
 
     <div class="pagination">
       {% if page.previous.url %}
@@ -58,4 +56,4 @@ layout: default
       {% endif %}
     </div>
   </div>
-</section>
+</div>

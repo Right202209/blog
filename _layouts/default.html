@@ -1,415 +1,129 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ page.lang | default: site.lang | default: 'zh-cn' }}">
   {% include head.html %}
-  <body class="{% if page.layout == 'post' %}read-mode {% endif %}layout-{{ page.layout | default: 'default' }}">
-    <canvas class="starfield-canvas" id="starfield" aria-hidden="true"></canvas>
-    <div class="starfield-vignette"></div>
-    <div class="page-canvas"></div>
-    <div class="page-aura page-aura-one"></div>
-    <div class="page-aura page-aura-two"></div>
+  <body class="layout-{{ page.layout | default: 'default' }}">
     {% include nav.html %}
 
-    {% if page.toc==true %}
-      <aside class="toc">
-        {% include toc.html html=content %}
-      </aside>
-    {% endif %}
+    <div class="background">
+      <canvas id="startrack"></canvas>
+      <div class="cover"></div>
+    </div>
 
-    <div id="main" role="main" class="wrapper-content">
+    <div class="main">
       {{ content }}
+
+      <div class="find ch">
+        <div class="container links">
+          <div class="footer ch">
+            <div class="container">
+              {% include footer.html %}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     {% include analytics.html %}
 
-    <footer class="footer">
-      {% include footer.html %}
-    </footer>
-
-    <div class="paw-water-wave" aria-hidden="true"></div>
-
-    <button class="paw-easter-egg" type="button" aria-pressed="false" aria-label="切换猫主题彩蛋">
-      <img src="https://www.google.com/logos/fnbx/animal_paws/cat_kp_lm.gif" alt="" />
-      <span class="paw-bubble">点击开启 Cat Mode，再点页面留下猫爪。</span>
-    </button>
-
-    {% if page.toc==true %}
     <script>
-      document.getElementById("main").classList.add("withtoc");
-
       (function () {
-        const toc = document.querySelector(".toc");
-        const contentRoot = document.querySelector(".entry");
-        if (!toc || !contentRoot) return;
-
-        const links = Array.from(toc.querySelectorAll('a[href^="#"]'));
-        if (!links.length) return;
-
-        const headings = links
-          .map((link) => {
-            const target = document.getElementById(decodeURIComponent(link.getAttribute("href").slice(1)));
-            return target ? { link, target } : null;
-          })
-          .filter(Boolean);
-
-        if (!headings.length) return;
-
-        const setActive = (activeLink) => {
-          links.forEach((link) => link.classList.toggle("is-active", link === activeLink));
-          if (activeLink) {
-            activeLink.scrollIntoView({ block: "nearest", behavior: "smooth" });
-          }
-        };
-
-        const observer = new IntersectionObserver(
-          (entries) => {
-            const visible = entries
-              .filter((entry) => entry.isIntersecting)
-              .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
-
-            if (visible.length) {
-              const active = headings.find((item) => item.target === visible[0].target);
-              if (active) setActive(active.link);
-              return;
-            }
-
-            const passed = headings
-              .filter((item) => item.target.getBoundingClientRect().top < 180)
-              .at(-1);
-
-            if (passed) setActive(passed.link);
-          },
-          {
-            rootMargin: "-18% 0px -62% 0px",
-            threshold: [0, 1]
-          }
-        );
-
-        headings.forEach((item) => observer.observe(item.target));
-
-        if (headings[0]) {
-          setActive(headings[0].link);
+        function randomBetween(min, max) {
+          return min + Math.round(Math.random() * (max - min));
         }
-      })();
-    </script>
-    {% endif %}
 
-    <script>
-      (function () {
-        const canvas = document.getElementById("starfield");
-        if (!canvas) return;
+        function pickSlogan() {
+          var slogan = document.getElementById("slogan");
+          if (!slogan) return;
 
-        const context = canvas.getContext("2d");
-        if (!context) return;
+          var lines = [
+            "{{ site.description | escape }}",
+            "把判断写下来，再让证据修正它。",
+            "记录技术、方法，以及能长期复用的经验。",
+            "在噪音很多的时候，尽量保留清晰的页面和思路。"
+          ];
 
-        let width = 0;
-        let height = 0;
-        let stars = [];
-        let animationFrame = null;
+          slogan.innerHTML = lines[randomBetween(0, lines.length - 1)];
+        }
 
-        const createStar = () => ({
-          x: Math.random() * width,
-          y: Math.random() * height,
-          radius: Math.random() * 1.6 + 0.2,
-          alpha: Math.random() * 0.7 + 0.15,
-          drift: Math.random() * 0.18 + 0.04
-        });
+        function initStartrack() {
+          var canvas = document.getElementById("startrack");
+          if (!canvas) return;
 
-        const resize = () => {
-          const ratio = window.devicePixelRatio || 1;
-          width = window.innerWidth;
-          height = Math.max(window.innerHeight, document.documentElement.clientHeight);
-          canvas.width = width * ratio;
-          canvas.height = height * ratio;
-          canvas.style.width = width + "px";
-          canvas.style.height = height + "px";
-          context.setTransform(ratio, 0, 0, ratio, 0, 0);
-          stars = Array.from({ length: Math.max(140, Math.floor(width * height / 9000)) }, createStar);
-        };
+          var buffer = document.createElement("canvas");
+          var ctx = canvas.getContext("2d");
+          var bufferCtx = buffer.getContext("2d");
+          var width = canvas.offsetWidth;
+          var height = canvas.offsetHeight;
+          var maxSide = Math.max(width, height);
+          var stars = [];
+          var frame = 0;
 
-        const draw = () => {
-          context.clearRect(0, 0, width, height);
+          canvas.width = width;
+          canvas.height = height;
+          buffer.width = maxSide * 2.6;
+          buffer.height = maxSide * 2.6;
 
-          for (let index = 0; index < stars.length; index += 1) {
-            const star = stars[index];
-            context.beginPath();
-            context.fillStyle = "rgba(230, 237, 255," + star.alpha + ")";
-            context.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-            context.fill();
+          ctx.fillStyle = "rgba(21,21,21,1)";
+          ctx.fillRect(0, 0, width, height);
+          ctx.lineCap = "round";
 
-            star.y += star.drift;
-            if (star.y > height + 4) {
-              star.y = -4;
-              star.x = Math.random() * width;
+          for (var i = 0; i < 20000; i += 1) {
+            var red = randomBetween(120, 255);
+            var green = randomBetween(120, 255);
+            var blue = randomBetween(120, 255);
+            var alpha = randomBetween(30, 100) / 100;
+            stars.push({
+              x: randomBetween(-buffer.width, buffer.width),
+              y: randomBetween(-buffer.height, buffer.height),
+              size: 1.2,
+              color: "rgba(" + red + "," + green + "," + blue + "," + alpha + ")"
+            });
+          }
+
+          for (var j = 0; j < stars.length; j += 1) {
+            var star = stars[j];
+            bufferCtx.beginPath();
+            bufferCtx.arc(star.x, star.y, star.size, 0, Math.PI * 2, true);
+            bufferCtx.fillStyle = star.color;
+            bufferCtx.closePath();
+            bufferCtx.fill();
+          }
+
+          ctx.translate(width, 0);
+
+          function render() {
+            ctx.drawImage(buffer, -buffer.width / 2, -buffer.height / 2);
+            frame += 1;
+            if (frame > 150 && frame % 8 === 0) {
+              ctx.fillStyle = "rgba(0,0,0,.04)";
+              ctx.fillRect(-3 * maxSide, -3 * maxSide, 6 * maxSide, 6 * maxSide);
             }
+            ctx.rotate(0.025 * Math.PI / 180);
+            window.requestAnimationFrame(render);
           }
 
-          animationFrame = window.requestAnimationFrame(draw);
-        };
+          render();
 
-        resize();
-        draw();
-        window.addEventListener("resize", resize);
-        window.addEventListener("beforeunload", function () {
-          if (animationFrame) {
-            window.cancelAnimationFrame(animationFrame);
-          }
+          window.addEventListener("resize", function () {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+            ctx.fillStyle = "rgba(21,21,21,1)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+          });
+        }
+
+        window.requestAnimFrame = window.requestAnimationFrame ||
+          window.webkitRequestAnimationFrame ||
+          window.mozRequestAnimationFrame ||
+          function (callback) {
+            window.setTimeout(callback, 1000 / 60);
+          };
+
+        window.addEventListener("DOMContentLoaded", function () {
+          pickSlogan();
+          initStartrack();
         });
       })();
     </script>
-
-    <script>
-      (function () {
-        const paw = document.querySelector(".paw-easter-egg");
-        const wave = document.querySelector(".paw-water-wave");
-        if (!paw || !wave) return;
-        let isActive = false;
-        let audioCtx = null;
-
-        const catSkins = [
-          { body: "#f0a33e", pads: "#ffb6c1" },
-          { body: "#2b2b2b", pads: "#4a4a4a" },
-          { body: "#f2f2f2", pads: "#ffb6c1" },
-          { body: "#7e8596", pads: "#ffb6c1" },
-          { body: "#8b4513", pads: "#ffb6c1" }
-        ];
-
-        const setMode = (nextState) => {
-          isActive = nextState;
-          document.body.classList.toggle("cat-mode-active", nextState);
-          paw.classList.toggle("is-active", nextState);
-          paw.setAttribute("aria-pressed", nextState ? "true" : "false");
-          paw.querySelector(".paw-bubble").textContent = nextState
-            ? "Cat Mode 已开启，点击空白区域试试。"
-            : "点击开启 Cat Mode，再点页面留下猫爪。";
-
-          if (nextState) {
-            if (!audioCtx) {
-              audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            }
-
-            if (audioCtx.state === "suspended") {
-              audioCtx.resume();
-            }
-          }
-        };
-
-        const hexToRgba = (hex, alpha) => {
-          const normalized = hex.replace("#", "");
-          const value = normalized.length === 3
-            ? normalized.split("").map((part) => part + part).join("")
-            : normalized;
-          const int = parseInt(value, 16);
-          const r = (int >> 16) & 255;
-          const g = (int >> 8) & 255;
-          const b = int & 255;
-          return "rgba(" + r + "," + g + "," + b + "," + alpha + ")";
-        };
-
-        const playMeow = () => {
-          if (!audioCtx) {
-            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-          }
-
-          if (audioCtx.state === "suspended") {
-            audioCtx.resume();
-          }
-
-          const now = audioCtx.currentTime;
-          const duration = 0.34;
-          const baseFreq = 380 + Math.random() * 90;
-
-          const oscMain = audioCtx.createOscillator();
-          const oscBody = audioCtx.createOscillator();
-          const masterGain = audioCtx.createGain();
-          const toneGain = audioCtx.createGain();
-          const bodyGain = audioCtx.createGain();
-          const bandpass = audioCtx.createBiquadFilter();
-          const lowpass = audioCtx.createBiquadFilter();
-          const vibrato = audioCtx.createOscillator();
-          const vibratoGain = audioCtx.createGain();
-
-          oscMain.type = "triangle";
-          oscBody.type = "sine";
-
-          oscMain.frequency.setValueAtTime(baseFreq * 1.7, now);
-          oscMain.frequency.exponentialRampToValueAtTime(baseFreq, now + 0.09);
-          oscMain.frequency.exponentialRampToValueAtTime(baseFreq * 0.72, now + duration);
-
-          oscBody.frequency.setValueAtTime(baseFreq * 0.52, now);
-          oscBody.frequency.exponentialRampToValueAtTime(baseFreq * 0.42, now + duration);
-
-          vibrato.type = "sine";
-          vibrato.frequency.setValueAtTime(9 + Math.random() * 2, now);
-          vibratoGain.gain.setValueAtTime(10, now);
-          vibratoGain.gain.exponentialRampToValueAtTime(2.5, now + duration);
-
-          bandpass.type = "bandpass";
-          bandpass.frequency.setValueAtTime(1500, now);
-          bandpass.frequency.exponentialRampToValueAtTime(900, now + duration);
-          bandpass.Q.value = 1.5;
-
-          lowpass.type = "lowpass";
-          lowpass.frequency.setValueAtTime(2400, now);
-          lowpass.frequency.exponentialRampToValueAtTime(1200, now + duration);
-          lowpass.Q.value = 0.6;
-
-          toneGain.gain.setValueAtTime(0.0001, now);
-          toneGain.gain.linearRampToValueAtTime(0.18, now + 0.02);
-          toneGain.gain.exponentialRampToValueAtTime(0.06, now + 0.12);
-          toneGain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
-
-          bodyGain.gain.setValueAtTime(0.0001, now);
-          bodyGain.gain.linearRampToValueAtTime(0.08, now + 0.03);
-          bodyGain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
-
-          masterGain.gain.setValueAtTime(0.0001, now);
-          masterGain.gain.linearRampToValueAtTime(0.9, now + 0.02);
-          masterGain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
-
-          vibrato.connect(vibratoGain);
-          vibratoGain.connect(oscMain.detune);
-
-          oscMain.connect(toneGain);
-          oscBody.connect(bodyGain);
-          toneGain.connect(bandpass);
-          bodyGain.connect(bandpass);
-          bandpass.connect(lowpass);
-          lowpass.connect(masterGain);
-          masterGain.connect(audioCtx.destination);
-
-          oscMain.start(now);
-          oscBody.start(now);
-          vibrato.start(now);
-
-          oscMain.stop(now + duration);
-          oscBody.stop(now + duration);
-          vibrato.stop(now + duration);
-        };
-
-        const createPawPrint = (x, y, angle, skin) => {
-          const print = document.createElement("div");
-          const filterId = "paw-blur-shadow-" + Math.random().toString(36).slice(2, 10);
-          print.className = "paw-print";
-          print.style.left = x + "px";
-          print.style.top = y + "px";
-          print.style.transform = "rotate(" + angle + "deg) scale(" + (0.92 + Math.random() * 0.16) + ")";
-          print.innerHTML = `
-            <svg width="92" height="92" viewBox="-50 -50 100 100" aria-hidden="true">
-              <defs>
-                <filter id="${filterId}" x="-40%" y="-40%" width="180%" height="180%">
-                  <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="${hexToRgba(skin.body, 0.22)}" />
-                </filter>
-              </defs>
-              <g filter="url(#${filterId})">
-                <path d="M 10,-20 Q -15,-20 -15,0 Q -15,20 10,20 Q 30,20 30,0 Q 30,-20 10,-20 Z" fill="${hexToRgba(skin.body, 0.76)}" />
-                <circle cx="-20" cy="-45" r="12" fill="${hexToRgba(skin.body, 0.76)}" />
-                <circle cx="-50" cy="-20" r="12" fill="${hexToRgba(skin.body, 0.76)}" />
-                <circle cx="-50" cy="20" r="12" fill="${hexToRgba(skin.body, 0.76)}" />
-                <circle cx="-20" cy="45" r="12" fill="${hexToRgba(skin.body, 0.76)}" />
-                <path d="M 10,-18 Q -10,-18 -10,0 Q -10,18 10,18 Q 24,18 24,0 Q 24,-18 10,-18 Z" fill="${hexToRgba(skin.pads, 0.68)}" />
-                <circle cx="-20" cy="-43" r="8" fill="${hexToRgba(skin.pads, 0.62)}" />
-                <circle cx="-48" cy="-20" r="8" fill="${hexToRgba(skin.pads, 0.62)}" />
-                <circle cx="-48" cy="20" r="8" fill="${hexToRgba(skin.pads, 0.62)}" />
-                <circle cx="-20" cy="43" r="8" fill="${hexToRgba(skin.pads, 0.62)}" />
-              </g>
-            </svg>
-          `;
-          document.body.appendChild(print);
-        };
-
-        const createCatArm = (x, y) => {
-          const angle = Math.random() * 360;
-          const skin = catSkins[Math.floor(Math.random() * catSkins.length)];
-          const arm = document.createElement("div");
-          arm.className = "cat-arm";
-          arm.style.left = x + "px";
-          arm.style.top = y + "px";
-          arm.style.transform = "rotate(" + angle + "deg) translateX(150vmax)";
-          arm.innerHTML = `
-            <svg width="3000" height="200" viewBox="-100 -100 3100 200" aria-hidden="true">
-              <g>
-                <path d="M 0,-50 L 3000,-50 L 3000,50 L 0,50 Z" fill="${skin.body}" />
-                <ellipse cx="10" cy="0" rx="55" ry="55" fill="${skin.body}" />
-                <circle cx="-15" cy="-45" r="25" fill="${skin.body}" />
-                <circle cx="-45" cy="-20" r="25" fill="${skin.body}" />
-                <circle cx="-45" cy="20" r="25" fill="${skin.body}" />
-                <circle cx="-15" cy="45" r="25" fill="${skin.body}" />
-                <path d="M 10,-20 Q -15,-20 -15,0 Q -15,20 10,20 Q 30,20 30,0 Q 30,-20 10,-20 Z" fill="${skin.pads}" />
-                <circle cx="-20" cy="-45" r="12" fill="${skin.pads}" />
-                <circle cx="-50" cy="-20" r="12" fill="${skin.pads}" />
-                <circle cx="-50" cy="20" r="12" fill="${skin.pads}" />
-                <circle cx="-20" cy="45" r="12" fill="${skin.pads}" />
-              </g>
-            </svg>
-          `;
-          document.body.appendChild(arm);
-          arm.offsetWidth;
-          arm.style.transform = "rotate(" + angle + "deg) translateX(0)";
-
-          window.setTimeout(function () {
-            playMeow();
-            createPawPrint(x, y, angle + (Math.random() * 20 - 10), skin);
-            arm.style.transform = "rotate(" + angle + "deg) translateX(150vmax)";
-            window.setTimeout(function () {
-              arm.remove();
-            }, 420);
-          }, 420);
-        };
-
-        const washScreen = () => {
-          wave.classList.remove("fade");
-          wave.classList.add("wash");
-          window.setTimeout(function () {
-            document.querySelectorAll(".paw-print").forEach((print) => print.remove());
-            wave.classList.add("fade");
-            window.setTimeout(function () {
-              wave.classList.remove("wash");
-              wave.classList.remove("fade");
-            }, 500);
-          }, 760);
-        };
-
-        paw.addEventListener("click", function () {
-          if (isActive) {
-            washScreen();
-          }
-
-          setMode(!isActive);
-        });
-
-        document.addEventListener("click", function (event) {
-          if (!isActive) return;
-          if (event.target.closest(".paw-easter-egg")) return;
-          if (event.target.closest("a, button, input, textarea, select, summary, .toc")) return;
-
-          createCatArm(event.clientX, event.clientY);
-        });
-      })();
-    </script>
-
-    <script>
-      (function () {
-        const slogan = document.getElementById("hero-slogan");
-        if (!slogan) return;
-
-        const lines = [
-          "{{ site.description | escape }}",
-          "把判断写下来，再让证据修正它。",
-          "技术文章之外，也记录方法和长期有效的经验。",
-          "在噪音很多的时候，尽量把页面和思路都收干净。"
-        ];
-
-        let index = 0;
-        window.setInterval(function () {
-          index = (index + 1) % lines.length;
-          slogan.classList.add("is-switching");
-          window.setTimeout(function () {
-            slogan.textContent = lines[index];
-            slogan.classList.remove("is-switching");
-          }, 220);
-        }, 3200);
-      })();
-    </script>
-
   </body>
 </html>
