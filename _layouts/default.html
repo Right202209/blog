@@ -2,6 +2,8 @@
 <html>
   {% include head.html %}
   <body class="{% if page.layout == 'post' %}read-mode {% endif %}layout-{{ page.layout | default: 'default' }}">
+    <canvas class="starfield-canvas" id="starfield" aria-hidden="true"></canvas>
+    <div class="starfield-vignette"></div>
     <div class="page-canvas"></div>
     <div class="page-aura page-aura-one"></div>
     <div class="page-aura page-aura-two"></div>
@@ -98,6 +100,70 @@
       })();
     </script>
     {% endif %}
+
+    <script>
+      (function () {
+        const canvas = document.getElementById("starfield");
+        if (!canvas) return;
+
+        const context = canvas.getContext("2d");
+        if (!context) return;
+
+        let width = 0;
+        let height = 0;
+        let stars = [];
+        let animationFrame = null;
+
+        const createStar = () => ({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          radius: Math.random() * 1.6 + 0.2,
+          alpha: Math.random() * 0.7 + 0.15,
+          drift: Math.random() * 0.18 + 0.04
+        });
+
+        const resize = () => {
+          const ratio = window.devicePixelRatio || 1;
+          width = window.innerWidth;
+          height = Math.max(window.innerHeight, document.documentElement.clientHeight);
+          canvas.width = width * ratio;
+          canvas.height = height * ratio;
+          canvas.style.width = width + "px";
+          canvas.style.height = height + "px";
+          context.setTransform(ratio, 0, 0, ratio, 0, 0);
+          stars = Array.from({ length: Math.max(140, Math.floor(width * height / 9000)) }, createStar);
+        };
+
+        const draw = () => {
+          context.clearRect(0, 0, width, height);
+
+          for (let index = 0; index < stars.length; index += 1) {
+            const star = stars[index];
+            context.beginPath();
+            context.fillStyle = "rgba(230, 237, 255," + star.alpha + ")";
+            context.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+            context.fill();
+
+            star.y += star.drift;
+            if (star.y > height + 4) {
+              star.y = -4;
+              star.x = Math.random() * width;
+            }
+          }
+
+          animationFrame = window.requestAnimationFrame(draw);
+        };
+
+        resize();
+        draw();
+        window.addEventListener("resize", resize);
+        window.addEventListener("beforeunload", function () {
+          if (animationFrame) {
+            window.cancelAnimationFrame(animationFrame);
+          }
+        });
+      })();
+    </script>
 
     <script>
       (function () {
@@ -326,6 +392,30 @@
 
           createCatArm(event.clientX, event.clientY);
         });
+      })();
+    </script>
+
+    <script>
+      (function () {
+        const slogan = document.getElementById("hero-slogan");
+        if (!slogan) return;
+
+        const lines = [
+          "{{ site.description | escape }}",
+          "把判断写下来，再让证据修正它。",
+          "技术文章之外，也记录方法和长期有效的经验。",
+          "在噪音很多的时候，尽量把页面和思路都收干净。"
+        ];
+
+        let index = 0;
+        window.setInterval(function () {
+          index = (index + 1) % lines.length;
+          slogan.classList.add("is-switching");
+          window.setTimeout(function () {
+            slogan.textContent = lines[index];
+            slogan.classList.remove("is-switching");
+          }, 220);
+        }, 3200);
       })();
     </script>
 

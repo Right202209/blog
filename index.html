@@ -7,16 +7,18 @@ layout: default
 {% endif %}
 
 <section class="home-hero">
+  {% assign latest_post = site.posts.first %}
   <div class="hero-topbar">
-    <div>
-      <p class="hero-kicker">Right's Blog</p>
-      <h1>{{ site.description }}</h1>
-    </div>
+    <p class="hero-brow">参考 exmaple 的星空落地页重构</p>
+    <span class="hero-status">Online</span>
   </div>
   <div class="hero-body hero-grid">
     <div class="hero-copy">
+      <p class="hero-kicker">Right's Blog</p>
+      <h1 id="hero-slogan" class="hero-slogan">{{ site.description }}</h1>
+      <p class="hero-signature"><span class="hero-signal"></span>{{ site.name }}</p>
       <p class="hero-summary">
-        在这里归档技术实践、工具笔记与长期有效的方法论，让文章既能快速检索，也适合安静阅读。
+        在这里归档技术实践、工具笔记与长期有效的方法论。界面参考 <code>exmaple</code> 的 landing 质感重构，但文章流、归档和标签体系继续保留，首页既能快速浏览，也适合静下来阅读。
       </p>
       <div class="hero-pills">
         <span>{{ site.posts | size }} 篇文章</span>
@@ -29,24 +31,34 @@ layout: default
       </div>
     </div>
 
-    {% assign latest_post = site.posts.first %}
-    {% if latest_post %}
-    <a class="hero-spotlight" href="{{ site.baseurl }}{{ latest_post.url }}">
-      <span class="hero-spotlight-label">Latest Note</span>
-      <h2>{{ latest_post.title }}</h2>
-      <p>
-        {% if latest_post.content contains site.excerpt_separator or latest_post.content != latest_post.excerpt %}
-          {{ latest_post.excerpt | strip_html | strip_newlines | truncate: 96 }}
-        {% else %}
-          {{ latest_post.content | strip_html | strip_newlines | truncate: 96 }}
-        {% endif %}
-      </p>
-      <div class="hero-spotlight-meta">
-        <time>{{ latest_post.date | date: "%Y-%m-%d" }}</time>
-        <span>继续阅读</span>
+    <div class="hero-stack">
+      {% if latest_post %}
+      <a class="hero-spotlight" href="{{ site.baseurl }}{{ latest_post.url }}">
+        <span class="hero-spotlight-label">Latest Note</span>
+        <h2>{{ latest_post.title }}</h2>
+        <p>
+          {% if latest_post.content contains site.excerpt_separator or latest_post.content != latest_post.excerpt %}
+            {{ latest_post.excerpt | strip_html | strip_newlines | truncate: 96 }}
+          {% else %}
+            {{ latest_post.content | strip_html | strip_newlines | truncate: 96 }}
+          {% endif %}
+        </p>
+        <div class="hero-spotlight-meta">
+          <time>{{ latest_post.date | date: "%Y-%m-%d" }}</time>
+          <span>继续阅读</span>
+        </div>
+      </a>
+      {% endif %}
+
+      <div class="hero-panel">
+        <p class="hero-panel-label">Field Notes</p>
+        <ul class="hero-panel-list">
+          <li>保留博客信息架构，只重做首页表达方式。</li>
+          <li>首页视觉迁移自 <code>exmaple</code> 的深色星空落地页。</li>
+          <li>继续支持归档、标签、置顶文章和分页。</li>
+        </ul>
       </div>
-    </a>
-    {% endif %}
+    </div>
   </div>
 </section>
 
