@@ -1,50 +1,28 @@
 {% assign lang = page.lang | default: site.lang | default: "zh" %}
 {% assign t = site.data.i18n.languages[lang] %}
 
-<div class="wrapper-sidebar">
-  <header class="sidebar clearfix">
-    <div class="site-info">
-      <p class="site-badge">Personal Journal</p>
-      {% if site.avatar %}
-        <a href="{{ site.baseurl }}/" class="site-avatar"><img src="{{ site.avatar }}" /></a>
-      {% endif %}
-      <h1 class="site-name"><a href="{{ site.baseurl }}/">{{ site.name }}</a></h1>
-      <p class="site-description">{{ site.description }}</p>
+<nav class="site-nav">
+  <a href="{{ site.baseurl }}/" class="{% if page.url == '/' %}active{% endif %}">{{ t.home }}</a>
+  <a class="clip" aria-hidden="true"></a>
+  <a href="{{ site.baseurl }}/archive" class="{% if page.url == '/archive/' %}active{% endif %}">{{ t.archive }}</a>
+  <a class="clip" aria-hidden="true"></a>
+  <a href="{{ site.baseurl }}/tags" class="{% if page.url == '/tags/' %}active{% endif %}">{{ t.tags }}</a>
+  <a class="clip" aria-hidden="true"></a>
+  <a href="{{ site.baseurl }}/about" class="{% if page.url == '/about/' %}active{% endif %}">About</a>
+</nav>
 
-      <div class="site-stats">
-        <div class="site-stat">
-          <strong>{{ site.posts | size }}</strong>
-          <span>Posts</span>
-        </div>
-        <div class="site-stat">
-          <strong>{{ site.tags | size }}</strong>
-          <span>Tags</span>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <div class="navlist">
-    <nav>
-      <a href="{{ site.baseurl }}/">{{ t.home }}</a>
-      <a href="{{ site.baseurl }}/archive">{{ t.archive }}</a>
-      <a href="{{ site.baseurl }}/tags">{{ t.tags }}</a>
-    </nav>
-
-    <p class="nav-note">记录技术、方法和正在形成的判断。</p>
-
-    <div class="lang-switcher" style="margin-top: 20px; font-size: 0.9em; color: #888;">
-      {% if lang == 'zh' %}
-        <strong>中文</strong> | <a href="{{ site.baseurl }}/en/">English</a>
-      {% else %}
-        <a href="{{ site.baseurl }}/">中文</a> | <strong>English</strong>
-      {% endif %}
-    </div>
+<div class="site-corner">
+  <a href="{{ site.baseurl }}/" class="site-corner-name">{{ site.name }}</a>
+  <p class="site-corner-desc">{{ site.description }}</p>
+  <div class="site-corner-meta">
+    <span>{{ site.posts | size }} Posts</span>
+    <span>{{ site.tags | size }} Tags</span>
   </div>
-
-  <div class="wrapper-footer-desktop">
-    <footer class="footer">
-      {% include footer.html %}
-    </footer>
+  <div class="lang-switcher">
+    {% if lang == 'zh' %}
+      <strong>中文</strong> / <a href="{{ site.baseurl }}/en/">English</a>
+    {% else %}
+      <a href="{{ site.baseurl }}/">中文</a> / <strong>English</strong>
+    {% endif %}
   </div>
 </div>

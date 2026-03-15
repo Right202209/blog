@@ -7,9 +7,7 @@
     <div class="page-canvas"></div>
     <div class="page-aura page-aura-one"></div>
     <div class="page-aura page-aura-two"></div>
-    {% unless page.layout == 'post' %}
     {% include nav.html %}
-    {% endunless %}
 
     {% if page.toc==true %}
       <aside class="toc">
@@ -18,20 +16,14 @@
     {% endif %}
 
     <div id="main" role="main" class="wrapper-content">
-      <div class="container">
-        {{ content }}
-      </div>
+      {{ content }}
     </div>
 
     {% include analytics.html %}
 
-    {% unless page.layout == 'post' %}
-    <div class="wrapper-footer-mobile">
-      <footer class="footer">
-        {% include footer.html %}
-      </footer>
-    </div>
-    {% endunless %}
+    <footer class="footer">
+      {% include footer.html %}
+    </footer>
 
     <div class="paw-water-wave" aria-hidden="true"></div>
 

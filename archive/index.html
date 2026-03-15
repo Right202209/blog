@@ -8,30 +8,41 @@ permalink: /archive/
   <h2>No post found</h2>
 {% endif %}
 
-<div class="archive-timeline">
-  {% for post in site.posts %}
-    {% unless post.next %}
-      <div class="archive-year">{{ post.date | date: '%Y' }}</div>
-    {% else %}
-      {% capture year %}{{ post.date | date: '%Y' }}{% endcapture %}
-      {% capture nyear %}{{ post.next.date | date: '%Y' }}{% endcapture %}
-      {% if year != nyear %}
-        <div class="archive-year">{{ post.date | date: '%Y' }}</div>
-      {% endif %}
-    {% endunless %}
+<section class="content-section content-page-section">
+  <div class="content-shell single-shell">
+    <article class="page simple-page archive-page">
+      <header class="page-header">
+        <p class="page-kicker">Archive</p>
+        <h1>{{ page.title }}</h1>
+      </header>
 
-    <div class="archive-item">
-      <span class="archive-marker"></span>
-      <div class="archive-content">
-        {% if post.link %}
-        <a href="{{ post.link }}">
-        {% else %}
-        <a href="{{ site.baseurl }}{{ post.url }}">
-        {% endif %}
-          {{ post.title }}
-        </a>
-        <time>{{ post.date | date: "%Y-%m-%d" }}</time>
+      <div class="archive-timeline">
+        {% for post in site.posts %}
+          {% unless post.next %}
+            <div class="archive-year">{{ post.date | date: '%Y' }}</div>
+          {% else %}
+            {% capture year %}{{ post.date | date: '%Y' }}{% endcapture %}
+            {% capture nyear %}{{ post.next.date | date: '%Y' }}{% endcapture %}
+            {% if year != nyear %}
+              <div class="archive-year">{{ post.date | date: '%Y' }}</div>
+            {% endif %}
+          {% endunless %}
+
+          <div class="archive-item">
+            <span class="archive-marker"></span>
+            <div class="archive-content">
+              {% if post.link %}
+              <a href="{{ post.link }}">
+              {% else %}
+              <a href="{{ site.baseurl }}{{ post.url }}">
+              {% endif %}
+                {{ post.title }}
+              </a>
+              <time>{{ post.date | date: "%Y-%m-%d" }}</time>
+            </div>
+          </div>
+        {% endfor %}
       </div>
-    </div>
-  {% endfor %}
-</div>
+    </article>
+  </div>
+</section>
