@@ -5,7 +5,6 @@
     {% include nav.html %}
 
     <div class="background">
-      <canvas id="startrack"></canvas>
       <div class="cover"></div>
     </div>
 
@@ -42,86 +41,11 @@
             "在噪音很多的时候，尽量保留清晰的页面和思路。"
           ];
 
-          slogan.innerHTML = lines[randomBetween(0, lines.length - 1)];
+          slogan.textContent = lines[randomBetween(0, lines.length - 1)];
         }
-
-        function initStartrack() {
-          var canvas = document.getElementById("startrack");
-          if (!canvas) return;
-
-          var buffer = document.createElement("canvas");
-          var ctx = canvas.getContext("2d");
-          var bufferCtx = buffer.getContext("2d");
-          var width = canvas.offsetWidth;
-          var height = canvas.offsetHeight;
-          var maxSide = Math.max(width, height);
-          var stars = [];
-          var frame = 0;
-
-          canvas.width = width;
-          canvas.height = height;
-          buffer.width = maxSide * 2.6;
-          buffer.height = maxSide * 2.6;
-
-          ctx.fillStyle = "rgba(21,21,21,1)";
-          ctx.fillRect(0, 0, width, height);
-          ctx.lineCap = "round";
-
-          for (var i = 0; i < 20000; i += 1) {
-            var red = randomBetween(120, 255);
-            var green = randomBetween(120, 255);
-            var blue = randomBetween(120, 255);
-            var alpha = randomBetween(30, 100) / 100;
-            stars.push({
-              x: randomBetween(-buffer.width, buffer.width),
-              y: randomBetween(-buffer.height, buffer.height),
-              size: 1.2,
-              color: "rgba(" + red + "," + green + "," + blue + "," + alpha + ")"
-            });
-          }
-
-          for (var j = 0; j < stars.length; j += 1) {
-            var star = stars[j];
-            bufferCtx.beginPath();
-            bufferCtx.arc(star.x, star.y, star.size, 0, Math.PI * 2, true);
-            bufferCtx.fillStyle = star.color;
-            bufferCtx.closePath();
-            bufferCtx.fill();
-          }
-
-          ctx.translate(width, 0);
-
-          function render() {
-            ctx.drawImage(buffer, -buffer.width / 2, -buffer.height / 2);
-            frame += 1;
-            if (frame > 150 && frame % 8 === 0) {
-              ctx.fillStyle = "rgba(0,0,0,.04)";
-              ctx.fillRect(-3 * maxSide, -3 * maxSide, 6 * maxSide, 6 * maxSide);
-            }
-            ctx.rotate(0.025 * Math.PI / 180);
-            window.requestAnimationFrame(render);
-          }
-
-          render();
-
-          window.addEventListener("resize", function () {
-            canvas.width = canvas.offsetWidth;
-            canvas.height = canvas.offsetHeight;
-            ctx.fillStyle = "rgba(21,21,21,1)";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-          });
-        }
-
-        window.requestAnimFrame = window.requestAnimationFrame ||
-          window.webkitRequestAnimationFrame ||
-          window.mozRequestAnimationFrame ||
-          function (callback) {
-            window.setTimeout(callback, 1000 / 60);
-          };
 
         window.addEventListener("DOMContentLoaded", function () {
           pickSlogan();
-          initStartrack();
         });
       })();
     </script>
