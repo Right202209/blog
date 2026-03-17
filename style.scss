@@ -799,9 +799,12 @@ body::after {
   letter-spacing: .1em;
 }
 
-.footer .svg-icon {
+.svg-icon {
   width: 12px;
   height: 12px;
+}
+
+.footer .svg-icon {
   margin: 0 6px;
   fill: var(--rp-muted);
   vertical-align: middle;
