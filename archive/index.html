@@ -5,10 +5,33 @@ permalink: /archive/
 ---
 
 <div class="archive-list">
+  <div class="list-filter">
+    <label for="archive-filter">Filter</label>
+    <input id="archive-filter" type="search" placeholder="筛选标题 / 标签 / 日期" />
+  </div>
   {% for post in site.posts %}
-    <div class="archive-row">
+    <div class="archive-row" data-title="{{ post.title | downcase | escape }}" data-date="{{ post.date | date: "%Y-%m-%d" | escape }}" data-tags="{% if post.tags %}{{ post.tags | join: ',' | downcase | escape }}{% endif %}">
       <time>{{ post.date | date: "%Y-%m-%d" }}</time>
       <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
     </div>
   {% endfor %}
 </div>
+
+<script>
+  (function () {
+    var input = document.getElementById("archive-filter");
+    if (!input) return;
+    var rows = document.querySelectorAll(".archive-row");
+    input.addEventListener("input", function (event) {
+      var value = event.target.value.toLowerCase().trim();
+      rows.forEach(function (row) {
+        var haystack = [
+          row.dataset.title || "",
+          row.dataset.date || "",
+          row.dataset.tags || ""
+        ].join(" ");
+        row.style.display = haystack.indexOf(value) !== -1 ? "" : "none";
+      });
+    });
+  })();
+</script>

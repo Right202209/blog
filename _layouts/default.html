@@ -2,24 +2,22 @@
 <html lang="{{ page.lang | default: site.lang | default: 'zh-cn' }}">
   {% include head.html %}
   <body class="layout-{{ page.layout | default: 'default' }}">
-    {% include nav.html %}
-
     <div class="background">
       <div class="cover"></div>
     </div>
 
-    <div class="main">
-      {{ content }}
+    <div class="site-shell">
+      {% include nav.html %}
 
-      <div class="find ch">
-        <div class="container links">
-          <div class="footer ch">
-            <div class="container">
-              {% include footer.html %}
-            </div>
-          </div>
-        </div>
+      <div class="main">
+        {{ content }}
       </div>
+
+      <footer class="site-footer ch">
+        <div class="container">
+          {% include footer.html %}
+        </div>
+      </footer>
     </div>
 
     {% include analytics.html %}

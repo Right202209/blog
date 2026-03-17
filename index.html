@@ -4,107 +4,107 @@ layout: default
 
 {% assign latest_post = site.posts.first %}
 
-<div class="ch intro">
+<div class="content-wrap ch">
   <div class="container">
-    <div class="hello">
+    <header class="intro-flat">
       <p class="intro-label">Right's Blog</p>
       <h1 id="slogan">{{ site.description }}</h1>
-      <h2>
-        <div class="circle"></div>{{ site.name }}
-      </h2>
+      <p class="intro-meta"><span class="circle"></span>{{ site.name }}</p>
       <p class="intro-summary">以 <code>exmaple</code> 目录的原始代码为首页基底，只将标题、文案和站点链接替换成当前博客内容。</p>
       <div class="intro-links">
         <a href="{{ site.baseurl }}/archive">归档</a>
         <a href="{{ site.baseurl }}/tags">标签</a>
         <a href="{{ site.baseurl }}/about">关于</a>
       </div>
-    </div>
-  </div>
-</div>
+    </header>
 
-<div class="content-wrap ch">
-  <div class="container">
-    {% if latest_post %}
-    <section class="content-section">
-      <p class="section-label">Latest</p>
-      <article class="feature-post">
-        <h2><a href="{{ site.baseurl }}{{ latest_post.url }}">{{ latest_post.title }}</a></h2>
-        <p>
-          {% if latest_post.content contains site.excerpt_separator or latest_post.content != latest_post.excerpt %}
-            {{ latest_post.excerpt | strip_html | strip_newlines | truncate: 140 }}
-          {% else %}
-            {{ latest_post.content | strip_html | strip_newlines | truncate: 140 }}
-          {% endif %}
-        </p>
-        <time>{{ latest_post.date | date: "%Y-%m-%d" }}</time>
-      </article>
-    </section>
-    {% endif %}
+    <hr class="section-divider" />
 
-    <section class="content-section">
-      <p class="section-label">Posts</p>
-      <div class="post-list">
-        {% for post in site.posts %}
-          {% if post.pinned == true %}
-          <article class="post-card pinned">
-            <p class="post-flag">Pinned</p>
-            <h2><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h2>
-            <p class="post-meta">{{ post.author }} · {{ post.date | date: "%Y-%m-%d" }}</p>
-            <p class="post-excerpt">
-              {% if post.content contains site.excerpt_separator or post.content != post.excerpt %}
-                {{ post.excerpt | strip_html | strip_newlines | truncate: 160 }}
+    <div class="content-two-col">
+      <main class="content-main">
+        {% if latest_post %}
+        <section class="content-section">
+          <p class="section-label">Latest</p>
+          <article class="feature-post">
+            <h2><a href="{{ site.baseurl }}{{ latest_post.url }}">{{ latest_post.title }}</a></h2>
+            <p>
+              {% if latest_post.content contains site.excerpt_separator or latest_post.content != latest_post.excerpt %}
+                {{ latest_post.excerpt | strip_html | strip_newlines | truncate: 140 }}
               {% else %}
-                {{ post.content | strip_html | strip_newlines | truncate: 160 }}
+                {{ latest_post.content | strip_html | strip_newlines | truncate: 140 }}
               {% endif %}
             </p>
+            <time>{{ latest_post.date | date: "%Y-%m-%d" }}</time>
           </article>
-          {% endif %}
-        {% endfor %}
+        </section>
+        {% endif %}
 
-        {% for post in paginator.posts %}
-          {% unless post.pinned %}
-          <article class="post-card">
-            <h2><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h2>
-            <p class="post-meta">{{ post.author }} · {{ post.date | date: "%Y-%m-%d" }}</p>
-            <p class="post-excerpt">
-              {% if post.content contains site.excerpt_separator or post.content != post.excerpt %}
-                {{ post.excerpt | strip_html | strip_newlines | truncate: 160 }}
-              {% else %}
-                {{ post.content | strip_html | strip_newlines | truncate: 160 }}
+        <section class="content-section">
+          <p class="section-label">Posts</p>
+          <div class="post-list">
+            {% for post in site.posts %}
+              {% if post.pinned == true %}
+              <article class="post-card pinned">
+                <p class="post-flag">Pinned</p>
+                <h2><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h2>
+                <p class="post-meta">{{ post.author }} · {{ post.date | date: "%Y-%m-%d" }}</p>
+                <p class="post-excerpt">
+                  {% if post.content contains site.excerpt_separator or post.content != post.excerpt %}
+                    {{ post.excerpt | strip_html | strip_newlines | truncate: 160 }}
+                  {% else %}
+                    {{ post.content | strip_html | strip_newlines | truncate: 160 }}
+                  {% endif %}
+                </p>
+              </article>
               {% endif %}
-            </p>
-          </article>
-          {% endunless %}
-        {% endfor %}
-      </div>
-    </section>
+            {% endfor %}
 
-    <section class="content-section side-grid">
-      <div>
-        <p class="section-label">Overview</p>
-        <p class="plain-meta">{{ site.posts | size }} 篇文章 / {{ site.tags | size }} 个标签</p>
-      </div>
-      <div>
-        <p class="section-label">Topics</p>
-        <div class="topic-list">
-          {% for tag in site.tags limit:10 %}
-          <a href="{{ site.baseurl }}/tags#{{ tag[0] }}">{{ tag[0] }}</a>
-          {% endfor %}
+            {% for post in paginator.posts %}
+              {% unless post.pinned %}
+              <article class="post-card">
+                <h2><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h2>
+                <p class="post-meta">{{ post.author }} · {{ post.date | date: "%Y-%m-%d" }}</p>
+                <p class="post-excerpt">
+                  {% if post.content contains site.excerpt_separator or post.content != post.excerpt %}
+                    {{ post.excerpt | strip_html | strip_newlines | truncate: 160 }}
+                  {% else %}
+                    {{ post.content | strip_html | strip_newlines | truncate: 160 }}
+                  {% endif %}
+                </p>
+              </article>
+              {% endunless %}
+            {% endfor %}
+          </div>
+        </section>
+
+        <div class="pagination">
+          {% if paginator.previous_page %}
+            <span class="prev">
+              <a href="{{ site.baseurl }}{{ paginator.previous_page_path }}">← 上一页</a>
+            </span>
+          {% endif %}
+          {% if paginator.next_page %}
+            <span class="next">
+              <a href="{{ site.baseurl }}{{ paginator.next_page_path }}">下一页 →</a>
+            </span>
+          {% endif %}
         </div>
-      </div>
-    </section>
+      </main>
 
-    <div class="pagination">
-      {% if paginator.previous_page %}
-        <span class="prev">
-          <a href="{{ site.baseurl }}{{ paginator.previous_page_path }}">← 上一页</a>
-        </span>
-      {% endif %}
-      {% if paginator.next_page %}
-        <span class="next">
-          <a href="{{ site.baseurl }}{{ paginator.next_page_path }}">下一页 →</a>
-        </span>
-      {% endif %}
+      <aside class="content-aside">
+        <section class="content-section">
+          <p class="section-label">Overview</p>
+          <p class="plain-meta">{{ site.posts | size }} 篇文章 / {{ site.tags | size }} 个标签</p>
+        </section>
+        <section class="content-section">
+          <p class="section-label">Topics</p>
+          <div class="topic-list">
+            {% for tag in site.tags limit:10 %}
+            <a href="{{ site.baseurl }}/tags#{{ tag[0] | slugify }}">{{ tag[0] }}</a>
+            {% endfor %}
+          </div>
+        </section>
+      </aside>
     </div>
   </div>
 </div>

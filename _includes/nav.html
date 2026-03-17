@@ -1,12 +1,16 @@
 {% assign lang = page.lang | default: site.lang | default: "zh" %}
 {% assign t = site.data.i18n.languages[lang] %}
 
-<nav>
-  <a href="{{ site.baseurl }}/" class="{% if page.url == '/' %}active{% endif %}">{{ t.home }}</a>
-  <a class="clip"></a>
-  <a href="{{ site.baseurl }}/archive" class="{% if page.url == '/archive/' %}active{% endif %}">{{ t.archive }}</a>
-  <a class="clip"></a>
-  <a href="{{ site.baseurl }}/tags" class="{% if page.url == '/tags/' %}active{% endif %}">{{ t.tags }}</a>
-  <a class="clip"></a>
-  <a href="{{ site.baseurl }}/about" class="{% if page.url == '/about/' %}active{% endif %}">About</a>
+<nav class="site-nav">
+  <div class="container nav-inner">
+    <div class="nav-links">
+      <a href="{{ site.baseurl }}/" class="{% if page.url == '/' %}active{% endif %}">{{ t.home }}</a>
+      <span class="clip"></span>
+      <a href="{{ site.baseurl }}/archive" class="{% if page.url == '/archive/' %}active{% endif %}">{{ t.archive }}</a>
+      <span class="clip"></span>
+      <a href="{{ site.baseurl }}/tags" class="{% if page.url == '/tags/' %}active{% endif %}">{{ t.tags }}</a>
+      <span class="clip"></span>
+      <a href="{{ site.baseurl }}/about" class="{% if page.url == '/about/' %}active{% endif %}">About</a>
+    </div>
+  </div>
 </nav>
