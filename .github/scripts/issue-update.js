@@ -114,10 +114,23 @@ function normalizeChoiceField(value) {
   return firstLine.replace(/^[-*]\s+/, "").replace(/^`+|`+$/g, "").trim().toLowerCase();
 }
 
+function isRawNoResponseContent(value) {
+  if (!value) return true;
+  const normalized = normalizeNewlines(value).trim();
+  return normalized === "_No response_" || normalized === "`No response`" || normalized === "No response";
+}
+
+function unwrapIssueFormMarkdownBlock(value) {
+  const text = normalizeNewlines(value || "");
+  const match = text.match(/^\s*```markdown[^\n]*\n([\s\S]*?)\n```\s*$/i);
+  if (!match) return text;
+  return match[1];
+}
+
 function normalizeContentField(value) {
   if (!value) return "";
-  const v = normalizeNewlines(value).replace(/^\n/, "").replace(/\n$/, "");
-  if (isNoResponse(v)) return "";
+  if (isRawNoResponseContent(value)) return "";
+  const v = unwrapIssueFormMarkdownBlock(value);
   return v;
 }
 
@@ -184,7 +197,7 @@ function buildPostContent({ title, date, tags, published, body }) {
     "---",
     "",
   ].join("\n");
-  return fm + (body || "").trimStart() + "\n";
+  return fm + (body || "");
 }
 
 async function fetchIssueFromApi(issueNumber) {
