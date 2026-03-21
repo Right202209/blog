@@ -25,11 +25,13 @@ jobs:
         with:
           ref: ${{ inputs.target_branch }}
       - name: Apply update from issue
+        id: apply
         run: node .github/scripts/issue-update.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ISSUE_NUMBER: ${{ inputs.issue_number }}
       - name: Push changes
+        if: steps.apply.outputs.committed == 'true'
         run: |
           git pull --rebase origin "${TARGET_BRANCH}"
           git push origin "HEAD:${TARGET_BRANCH}"

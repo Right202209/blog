@@ -13,6 +13,17 @@ const KNOWN_FIELDS = new Set([
   "content",
 ]);
 
+const FIELD_ORDER = [
+  "action",
+  "type",
+  "path",
+  "title",
+  "date",
+  "tags",
+  "published",
+  "content",
+];
+
 function run(cmd, args, options = {}) {
   cp.execFileSync(cmd, args, { stdio: "inherit", ...options });
 }
@@ -39,16 +50,25 @@ function parseFields(body) {
   const fields = {};
   const lines = text.split("\n");
   let currentKey = null;
+  let currentIndex = -1;
   let buffer = [];
 
   for (const line of lines) {
-    if (line.startsWith("### ")) {
-      const key = normalizeFieldKey(line.slice(4));
-      if (KNOWN_FIELDS.has(key)) {
+    if (currentKey === "content") {
+      buffer.push(line);
+      continue;
+    }
+
+    const headingMatch = line.match(/^\s*###\s+(.+?)\s*$/);
+    if (headingMatch) {
+      const key = normalizeFieldKey(headingMatch[1]);
+      const keyIndex = FIELD_ORDER.indexOf(key);
+      if (KNOWN_FIELDS.has(key) && keyIndex > currentIndex) {
         if (currentKey) {
           fields[currentKey] = buffer.join("\n");
         }
         currentKey = key;
+        currentIndex = keyIndex;
         buffer = [];
         continue;
       }
@@ -83,11 +103,37 @@ function normalizeField(value) {
   return v;
 }
 
+function normalizeChoiceField(value) {
+  const normalized = normalizeField(value);
+  if (!normalized) return "";
+  const firstLine = normalized
+    .split("\n")
+    .map(line => line.trim())
+    .find(Boolean);
+  if (!firstLine) return "";
+  return firstLine.replace(/^[-*]\s+/, "").replace(/^`+|`+$/g, "").trim().toLowerCase();
+}
+
 function normalizeContentField(value) {
   if (!value) return "";
   const v = normalizeNewlines(value).replace(/^\n/, "").replace(/\n$/, "");
   if (isNoResponse(v)) return "";
   return v;
+}
+
+function quoteYamlString(value) {
+  return JSON.stringify(String(value ?? ""));
+}
+
+function formatYamlList(values) {
+  if (!values.length) return "[]";
+  return `[${values.map(quoteYamlString).join(", ")}]`;
+}
+
+function setOutput(name, value) {
+  const outputPath = process.env.GITHUB_OUTPUT;
+  if (!outputPath) return;
+  fs.appendFileSync(outputPath, `${name}=${value}\n`);
 }
 
 function slugifyTitle(title) {
@@ -107,15 +153,27 @@ function safePath(p) {
   return norm;
 }
 
+function validatePathForType(filePath, type) {
+  if (type === "post") {
+    return filePath.startsWith(`_posts${path.sep}`) && filePath.endsWith(".md");
+  }
+
+  if (type === "page") {
+    return filePath.endsWith(".md");
+  }
+
+  return true;
+}
+
 function buildPostContent({ title, date, tags, published, body }) {
   const tagList = tags ? tags.split(",").map(t => t.trim()).filter(Boolean) : [];
-  const tagText = tagList.length ? `[${tagList.join(", ")}]` : "[]";
+  const tagText = formatYamlList(tagList);
   const isPublished = published !== "false";
   const fm = [
     "---",
     "layout: post",
-    `title: ${title}`,
-    `date: ${date}`,
+    `title: ${quoteYamlString(title)}`,
+    `date: ${quoteYamlString(date)}`,
     "Author: Right",
     `tags: ${tagText}`,
     "comments: true",
@@ -171,37 +229,43 @@ async function loadIssue() {
 async function main() {
   const issue = await loadIssue();
 
+  if (issue.pull_request) {
+    throw new Error(`Issue #${issue.number} is a pull request, not a plain issue`);
+  }
+
   const labels = (issue.labels || []).map(l => l.name);
   if (!labels.includes("content-update")) {
     console.log("Label content-update not present, skipping");
+    setOutput("committed", "false");
     return;
   }
 
   const allowed = new Set(["OWNER", "MEMBER", "COLLABORATOR"]);
   if (!allowed.has(issue.author_association)) {
     console.log(`Not authorized: ${issue.author_association}`);
+    setOutput("committed", "false");
     return;
   }
 
   const fields = parseFields(issue.body || "");
-  const action = (fields["action"] || "").toLowerCase();
-  const type = (fields["type"] || "").toLowerCase();
+  const action = normalizeChoiceField(fields["action"]);
+  const type = normalizeChoiceField(fields["type"]);
   let filePath = safePath(normalizeField(fields["path"]));
   const title = normalizeField(fields["title"]);
   const date = normalizeField(fields["date"]);
   const tags = normalizeField(fields["tags"]);
-  const published = normalizeField(fields["published"]);
+  const published = normalizeChoiceField(fields["published"]);
   const content = normalizeContentField(fields["content"]);
 
   if (!action || !["create", "update", "delete"].includes(action)) {
-    throw new Error("Invalid action");
+    throw new Error(`Invalid action: ${JSON.stringify(fields["action"] || "")}`);
   }
 
   if (!type || !["post", "page", "file"].includes(type)) {
-    throw new Error("Invalid type");
+    throw new Error(`Invalid type: ${JSON.stringify(fields["type"] || "")}`);
   }
 
-  if (type === "post" && !filePath) {
+  if (action === "create" && type === "post" && !filePath) {
     if (!title || !date) {
       throw new Error("Post requires Title and Date when Path is empty");
     }
@@ -213,12 +277,17 @@ async function main() {
     throw new Error("Path is required for this action/type");
   }
 
+  if (!validatePathForType(filePath, type)) {
+    throw new Error(`Invalid path for ${type}: ${filePath}`);
+  }
+
   if (action === "delete") {
     if (fs.existsSync(filePath)) {
       fs.rmSync(filePath);
       console.log(`Deleted ${filePath}`);
     } else {
       console.log(`File not found: ${filePath}, skipping`);
+      setOutput("committed", "false");
       return;
     }
   } else {
@@ -228,6 +297,8 @@ async function main() {
         throw new Error("Post create/update requires Title and Date");
       }
       fileContent = buildPostContent({ title, date, tags, published, body: content || "" });
+    } else if (!content) {
+      throw new Error(`${type} ${action} requires Content`);
     }
 
     const dir = path.dirname(filePath);
@@ -243,11 +314,13 @@ async function main() {
   try {
     runQuiet("git", ["diff", "--cached", "--quiet"]);
     console.log("No staged changes, skipping commit");
+    setOutput("committed", "false");
     return;
   } catch (_) {
     // `git diff --cached --quiet` exits non-zero when there are staged changes.
   }
   run("git", ["commit", "-m", `Issue #${issue.number}: ${action} ${filePath}`]);
+  setOutput("committed", "true");
 }
 
 main().catch(err => {
