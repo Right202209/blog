@@ -1,8 +1,16 @@
 name: Issue Content Update
 
 on:
-  issues:
-    types: [opened, edited, labeled]
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: Issue number to apply
+        required: true
+        type: number
+      target_branch:
+        description: Branch to update
+        required: true
+        type: string
 
 permissions:
   contents: write
@@ -10,14 +18,20 @@ permissions:
 
 jobs:
   update-from-issue:
-    if: contains(github.event.issue.labels.*.name, 'content-update')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.target_branch }}
       - name: Apply update from issue
         run: node .github/scripts/issue-update.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ inputs.issue_number }}
       - name: Push changes
         run: |
-          git pull --rebase origin main
-          git push
+          git pull --rebase origin "${TARGET_BRANCH}"
+          git push origin "HEAD:${TARGET_BRANCH}"
+        env:
+          TARGET_BRANCH: ${{ inputs.target_branch }}

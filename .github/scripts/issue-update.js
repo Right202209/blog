@@ -2,40 +2,91 @@ const fs = require("fs");
 const path = require("path");
 const cp = require("child_process");
 
-function run(cmd) {
-  cp.execSync(cmd, { stdio: "inherit" });
+const KNOWN_FIELDS = new Set([
+  "action",
+  "type",
+  "path",
+  "title",
+  "date",
+  "tags",
+  "published",
+  "content",
+]);
+
+function run(cmd, args, options = {}) {
+  cp.execFileSync(cmd, args, { stdio: "inherit", ...options });
+}
+
+function runQuiet(cmd, args, options = {}) {
+  cp.execFileSync(cmd, args, { stdio: "ignore", ...options });
 }
 
 function normalizeNewlines(text) {
   return (text || "").replace(/\r\n/g, "\n");
 }
 
+function normalizeFieldKey(text) {
+  let key = (text || "").trim().toLowerCase();
+  const parenIndex = key.indexOf(" (");
+  if (parenIndex !== -1) {
+    key = key.slice(0, parenIndex);
+  }
+  return key;
+}
+
 function parseFields(body) {
   const text = normalizeNewlines(body);
   const fields = {};
-  const re = /###\s+([^\n]+)\n([\s\S]*?)(?=\n###\s+|$)/g;
-  let m;
-  while ((m = re.exec(text)) !== null) {
-    let key = m[1].trim().toLowerCase();
-    const parenIndex = key.indexOf(" (");
-    if (parenIndex !== -1) {
-      key = key.slice(0, parenIndex);
+  const lines = text.split("\n");
+  let currentKey = null;
+  let buffer = [];
+
+  for (const line of lines) {
+    if (line.startsWith("### ")) {
+      const key = normalizeFieldKey(line.slice(4));
+      if (KNOWN_FIELDS.has(key)) {
+        if (currentKey) {
+          fields[currentKey] = buffer.join("\n");
+        }
+        currentKey = key;
+        buffer = [];
+        continue;
+      }
     }
-    const value = m[2].trim();
-    fields[key] = value;
+
+    if (currentKey) {
+      buffer.push(line);
+    }
   }
+
+  if (currentKey) {
+    fields[currentKey] = buffer.join("\n");
+  }
+
   return fields;
+}
+
+function isNoResponse(value) {
+  if (!value) return true;
+  return value
+    .trim()
+    .replace(/^_+|_+$/g, "")
+    .replace(/^`+|`+$/g, "")
+    .trim()
+    .toLowerCase() === "no response";
 }
 
 function normalizeField(value) {
   if (!value) return "";
   const v = value.trim();
-  const stripped = v
-    .replace(/^_+|_+$/g, "")
-    .replace(/^`+|`+$/g, "")
-    .trim()
-    .toLowerCase();
-  if (stripped === "no response") return "";
+  if (isNoResponse(v)) return "";
+  return v;
+}
+
+function normalizeContentField(value) {
+  if (!value) return "";
+  const v = normalizeNewlines(value).replace(/^\n/, "").replace(/\n$/, "");
+  if (isNoResponse(v)) return "";
   return v;
 }
 
@@ -78,19 +129,47 @@ function buildPostContent({ title, date, tags, published, body }) {
   return fm + (body || "").trimStart() + "\n";
 }
 
-function main() {
-  const eventPath = process.env.GITHUB_EVENT_PATH;
-  if (!eventPath) {
-    console.error("GITHUB_EVENT_PATH not set");
-    process.exit(1);
+async function fetchIssueFromApi(issueNumber) {
+  const token = process.env.GITHUB_TOKEN;
+  const repository = process.env.GITHUB_REPOSITORY;
+  const apiUrl = process.env.GITHUB_API_URL || "https://api.github.com";
+
+  if (!token) throw new Error("GITHUB_TOKEN is required when ISSUE_NUMBER is set");
+  if (!repository) throw new Error("GITHUB_REPOSITORY not set");
+
+  const url = `${apiUrl}/repos/${repository}/issues/${issueNumber}`;
+  const res = await fetch(url, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: "application/vnd.github+json",
+      "User-Agent": "issue-update-script",
+    },
+  });
+
+  if (!res.ok) {
+    throw new Error(`Failed to fetch issue #${issueNumber}: ${res.status} ${res.statusText}`);
   }
 
-  const event = JSON.parse(fs.readFileSync(eventPath, "utf8"));
-  const issue = event.issue;
-  if (!issue) {
-    console.log("No issue in event");
-    return;
+  return res.json();
+}
+
+async function loadIssue() {
+  const eventPath = process.env.GITHUB_EVENT_PATH;
+  if (eventPath && fs.existsSync(eventPath)) {
+    const event = JSON.parse(fs.readFileSync(eventPath, "utf8"));
+    if (event.issue) return event.issue;
   }
+
+  const issueNumber = (process.env.ISSUE_NUMBER || "").trim();
+  if (issueNumber) {
+    return fetchIssueFromApi(issueNumber);
+  }
+
+  throw new Error("No issue found in event payload and ISSUE_NUMBER is not set");
+}
+
+async function main() {
+  const issue = await loadIssue();
 
   const labels = (issue.labels || []).map(l => l.name);
   if (!labels.includes("content-update")) {
@@ -112,7 +191,7 @@ function main() {
   const date = normalizeField(fields["date"]);
   const tags = normalizeField(fields["tags"]);
   const published = normalizeField(fields["published"]);
-  const content = normalizeField(fields["content"]);
+  const content = normalizeContentField(fields["content"]);
 
   if (!action || !["create", "update", "delete"].includes(action)) {
     throw new Error("Invalid action");
@@ -139,7 +218,8 @@ function main() {
       fs.rmSync(filePath);
       console.log(`Deleted ${filePath}`);
     } else {
-      console.log(`File not found: ${filePath}`);
+      console.log(`File not found: ${filePath}, skipping`);
+      return;
     }
   } else {
     let fileContent = content || "";
@@ -156,11 +236,21 @@ function main() {
     console.log(`${action}d ${filePath}`);
   }
 
-  run("git status --porcelain");
-  run("git config user.name \"github-actions[bot]\"");
-  run("git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"");
-  run(`git add ${JSON.stringify(filePath)}`);
-  run(`git commit -m "Issue #${issue.number}: ${action} ${filePath}"`);
+  run("git", ["status", "--porcelain"]);
+  run("git", ["config", "user.name", "github-actions[bot]"]);
+  run("git", ["config", "user.email", "41898282+github-actions[bot]@users.noreply.github.com"]);
+  run("git", ["add", "-A", "--", filePath]);
+  try {
+    runQuiet("git", ["diff", "--cached", "--quiet"]);
+    console.log("No staged changes, skipping commit");
+    return;
+  } catch (_) {
+    // `git diff --cached --quiet` exits non-zero when there are staged changes.
+  }
+  run("git", ["commit", "-m", `Issue #${issue.number}: ${action} ${filePath}`]);
 }
 
-main();
+main().catch(err => {
+  console.error(err);
+  process.exit(1);
+});
