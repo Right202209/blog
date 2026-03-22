@@ -43,31 +43,39 @@
   text-transform: uppercase;
 }
 
-.dashboard-hero h1 {
-  max-width: 13ch;
-  font-size: clamp(3.2rem, 5.8vw, 5.2rem);
-  line-height: 0.95;
-  text-shadow: 0 0 9px rgba(0, 255, 255, 0.4), 0 0 16px rgba(0, 255, 255, 0.16);
+.dashboard-hero-main h1 {
+  color: var(--crt-magenta);
+  text-shadow: 0 0 5px rgba(255, 0, 255, 0.6), 0 0 10px rgba(255, 0, 255, 0.3);
 }
 
-#slogan {
-  display: block;
-  margin: 2px 0 0;
-  max-width: 13ch;
-  font-size: clamp(2.9rem, 5.2vw, 4.6rem);
-  line-height: 0.92;
-  letter-spacing: 0.05em;
-  overflow-wrap: anywhere;
-  color: var(--accent-green);
-  text-shadow: 0 0 8px rgba(0, 255, 255, 0.38), 0 0 16px rgba(0, 255, 255, 0.16);
+.sequence-line {
+  color: var(--crt-yellow);
 }
 
-.hero-summary,
-.aside-copy,
-.spotlight-excerpt,
-.post-excerpt,
-.footer-copy {
-  color: var(--text-muted);
+.status-block {
+  color: var(--crt-magenta);
+}
+
+.post-card:hover {
+  background-color: var(--crt-magenta);
+  color: black;
+}
+
+.post-card:hover a,
+.post-card:hover .post-excerpt,
+.post-card:hover .card-command {
+  color: black;
+}
+
+.topic-list a {
+  border: 1px solid var(--crt-yellow);
+  color: var(--crt-yellow);
+}
+
+.post-card:hover .topic-list a {
+  background-color: black;
+  color: var(--crt-magenta);
+  border-color: black;
 }
 
 .hero-summary {
