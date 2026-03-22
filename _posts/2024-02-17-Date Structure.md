@@ -1151,7 +1151,7 @@ void dfs(vector<vector<int>>& graph, int start) {
     cout << endl;
 }
 int main() {
-    vector<vector<int>> graph = {{1, 2}, {0, 3, 4}, {0, 5, 6}, {1}, {1}, {2}, {2}};
+    vector<vector<int>> graph = { {1, 2}, {0, 3, 4}, {0, 5, 6}, {1}, {1}, {2}, {2} };
     int start = 0;
     dfs(graph, start);
     return 0;
@@ -1196,7 +1196,7 @@ void bfs(vector<vector<int>>& graph, int start) {
 }
 
 int main() {
-    vector<vector<int>> graph = {{1, 2}, {0, 3, 4}, {0, 5, 6}, {1}, {1}, {2}, {2}};
+    vector<vector<int>> graph = { {1, 2}, {0, 3, 4}, {0, 5, 6}, {1}, {1}, {2}, {2} };
     int start = 0;
     bfs(graph, start);
     return 0;
