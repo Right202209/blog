@@ -3,12 +3,15 @@
   {% include head.html %}
   {% assign page_layout = page.layout | default: 'default' %}
   {% assign lang = page.lang | default: site.lang | default: 'zh' %}
-  {% assign is_home = page.url == '/' %}
-  {% assign is_post = page_layout == 'post' or page.collection == 'posts' or page.date %}
+  {% assign is_home = false %}
+  {% assign is_post = false %}
   {% assign page_kind = 'page' %}
-  {% if is_home %}
+  {% if page.url == '/' %}
+    {% assign is_home = true %}
     {% assign page_kind = 'home' %}
-  {% elsif is_post %}
+  {% endif %}
+  {% if page_layout == 'post' or page.collection == 'posts' or page.date %}
+    {% assign is_post = true %}
     {% assign page_kind = 'post' %}
   {% endif %}
   <body class="layout-{{ page_layout }} page-{{ page_kind }}{% if is_home %} layout-home{% endif %}{% if is_post %} read-mode{% endif %}">

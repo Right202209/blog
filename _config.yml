@@ -122,3 +122,4 @@ exclude:
   - LICENSE
   - README.md
   - CNAME
+  - ex.md
