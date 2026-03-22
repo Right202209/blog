@@ -6,11 +6,21 @@ English version: `README_EN.md`
 
 ## 当前主题特性
 
-- 画布化背景：渐变、网格、光斑和柔和纸面质感叠加
-- 首页双栏：文章主列 + 信息侧轨，支持更丰富的信息组织
-- 文章目录跟随：阅读时自动高亮当前章节并滚动到对应目录项
+- CRT 风格外壳：单色系终端字体、扫描线、渐变辉光和 shell frame 边角装饰
+- 首页双栏仪表盘：hero、最新推荐、置顶高亮、文章流和右侧信息侧轨
+- 文章阅读模式：正文主列 + 吸附式目录侧栏，目录项会随滚动高亮当前章节
 - 内容组织：置顶文章、标签页、归档时间线、分页
 - 可选扩展：MathJax 3、Utterances / Gitalk / Disqus、Busuanzi 统计
+
+## 主题结构概览
+
+- `_layouts/default.html`：统一注入 `site-shell`、shell frame、顶部导航和随机首页标语脚本
+- `index.html`：首页仪表盘，组合 hero、推荐文章、置顶卡片、文章流和右侧标签/概览面板
+- `_layouts/post.html`：文章页阅读模式，提供返回首页链接、阅读时长、标签和可选 TOC 侧栏
+- `_sass/_shell.scss`：全站 CRT 外壳、背景层、导航、卡片容器和阅读模式栅格
+- `_sass/_home.scss`：首页 dashboard / hero / card / info rail 细节样式
+- `_sass/_content.scss`：文章内容排版、代码块、归档/标签列表和 TOC 样式
+- `_sass/_responsive.scss`：响应式降栏、移动端栅格折叠和 reduced-motion / reduced-transparency 适配
 
 ## 项目结构
 
@@ -72,6 +82,8 @@ English version: `README_EN.md`
 
 ## 最近更新
 
+- 2026-03-22：细化 CRT 主题外壳，首页 hero / 卡片 / 信息侧轨与文章阅读模式样式同步收敛
+- 2026-03-22：补充首页仪表盘与文章阅读模式的文档、运行检查项和 codemap
 - 2026-03-13：首页改为双栏布局，并补充右侧信息侧轨
 - 2026-03-13：文章目录支持随滚动高亮
 - 2026-03-13：全站视觉升级为画布化背景与卡片式布局

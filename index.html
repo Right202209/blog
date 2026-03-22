@@ -16,8 +16,8 @@ layout: default
   <div class="container">
     <section class="dashboard-hero dashboard-panel">
       <div class="dashboard-hero-main">
-        <p class="section-label">{{ t.latest }}</p>
         <p class="hero-eyebrow">{{ site.name }} / {{ t.dashboard }}</p>
+        <p class="section-label">{{ t.latest }}</p>
         <h1 id="slogan">{{ site.description }}</h1>
         <p class="hero-summary">{{ site.description }} {{ t.site_intro }}</p>
         <div class="hero-actions">
@@ -28,15 +28,20 @@ layout: default
       </div>
 
       <div class="dashboard-hero-meta">
-        <div class="dashboard-panel panel-compact system-panel">
-          <p class="section-label">{{ t.system }}</p>
+        <section class="dashboard-panel panel-compact system-panel">
+          <div class="panel-heading panel-heading-compact">
+            <div>
+              <p class="section-label">{{ t.system }}</p>
+              <h2>{{ t.overview }}</h2>
+            </div>
+          </div>
           <dl class="metric-list">
             <div>
-              <dt>POSTS</dt>
+              <dt>{{ t.posts_metric }}</dt>
               <dd>{{ site.posts | size }}</dd>
             </div>
             <div>
-              <dt>TAGS</dt>
+              <dt>{{ t.tags_metric }}</dt>
               <dd>{{ site.tags | size }}</dd>
             </div>
             <div>
@@ -44,7 +49,7 @@ layout: default
               <dd>{{ latest_date }}</dd>
             </div>
           </dl>
-        </div>
+        </section>
       </div>
     </section>
 
@@ -134,14 +139,15 @@ layout: default
       </main>
 
       <aside class="dashboard-aside">
-        <section class="dashboard-panel panel-compact">
+        <section class="dashboard-panel panel-compact overview-panel">
           <p class="section-label">{{ t.overview }}</p>
+          <h2>{{ t.site_overview }}</h2>
           <p class="aside-copy">{{ site.description }}</p>
-          <p class="plain-meta">{{ site.name }} · {{ site.posts | size }} posts · {{ site.tags | size }} tags</p>
+          <p class="plain-meta">{{ site.name }} · {{ site.posts | size }} {{ t.posts_unit }} · {{ site.tags | size }} {{ t.tags_unit }}</p>
         </section>
 
-        <section class="dashboard-panel panel-compact">
-          <div class="panel-heading">
+        <section class="dashboard-panel panel-compact topics-panel">
+          <div class="panel-heading panel-heading-compact">
             <div>
               <p class="section-label">{{ t.topics }}</p>
               <h2>{{ t.topic_heading }}</h2>

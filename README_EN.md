@@ -6,11 +6,21 @@ Chinese version: `README.md`
 
 ## Current Features
 
-- Canvas-like background with layered gradients, grid lines, and soft light blobs
-- Rich homepage layout with a main article column and an auxiliary info rail
-- Scroll-following TOC for article pages
+- CRT-styled shell with mono typography, scanlines, soft glow layers, and shell-frame corner accents
+- Dashboard-like homepage with hero, featured latest post, pinned highlights, feed cards, and an auxiliary info rail
+- Read-mode post layout with a focused content column plus sticky TOC that tracks the active heading while scrolling
 - Pinned posts, tags, archive timeline, and pagination
 - Optional integrations: MathJax 3, Utterances / Gitalk / Disqus, Busuanzi stats
+
+## Theme Structure Overview
+
+- `_layouts/default.html`: injects the shared `site-shell`, shell frame, sticky nav, and rotating homepage slogan script
+- `index.html`: homepage dashboard composed of the hero, featured post, pinned cards, feed, and right-side overview/topic panels
+- `_layouts/post.html`: read-mode post template with back link, reading time, tag chips, and optional TOC rail
+- `_sass/_shell.scss`: global CRT shell, layered background, navigation, panel containers, and read-mode grid
+- `_sass/_home.scss`: homepage dashboard, hero, card, and info-rail styling
+- `_sass/_content.scss`: post typography, code blocks, archive/tag list styling, and TOC presentation
+- `_sass/_responsive.scss`: responsive column collapse plus reduced-motion and reduced-transparency handling
 
 ## Project Structure
 
@@ -72,6 +82,8 @@ You can use a GitHub Issue with the `Content Update` template to create, update,
 
 ## Recent Updates
 
+- 2026-03-22: refined the CRT shell so the homepage hero/cards/info rail and post read-mode styling feel consistent
+- 2026-03-22: updated repository docs, verification notes, and codemap coverage for the homepage and post theme refinements
 - 2026-03-13: homepage upgraded to a two-column layout with an info rail
 - 2026-03-13: article TOC now tracks the active section while scrolling
 - 2026-03-13: full visual refresh with canvas-like background and card-based UI

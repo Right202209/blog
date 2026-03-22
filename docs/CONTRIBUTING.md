@@ -51,11 +51,12 @@ Current repository verification is build- and rendering-oriented:
    bundle exec jekyll serve
    ```
 3. Manually verify key pages:
-   - homepage
-   - a normal post page
+   - homepage hero, featured spotlight, pinned highlights, feed cards, and right-side info rail
+   - a normal post page in read mode, including sticky TOC behavior and reading metadata
    - `/archive`
    - `/tags`
-4. For content automation changes, review `.github/workflows/issue-update.yml` and `.github/scripts/issue-update.js` together and validate the expected file paths and front matter output.
+4. For CRT theme/layout changes, also verify responsive collapse below 1100px and reduced-motion / reduced-transparency fallbacks from `_sass/_responsive.scss`.
+5. For content automation changes, review `.github/workflows/issue-update.yml` and `.github/scripts/issue-update.js` together and validate the expected file paths and front matter output.
 
 There is no repository-local unit test suite, package script runner, or committed CI test harness beyond the issue-update workflow.
 <!-- AUTO-GENERATED:TESTING END -->
@@ -63,9 +64,9 @@ There is no repository-local unit test suite, package script runner, or committe
 ## Code Style and Workflow
 
 <!-- AUTO-GENERATED:STYLE START -->
-- Templates are Jekyll/Liquid-based and should keep using existing site data sources such as `site.posts`, `site.tags`, and `_config.yml`.
-- Global styles are compiled from `style.scss`, which now imports focused Sass partials from `_sass/`.
-- Blog posts live in `_posts/` and currently use front matter such as `layout`, `title`, `date`, `Author`, `tags`, `comments`, `toc`, `pinned`, and `published`.
+- Templates are Jekyll/Liquid-based and should keep using existing site data sources such as `site.posts`, `site.tags`, `_config.yml`, and `_data/i18n.yml`.
+- Global styles are compiled from `style.scss`, which imports focused Sass partials for the CRT shell, homepage dashboard, content typography, and responsive behavior.
+- Blog posts live in `_posts/` and currently use front matter such as `layout`, `title`, `date`, `author`, `tags`, `comments`, `toc`, `pinned`, and `published`.
 - Prefer small, focused edits and preserve the existing shell/layout structure unless a task explicitly calls for broader refactoring.
 <!-- AUTO-GENERATED:STYLE END -->
 
@@ -99,7 +100,9 @@ The repository includes a GitHub Actions workflow for issue-driven content updat
 ## Pull Request Checklist
 
 - [ ] Preview the site locally
-- [ ] Verify homepage, post, archive, and tags pages still render correctly
+- [ ] Verify homepage hero, spotlight, pinned cards, feed, and info rail still render correctly
+- [ ] Verify post read mode, sticky TOC, and reading metadata still render correctly
+- [ ] Verify archive and tags pages still render correctly
 - [ ] Confirm Liquid templates compile without errors
 - [ ] Confirm Sass changes compile correctly
 - [ ] If changing issue automation, verify the workflow and script stay aligned

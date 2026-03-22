@@ -4,42 +4,53 @@ layout: default
 
 {% assign lang = page.lang | default: site.lang | default: "zh" %}
 {% assign t = site.data.i18n.languages[lang] %}
+{% assign post_author = page.author | default: page.Author | default: site.name %}
+{% assign words = content | strip_html | number_of_words %}
+{% assign reading_time = words | plus: 199 | divided_by: 200 %}
+{% if reading_time < 1 %}
+  {% assign reading_time = 1 %}
+{% endif %}
 
 <div class="content-wrap ch">
   <div class="container">
     <div class="content-two-col post-layout">
       <main class="content-main">
-        <article class="page-block post-block">
-          <a class="back-link" href="{{ site.baseurl }}/">← Home</a>
-          <p class="section-label">Post</p>
-          <h1>{{ page.title }}</h1>
+        <article class="page-block post-block article-shell">
+          <a class="back-link" href="{{ site.baseurl }}/">← {{ t.back_home }}</a>
 
-          <div class="post-meta-row">
-            <span>{{ page.author }}</span>
-            <span>{{ page.date | date: "%Y-%m-%d" }}</span>
-            <span id="busuanzi_container_page_pv" style="display:none;">
-              {{ t.views }} <span id="busuanzi_value_page_pv"></span> {{ t.times }}
-            </span>
-          </div>
+          <header class="post-header">
+            <p class="section-label">{{ t.post_label }}</p>
+            <h1>{{ page.title }}</h1>
+            <div class="post-meta-row">
+              <span>{{ post_author }}</span>
+              <span>{{ page.date | date: "%Y-%m-%d" }}</span>
+              <span>{{ reading_time }} {{ t.reading_time }}</span>
+              <span id="busuanzi_container_page_pv" style="display:none;">
+                {{ t.views }} <span id="busuanzi_value_page_pv"></span> {{ t.times }}
+              </span>
+            </div>
 
-          {% if page.tags and page.tags.size > 0 %}
-          <div class="topic-list post-topics">
-            {% for tag in page.tags %}
-            <a href="{{ site.url }}{{ site.baseurl }}/tags#{{ tag | slugify }}">{{ tag }}</a>
-            {% endfor %}
-          </div>
-          {% endif %}
+            {% if page.tags and page.tags.size > 0 %}
+            <div class="topic-list post-topics">
+              {% for tag in page.tags %}
+              <a href="{{ site.url }}{{ site.baseurl }}/tags#{{ tag | slugify }}">{{ tag }}</a>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </header>
 
           <div class="entry">
             {{ content }}
           </div>
 
-          {% include disqus.html %}
-          {% include utteranc.html %}
-          {% include gitalk.html %}
+          <section class="post-comments">
+            {% include disqus.html %}
+            {% include utteranc.html %}
+            {% include gitalk.html %}
+          </section>
         </article>
 
-        <div class="pagination">
+        <div class="pagination post-pagination">
           {% if page.previous.url %}
             <span class="prev">
               <a href="{{ site.url }}{{ site.baseurl }}{{ page.previous.url }}">← {{ t.prev }}</a>
@@ -56,7 +67,7 @@ layout: default
       {% if page.toc == true %}
       <aside class="content-aside">
         <div class="toc-box">
-          <p class="section-label">TOC</p>
+          <p class="section-label">{{ t.toc_label }}</p>
           {% include toc.html html=content %}
         </div>
       </aside>

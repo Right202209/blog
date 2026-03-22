@@ -1,4 +1,5 @@
 {% assign post = include.post %}
+{% assign post_author = post.author | default: post.Author | default: site.name %}
 {% assign excerpt_text = post.excerpt | strip_html | strip_newlines %}
 {% unless post.content contains site.excerpt_separator or post.content != post.excerpt %}
   {% assign excerpt_text = post.content | strip_html | strip_newlines %}
@@ -10,7 +11,7 @@
   <p class="card-kicker">{{ include.label }}</p>
   {% endif %}
   <h3><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h3>
-  <p class="post-meta">{{ post.author | default: site.name }} · {{ post.date | date: "%Y-%m-%d" }}</p>
+  <p class="post-meta">{{ post_author }} · {{ post.date | date: "%Y-%m-%d" }}</p>
   <p class="post-excerpt">{{ excerpt_text | truncate: include.truncate | default: 180 }}</p>
   {% if include.show_tags and post.tags and post.tags.size > 0 %}
   <div class="topic-list post-topics">

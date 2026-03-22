@@ -36,8 +36,10 @@ There are no application health endpoints in this repository because the site is
 Operational checks are page- and build-based:
 - local preview via `jekyll serve --baseurl /blog` renders expected routes
 - if a local `Gemfile` exists, `bundle exec jekyll build` succeeds
-- homepage renders latest, pinned, and archive navigation correctly
+- homepage renders the CRT shell, hero, featured spotlight, pinned highlights, feed cards, and info rail correctly
+- post pages render read mode with metadata, sticky TOC, and pagination correctly
 - `/archive` and `/tags` render without Liquid or JavaScript regressions
+- responsive collapse and accessibility fallbacks from `_sass/_responsive.scss` behave correctly
 - content automation updates produce valid Markdown/front matter output
 <!-- AUTO-GENERATED:HEALTH END -->
 

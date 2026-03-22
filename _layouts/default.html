@@ -1,7 +1,16 @@
 <!DOCTYPE html>
 <html lang="{{ page.lang | default: site.lang | default: 'zh-cn' }}">
   {% include head.html %}
-  <body class="layout-{{ page.layout | default: 'default' }}{% if page.url == '/' %} layout-home{% endif %}">
+  {% assign page_layout = page.layout | default: 'default' %}
+  {% assign is_home = page.url == '/' %}
+  {% assign is_post = page_layout == 'post' or page.collection == 'posts' or page.date %}
+  {% assign page_kind = 'page' %}
+  {% if is_home %}
+    {% assign page_kind = 'home' %}
+  {% elsif is_post %}
+    {% assign page_kind = 'post' %}
+  {% endif %}
+  <body class="layout-{{ page_layout }} page-{{ page_kind }}{% if is_home %} layout-home{% endif %}{% if is_post %} read-mode{% endif %}">
     <div class="background">
       <div class="cover"></div>
     </div>
