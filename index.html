@@ -23,11 +23,12 @@ layout: default
         <p class="hero-eyebrow">{{ site.name }} / {{ t.terminal_boot }}</p>
         <p class="section-label">{{ t.system_init }}</p>
         <h1 id="slogan">{{ site.description }}</h1>
-        <div class="hero-summary">
-          <p>{{ t.kernel_ok }}</p>
-          <p>{{ t.archive_ok }}</p>
-          <p>{{ t.feed_ok }}</p>
-          <p>&gt; {{ site.description }} {{ t.site_intro }}</p>
+        <div class="hero-summary terminal-init-sequence">
+          <p class="sequence-line">{{ t.kernel_ok }}</p>
+          <p class="sequence-line">{{ t.archive_ok }}</p>
+          <p class="sequence-line">{{ t.feed_ok }}</p>
+          <br />
+          <p class="sequence-intro">&gt; {{ site.description }} {{ t.site_intro }}</p>
         </div>
         <div class="hero-actions">
           <a href="{{ site.baseurl }}/archive">[{{ t.open_archive }}]</a>
@@ -37,7 +38,19 @@ layout: default
       </div>
 
       <div class="dashboard-hero-meta">
-        <section class="dashboard-panel panel-compact system-panel">
+        <section class="dashboard-panel panel-compact system-panel status-block">
+          <pre class="ascii-art">
+  ___ 
+ / _ \ 
+| | | |
+| |_| |
+ \___/ 
+          </pre>
+          <div class="status-details">
+            <p>USER: GUEST</p>
+            <p>STATUS: ONLINE</p>
+          </div>
+          <hr class="status-divider" />
           <div class="panel-heading panel-heading-compact">
             <div>
               <p class="section-label">{{ t.system_readout }}</p>
