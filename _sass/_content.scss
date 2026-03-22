@@ -1,10 +1,7 @@
 .article-shell {
-  justify-self: center;
-  width: min(100%, var(--reading-width));
-}
-
-.page-post.read-mode .content-main {
-  justify-items: center;
+  width: 100%;
+  max-width: var(--reading-width);
+  margin-inline: auto;
 }
 
 .post-header {

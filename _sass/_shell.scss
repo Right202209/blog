@@ -438,6 +438,7 @@ a {
 .page-post.read-mode .content-two-col {
   grid-template-columns: minmax(0, var(--reading-width)) 260px;
   justify-content: center;
+  align-items: start;
 }
 
 .content-main,
@@ -445,6 +446,11 @@ a {
   min-width: 0;
   display: grid;
   gap: var(--section-gap);
+}
+
+.content-aside {
+  width: 100%;
+  align-self: start;
 }
 
 .site-footer {

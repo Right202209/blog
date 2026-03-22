@@ -6,6 +6,7 @@
   display: grid;
   grid-template-columns: minmax(0, 1.45fr) minmax(240px, 0.55fr);
   gap: var(--section-gap);
+  align-items: start;
   padding: 20px;
   margin-bottom: var(--section-gap);
 }
@@ -16,6 +17,11 @@
 .dashboard-hero-meta {
   display: grid;
   gap: var(--section-gap);
+}
+
+.dashboard-hero-meta {
+  align-content: start;
+  gap: 10px;
 }
 
 .dashboard-hero-main {
@@ -39,9 +45,14 @@
 
 .dashboard-hero h1 {
   max-width: 13ch;
-  font-size: clamp(3.8rem, 6.8vw, 6.4rem);
-  line-height: 0.94;
-  text-shadow: 0 0 10px rgba(0, 255, 255, 0.44), 0 0 18px rgba(0, 255, 255, 0.18);
+  font-size: clamp(3.2rem, 5.8vw, 5.2rem);
+  line-height: 0.95;
+  text-shadow: 0 0 9px rgba(0, 255, 255, 0.4), 0 0 16px rgba(0, 255, 255, 0.16);
+}
+
+#slogan {
+  font-size: clamp(3.2rem, 5.8vw, 5.2rem);
+  line-height: 0.95;
 }
 
 .hero-summary,
