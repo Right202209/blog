@@ -3,14 +3,19 @@
 
 <nav class="site-nav">
   <div class="container nav-inner">
+    <a class="nav-brand" href="{{ site.baseurl }}/">
+      <span class="nav-brand-mark"></span>
+      <span class="nav-brand-copy">
+        <strong>{{ site.name }}</strong>
+        <span>{{ t.dashboard }}</span>
+      </span>
+    </a>
+
     <div class="nav-links">
       <a href="{{ site.baseurl }}/" class="{% if page.url == '/' %}active{% endif %}">{{ t.home }}</a>
-      <span class="clip"></span>
       <a href="{{ site.baseurl }}/archive" class="{% if page.url == '/archive/' %}active{% endif %}">{{ t.archive }}</a>
-      <span class="clip"></span>
       <a href="{{ site.baseurl }}/tags" class="{% if page.url == '/tags/' %}active{% endif %}">{{ t.tags }}</a>
-      <span class="clip"></span>
-      <a href="{{ site.baseurl }}/about" class="{% if page.url == '/about/' %}active{% endif %}">About</a>
+      <a href="{{ site.baseurl }}/about" class="{% if page.url == '/about/' %}active{% endif %}">{{ t.about }}</a>
     </div>
   </div>
 </nav>

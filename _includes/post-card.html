@@ -1,0 +1,22 @@
+{% assign post = include.post %}
+{% assign excerpt_text = post.excerpt | strip_html | strip_newlines %}
+{% unless post.content contains site.excerpt_separator or post.content != post.excerpt %}
+  {% assign excerpt_text = post.content | strip_html | strip_newlines %}
+{% endunless %}
+{% assign card_class = include.class | default: 'dashboard-card post-card' %}
+
+<article class="{{ card_class }}">
+  {% if include.label %}
+  <p class="card-kicker">{{ include.label }}</p>
+  {% endif %}
+  <h3><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h3>
+  <p class="post-meta">{{ post.author | default: site.name }} · {{ post.date | date: "%Y-%m-%d" }}</p>
+  <p class="post-excerpt">{{ excerpt_text | truncate: include.truncate | default: 180 }}</p>
+  {% if include.show_tags and post.tags and post.tags.size > 0 %}
+  <div class="topic-list post-topics">
+    {% for tag in post.tags limit: 4 %}
+    <a href="{{ site.baseurl }}/tags#{{ tag | slugify }}">{{ tag }}</a>
+    {% endfor %}
+  </div>
+  {% endif %}
+</article>

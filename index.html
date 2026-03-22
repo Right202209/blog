@@ -2,104 +2,154 @@
 layout: default
 ---
 
+{% assign lang = page.lang | default: site.lang | default: "zh" %}
+{% assign t = site.data.i18n.languages[lang] %}
 {% assign latest_post = site.posts.first %}
+{% assign pinned_posts = site.posts | where: "pinned", true %}
+{% assign featured_pinned_posts = pinned_posts | slice: 0, 2 %}
+{% assign latest_date = latest_post.date | date: "%Y-%m-%d" %}
+{% assign non_pinned_posts = site.posts | where_exp: "post", "post.pinned != true" %}
+{% assign overflow_pinned_posts = pinned_posts | slice: 2, pinned_posts.size %}
+{% assign feed_posts = non_pinned_posts | slice: 0, site.paginate %}
 
-<div class="content-wrap ch">
+<div class="content-wrap ch home-dashboard">
   <div class="container">
-    <header class="intro-flat">
-      <p class="intro-label">Right's Blog</p>
-      <h1 id="slogan">{{ site.description }}</h1>
-      <p class="intro-meta"><span class="circle"></span>{{ site.name }}</p>
-      <div class="intro-links">
-        <a href="{{ site.baseurl }}/archive">归档</a>
-        <a href="{{ site.baseurl }}/tags">标签</a>
-        <a href="{{ site.baseurl }}/about">关于</a>
+    <section class="dashboard-hero dashboard-panel">
+      <div class="dashboard-hero-main">
+        <p class="section-label">{{ t.latest }}</p>
+        <p class="hero-eyebrow">{{ site.name }} / {{ t.dashboard }}</p>
+        <h1 id="slogan">{{ site.description }}</h1>
+        <p class="hero-summary">{{ site.description }} {{ t.site_intro }}</p>
+        <div class="hero-actions">
+          <a href="{{ site.baseurl }}/archive">{{ t.archive }}</a>
+          <a href="{{ site.baseurl }}/tags">{{ t.tags }}</a>
+          <a href="{{ site.baseurl }}/about">{{ t.about }}</a>
+        </div>
       </div>
-    </header>
 
-    <hr class="section-divider" />
+      <div class="dashboard-hero-meta">
+        <div class="dashboard-panel panel-compact system-panel">
+          <p class="section-label">{{ t.system }}</p>
+          <dl class="metric-list">
+            <div>
+              <dt>POSTS</dt>
+              <dd>{{ site.posts | size }}</dd>
+            </div>
+            <div>
+              <dt>TAGS</dt>
+              <dd>{{ site.tags | size }}</dd>
+            </div>
+            <div>
+              <dt>{{ t.updated }}</dt>
+              <dd>{{ latest_date }}</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </section>
 
-    <div class="content-two-col">
-      <main class="content-main">
+    <div class="dashboard-grid">
+      <main class="dashboard-main">
         {% if latest_post %}
-        <section class="content-section">
-          <p class="section-label">Latest</p>
-          <article class="feature-post">
-            <h2><a href="{{ site.baseurl }}{{ latest_post.url }}">{{ latest_post.title }}</a></h2>
-            <p>
-              {% if latest_post.content contains site.excerpt_separator or latest_post.content != latest_post.excerpt %}
-                {{ latest_post.excerpt | strip_html | strip_newlines | truncate: 140 }}
-              {% else %}
-                {{ latest_post.content | strip_html | strip_newlines | truncate: 140 }}
-              {% endif %}
-            </p>
-            <time>{{ latest_post.date | date: "%Y-%m-%d" }}</time>
-          </article>
+        <section class="dashboard-panel spotlight-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="section-label">{{ t.featured }}</p>
+              <h2><a href="{{ site.baseurl }}{{ latest_post.url }}">{{ latest_post.title }}</a></h2>
+            </div>
+            <p class="panel-meta">{{ latest_post.author | default: site.name }} · {{ latest_post.date | date: "%Y-%m-%d" }}</p>
+          </div>
+          <p class="spotlight-excerpt">
+            {% if latest_post.content contains site.excerpt_separator or latest_post.content != latest_post.excerpt %}
+              {{ latest_post.excerpt | strip_html | strip_newlines | truncate: 240 }}
+            {% else %}
+              {{ latest_post.content | strip_html | strip_newlines | truncate: 240 }}
+            {% endif %}
+          </p>
+          {% if latest_post.tags and latest_post.tags.size > 0 %}
+          <div class="topic-list post-topics">
+            {% for tag in latest_post.tags limit: 5 %}
+            <a href="{{ site.baseurl }}/tags#{{ tag | slugify }}">{{ tag }}</a>
+            {% endfor %}
+          </div>
+          {% endif %}
+          <a class="panel-link" href="{{ site.baseurl }}{{ latest_post.url }}">{{ t.read_more }} →</a>
         </section>
         {% endif %}
 
-        <section class="content-section">
-          <p class="section-label">Posts</p>
-          <div class="post-list">
-            {% for post in site.posts %}
-              {% if post.pinned == true %}
-              <article class="post-card pinned">
-                <p class="post-flag">Pinned</p>
-                <h2><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h2>
-                <p class="post-meta">{{ post.author }} · {{ post.date | date: "%Y-%m-%d" }}</p>
-                <p class="post-excerpt">
-                  {% if post.content contains site.excerpt_separator or post.content != post.excerpt %}
-                    {{ post.excerpt | strip_html | strip_newlines | truncate: 160 }}
-                  {% else %}
-                    {{ post.content | strip_html | strip_newlines | truncate: 160 }}
-                  {% endif %}
-                </p>
-              </article>
-              {% endif %}
-            {% endfor %}
+        <section class="dashboard-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="section-label">{{ t.highlights }}</p>
+              <h2>{{ t.pinned }}</h2>
+            </div>
+            <p class="panel-meta">{{ pinned_posts | size }} {{ t.item_suffix }}</p>
+          </div>
 
-            {% for post in paginator.posts %}
-              {% unless post.pinned %}
-              <article class="post-card">
-                <h2><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h2>
-                <p class="post-meta">{{ post.author }} · {{ post.date | date: "%Y-%m-%d" }}</p>
-                <p class="post-excerpt">
-                  {% if post.content contains site.excerpt_separator or post.content != post.excerpt %}
-                    {{ post.excerpt | strip_html | strip_newlines | truncate: 160 }}
-                  {% else %}
-                    {{ post.content | strip_html | strip_newlines | truncate: 160 }}
-                  {% endif %}
-                </p>
-              </article>
-              {% endunless %}
+          {% if pinned_posts.size > 0 %}
+          <div class="highlight-grid">
+            {% for post in featured_pinned_posts %}
+              {% include post-card.html post=post label=t.pinned class="dashboard-card post-card highlight-card" truncate=150 show_tags=true %}
             {% endfor %}
           </div>
+          {% if overflow_pinned_posts.size > 0 %}
+          <div class="feed-list overflow-feed">
+            {% for post in overflow_pinned_posts %}
+              {% include post-card.html post=post label=t.pinned class="dashboard-card post-card overflow-card" truncate=150 show_tags=true %}
+            {% endfor %}
+          </div>
+          {% endif %}
+          {% else %}
+          <p class="empty-panel">{{ t.no_pinned }}</p>
+          {% endif %}
         </section>
 
-        <div class="pagination">
-          {% if paginator.previous_page %}
-            <span class="prev">
-              <a href="{{ site.baseurl }}{{ paginator.previous_page_path }}">← 上一页</a>
-            </span>
+        <section class="dashboard-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="section-label">{{ t.feed }}</p>
+              <h2>{{ t.all_posts }}</h2>
+            </div>
+            <p class="panel-meta">{{ t.recent_posts }}</p>
+          </div>
+
+          {% if feed_posts.size > 0 %}
+          <div class="feed-list">
+            {% for post in feed_posts %}
+              {% include post-card.html post=post class="dashboard-card post-card feed-card" truncate=170 %}
+            {% endfor %}
+          </div>
+          {% else %}
+          <p class="empty-panel">{{ t.no_more_posts }}</p>
           {% endif %}
-          {% if paginator.next_page %}
+
+          {% if non_pinned_posts.size > feed_posts.size %}
+          <div class="pagination pagination-single">
             <span class="next">
-              <a href="{{ site.baseurl }}{{ paginator.next_page_path }}">下一页 →</a>
+              <a href="{{ site.baseurl }}/archive">{{ t.browse_archive }} →</a>
             </span>
+          </div>
           {% endif %}
-        </div>
+        </section>
       </main>
 
-      <aside class="content-aside">
-        <section class="content-section">
-          <p class="section-label">Overview</p>
-          <p class="plain-meta">{{ site.posts | size }} 篇文章 / {{ site.tags | size }} 个标签</p>
+      <aside class="dashboard-aside">
+        <section class="dashboard-panel panel-compact">
+          <p class="section-label">{{ t.overview }}</p>
+          <p class="aside-copy">{{ site.description }}</p>
+          <p class="plain-meta">{{ site.name }} · {{ site.posts | size }} posts · {{ site.tags | size }} tags</p>
         </section>
-        <section class="content-section">
-          <p class="section-label">Topics</p>
-          <div class="topic-list">
-            {% for tag in site.tags limit:10 %}
-            <a href="{{ site.baseurl }}/tags#{{ tag[0] | slugify }}">{{ tag[0] }}</a>
+
+        <section class="dashboard-panel panel-compact">
+          <div class="panel-heading">
+            <div>
+              <p class="section-label">{{ t.topics }}</p>
+              <h2>{{ t.topic_heading }}</h2>
+            </div>
+          </div>
+          <div class="topic-list topic-cloud">
+            {% for tag in site.tags limit: 12 %}
+            <a href="{{ site.baseurl }}/tags#{{ tag[0] | slugify }}">{{ tag[0] }} <span>{{ tag[1] | size }}</span></a>
             {% endfor %}
           </div>
         </section>

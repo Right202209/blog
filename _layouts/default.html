@@ -1,23 +1,27 @@
 <!DOCTYPE html>
 <html lang="{{ page.lang | default: site.lang | default: 'zh-cn' }}">
   {% include head.html %}
-  <body class="layout-{{ page.layout | default: 'default' }}">
+  <body class="layout-{{ page.layout | default: 'default' }}{% if page.url == '/' %} layout-home{% endif %}">
     <div class="background">
       <div class="cover"></div>
     </div>
 
     <div class="site-shell">
-      {% include nav.html %}
+      <div class="shell-frame">
+        <div class="shell-corner shell-corner-left"></div>
+        <div class="shell-corner shell-corner-right"></div>
+        {% include nav.html %}
 
-      <div class="main">
-        {{ content }}
-      </div>
-
-      <footer class="site-footer ch">
-        <div class="container">
-          {% include footer.html %}
+        <div class="main">
+          {{ content }}
         </div>
-      </footer>
+
+        <footer class="site-footer ch">
+          <div class="container">
+            {% include footer.html %}
+          </div>
+        </footer>
+      </div>
     </div>
 
     {% include analytics.html %}
