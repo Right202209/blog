@@ -1,19 +1,17 @@
 @media (prefers-reduced-motion: reduce) {
-  .ch {
+  .ch,
+  .screen-layer-glow,
+  .nav-brand-copy strong::after {
     animation: none;
-  }
-
-  .site-nav {
-    backdrop-filter: none;
   }
 
   .hero-actions a,
   .topic-list a,
   .pagination a,
   .back-link,
-  .panel-link {
+  .panel-link,
+  .nav-links a {
     transition: none;
-    transform: none;
   }
 }
 
@@ -26,8 +24,9 @@
   .toc-box,
   .dashboard-card,
   .entry pre,
-  .entry .highlight {
-    backdrop-filter: none;
+  .entry .highlight,
+  .list-filter,
+  .archive-row {
     background: var(--bg-surface-strong);
   }
 }
@@ -61,21 +60,20 @@
 
 @media screen and (max-width: 760px) {
   :root {
-    --container-width: calc(100vw - 24px);
-    --section-gap: 18px;
+    --container-width: calc(100vw - 18px);
+    --section-gap: 14px;
   }
 
   .site-shell {
-    padding: 12px 0;
+    padding: 10px 0;
   }
 
   .shell-frame {
-    min-height: calc(100vh - 24px);
-    border-radius: 18px;
+    min-height: calc(100vh - 20px);
   }
 
   .container {
-    width: min(100%, calc(100% - 24px));
+    width: min(100%, calc(100% - 20px));
   }
 
   .nav-inner,
@@ -89,29 +87,60 @@
 
   .nav-inner {
     padding: 14px 0;
+    align-items: start;
   }
 
   .nav-links {
+    width: 100%;
     justify-content: flex-start;
+    gap: 6px;
+  }
+
+  .nav-links a,
+  .topic-cloud a,
+  .hero-actions a,
+  .pagination a,
+  .back-link,
+  .panel-link {
+    display: flex;
+    width: 100%;
+    justify-content: center;
   }
 
   .dashboard-panel,
   .page-block,
   .post-block,
   .toc-box,
-  .dashboard-hero {
-    padding: 18px;
+  .dashboard-hero,
+  .dashboard-card,
+  .archive-row,
+  .list-filter {
+    padding: 11px;
   }
 
-  .dashboard-hero h1 {
+  .dashboard-hero h1,
+  .page-block h1,
+  .post-block h1 {
     max-width: none;
-    font-size: clamp(2.1rem, 10vw, 3rem);
+    font-size: clamp(3rem, 14vw, 4.2rem);
   }
 
   .hero-summary,
   .spotlight-excerpt,
   .entry {
-    font-size: 15px;
+    font-size: 14px;
+  }
+
+  .hero-summary p + p {
+    margin-top: 4px;
+  }
+
+  .post-card h3,
+  .spotlight-panel h2,
+  .tag-group h2,
+  .entry h2,
+  .entry h3 {
+    line-height: 1.02;
   }
 
   .archive-row {
@@ -122,16 +151,12 @@
     text-align: left;
   }
 
-  .topic-cloud a,
-  .hero-actions a,
-  .pagination a,
-  .back-link,
-  .panel-link {
-    width: 100%;
-    justify-content: center;
+  .post-meta-row {
+    gap: 8px;
   }
 
-  .post-meta-row {
+  .list-filter {
+    align-items: stretch;
     gap: 10px;
   }
 }

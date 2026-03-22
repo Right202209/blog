@@ -10,20 +10,29 @@ layout: default
 {% assign latest_date = latest_post.date | date: "%Y-%m-%d" %}
 {% assign non_pinned_posts = site.posts | where_exp: "post", "post.pinned != true" %}
 {% assign overflow_pinned_posts = pinned_posts | slice: 2, pinned_posts.size %}
-{% assign feed_posts = non_pinned_posts | slice: 0, site.paginate %}
+{% assign feed_source = non_pinned_posts %}
+{% if latest_post and latest_post.pinned != true %}
+  {% assign feed_source = non_pinned_posts | where_exp: "post", "post.url != latest_post.url" %}
+{% endif %}
+{% assign feed_posts = feed_source | slice: 0, site.paginate %}
 
 <div class="content-wrap ch home-dashboard">
   <div class="container">
     <section class="dashboard-hero dashboard-panel">
       <div class="dashboard-hero-main">
-        <p class="hero-eyebrow">{{ site.name }} / {{ t.dashboard }}</p>
-        <p class="section-label">{{ t.latest }}</p>
+        <p class="hero-eyebrow">{{ site.name }} / {{ t.terminal_boot }}</p>
+        <p class="section-label">{{ t.system_init }}</p>
         <h1 id="slogan">{{ site.description }}</h1>
-        <p class="hero-summary">{{ site.description }} {{ t.site_intro }}</p>
+        <div class="hero-summary">
+          <p>{{ t.kernel_ok }}</p>
+          <p>{{ t.archive_ok }}</p>
+          <p>{{ t.feed_ok }}</p>
+          <p>&gt; {{ site.description }} {{ t.site_intro }}</p>
+        </div>
         <div class="hero-actions">
-          <a href="{{ site.baseurl }}/archive">{{ t.archive }}</a>
-          <a href="{{ site.baseurl }}/tags">{{ t.tags }}</a>
-          <a href="{{ site.baseurl }}/about">{{ t.about }}</a>
+          <a href="{{ site.baseurl }}/archive">[{{ t.open_archive }}]</a>
+          <a href="{{ site.baseurl }}/tags">[{{ t.open_tags }}]</a>
+          <a href="{{ site.baseurl }}/about">[{{ t.open_about }}]</a>
         </div>
       </div>
 
@@ -31,21 +40,21 @@ layout: default
         <section class="dashboard-panel panel-compact system-panel">
           <div class="panel-heading panel-heading-compact">
             <div>
-              <p class="section-label">{{ t.system }}</p>
-              <h2>{{ t.overview }}</h2>
+              <p class="section-label">{{ t.system_readout }}</p>
+              <h2>{{ t.runtime_overview }}</h2>
             </div>
           </div>
           <dl class="metric-list">
             <div>
-              <dt>{{ t.posts_metric }}</dt>
+              <dt>{{ t.posts_metric }}.count</dt>
               <dd>{{ site.posts | size }}</dd>
             </div>
             <div>
-              <dt>{{ t.tags_metric }}</dt>
+              <dt>{{ t.tags_metric }}.count</dt>
               <dd>{{ site.tags | size }}</dd>
             </div>
             <div>
-              <dt>{{ t.updated }}</dt>
+              <dt>{{ t.updated }}.sync</dt>
               <dd>{{ latest_date }}</dd>
             </div>
           </dl>
@@ -59,7 +68,7 @@ layout: default
         <section class="dashboard-panel spotlight-panel">
           <div class="panel-heading">
             <div>
-              <p class="section-label">{{ t.featured }}</p>
+              <p class="section-label">{{ t.boot_log }}</p>
               <h2><a href="{{ site.baseurl }}{{ latest_post.url }}">{{ latest_post.title }}</a></h2>
             </div>
             <p class="panel-meta">{{ latest_post.author | default: site.name }} · {{ latest_post.date | date: "%Y-%m-%d" }}</p>
@@ -74,48 +83,48 @@ layout: default
           {% if latest_post.tags and latest_post.tags.size > 0 %}
           <div class="topic-list post-topics">
             {% for tag in latest_post.tags limit: 5 %}
-            <a href="{{ site.baseurl }}/tags#{{ tag | slugify }}">{{ tag }}</a>
+            <a href="{{ site.baseurl }}/tags#{{ tag | slugify }}">#{{ tag }}</a>
             {% endfor %}
           </div>
           {% endif %}
-          <a class="panel-link" href="{{ site.baseurl }}{{ latest_post.url }}">{{ t.read_more }} →</a>
+          <a class="panel-link" href="{{ site.baseurl }}{{ latest_post.url }}">[{{ t.exec_read_log }}]</a>
         </section>
         {% endif %}
 
         <section class="dashboard-panel">
           <div class="panel-heading">
             <div>
-              <p class="section-label">{{ t.highlights }}</p>
-              <h2>{{ t.pinned }}</h2>
+              <p class="section-label">{{ t.priority_queue }}</p>
+              <h2>{{ t.pinned_records }}</h2>
             </div>
-            <p class="panel-meta">{{ pinned_posts | size }} {{ t.item_suffix }}</p>
+            <p class="panel-meta">{{ t.total_files }}: {{ pinned_posts | size }}</p>
           </div>
 
           {% if pinned_posts.size > 0 %}
           <div class="highlight-grid">
             {% for post in featured_pinned_posts %}
-              {% include post-card.html post=post label=t.pinned class="dashboard-card post-card highlight-card" truncate=150 show_tags=true %}
+              {% include post-card.html post=post label="PINNED" class="dashboard-card post-card highlight-card" truncate=150 show_tags=true %}
             {% endfor %}
           </div>
           {% if overflow_pinned_posts.size > 0 %}
           <div class="feed-list overflow-feed">
             {% for post in overflow_pinned_posts %}
-              {% include post-card.html post=post label=t.pinned class="dashboard-card post-card overflow-card" truncate=150 show_tags=true %}
+              {% include post-card.html post=post label="PINNED" class="dashboard-card post-card overflow-card" truncate=150 show_tags=true %}
             {% endfor %}
           </div>
           {% endif %}
           {% else %}
-          <p class="empty-panel">{{ t.no_pinned }}</p>
+          <p class="empty-panel">{{ t.queue_empty }}</p>
           {% endif %}
         </section>
 
         <section class="dashboard-panel">
           <div class="panel-heading">
             <div>
-              <p class="section-label">{{ t.feed }}</p>
-              <h2>{{ t.all_posts }}</h2>
+              <p class="section-label">{{ t.log_directory }}</p>
+              <h2>{{ t.recent_entries }}</h2>
             </div>
-            <p class="panel-meta">{{ t.recent_posts }}</p>
+            <p class="panel-meta">{{ t.stream_latest }}</p>
           </div>
 
           {% if feed_posts.size > 0 %}
@@ -125,13 +134,13 @@ layout: default
             {% endfor %}
           </div>
           {% else %}
-          <p class="empty-panel">{{ t.no_more_posts }}</p>
+          <p class="empty-panel">{{ t.no_records_loaded }}</p>
           {% endif %}
 
-          {% if non_pinned_posts.size > feed_posts.size %}
+          {% if feed_source.size > feed_posts.size %}
           <div class="pagination pagination-single">
             <span class="next">
-              <a href="{{ site.baseurl }}/archive">{{ t.browse_archive }} →</a>
+              <a href="{{ site.baseurl }}/archive">[{{ t.browse_archive_cta }}]</a>
             </span>
           </div>
           {% endif %}
@@ -140,17 +149,17 @@ layout: default
 
       <aside class="dashboard-aside">
         <section class="dashboard-panel panel-compact overview-panel">
-          <p class="section-label">{{ t.overview }}</p>
-          <h2>{{ t.site_overview }}</h2>
+          <p class="section-label">{{ t.node_summary }}</p>
+          <h2>{{ t.system_note }}</h2>
           <p class="aside-copy">{{ site.description }}</p>
-          <p class="plain-meta">{{ site.name }} · {{ site.posts | size }} {{ t.posts_unit }} · {{ site.tags | size }} {{ t.tags_unit }}</p>
+          <p class="plain-meta">{{ t.host_label }}: {{ site.name }} · {{ t.posts_label }}: {{ site.posts | size }} · {{ t.tags_label }}: {{ site.tags | size }}</p>
         </section>
 
         <section class="dashboard-panel panel-compact topics-panel">
           <div class="panel-heading panel-heading-compact">
             <div>
-              <p class="section-label">{{ t.topics }}</p>
-              <h2>{{ t.topic_heading }}</h2>
+              <p class="section-label">{{ t.tag_index }}</p>
+              <h2>{{ t.topic_map }}</h2>
             </div>
           </div>
           <div class="topic-list topic-cloud">

@@ -4,7 +4,7 @@ code {
 }
 
 code.highlighter-rouge {
-  color: var(--accent-violet);
+  color: var(--accent-yellow);
 }
 
 pre.highlight {
@@ -12,7 +12,7 @@ pre.highlight {
 }
 
 .highlight {
-  background: rgba(9, 8, 18, 0.92);
+  background: #050505;
   color: var(--text-main);
 }
 
@@ -21,14 +21,14 @@ pre.highlight {
 .highlight .c1,
 .highlight .cs,
 .highlight .cp {
-  color: #7f789d;
+  color: #6da1a1;
   font-style: italic;
 }
 
 .highlight .err,
 .highlight .gr,
 .highlight .gt {
-  color: #ff9ab0;
+  color: var(--accent-magenta);
 }
 
 .highlight .k,
@@ -37,13 +37,13 @@ pre.highlight {
 .highlight .kp,
 .highlight .kr,
 .highlight .ow {
-  color: #c9b5ff;
+  color: var(--accent-yellow);
   font-weight: 600;
 }
 
 .highlight .o,
 .highlight .nt {
-  color: #8ce6f2;
+  color: var(--text-main);
 }
 
 .highlight .gh,
@@ -53,7 +53,7 @@ pre.highlight {
 .highlight .w,
 .highlight .nn,
 .highlight .bp {
-  color: #938cae;
+  color: #6f9a9a;
 }
 
 .highlight .kt,
@@ -61,7 +61,7 @@ pre.highlight {
 .highlight .nc,
 .highlight .nf,
 .highlight .ne {
-  color: #9fe7cf;
+  color: #9effd8;
 }
 
 .highlight .na,
@@ -71,7 +71,7 @@ pre.highlight {
 .highlight .vc,
 .highlight .vg,
 .highlight .vi {
-  color: #8ce6f2;
+  color: #74f6ff;
 }
 
 .highlight .m,
@@ -80,7 +80,7 @@ pre.highlight {
 .highlight .mi,
 .highlight .mo,
 .highlight .il {
-  color: #ffd88a;
+  color: #fff089;
 }
 
 .highlight .s,
@@ -95,19 +95,19 @@ pre.highlight {
 .highlight .sx,
 .highlight .ss,
 .highlight .sr {
-  color: #f6b0bd;
+  color: #ff8fff;
 }
 
 .highlight .gd,
 .highlight .gd .x {
-  color: #ffb8c7;
-  background: rgba(242, 156, 175, 0.12);
+  color: #ff9dff;
+  background: rgba(255, 0, 255, 0.12);
 }
 
 .highlight .gi,
 .highlight .gi .x {
-  color: #a9f2d1;
-  background: rgba(140, 230, 242, 0.1);
+  color: #9effd8;
+  background: rgba(0, 255, 255, 0.08);
 }
 
 .highlight .ge,
