@@ -58,6 +58,8 @@
   line-height: 0.92;
   letter-spacing: 0.05em;
   overflow-wrap: anywhere;
+  color: var(--accent-green);
+  text-shadow: 0 0 8px rgba(0, 255, 255, 0.38), 0 0 16px rgba(0, 255, 255, 0.16);
 }
 
 .hero-summary,

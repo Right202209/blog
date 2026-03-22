@@ -214,6 +214,18 @@
   gap: 18px;
   align-items: start;
   padding: 16px;
+  transition: background 0.12s linear, border-color 0.12s linear;
+}
+
+.archive-row:hover {
+  background: rgba(0, 255, 255, 0.05);
+  border-color: var(--accent-magenta);
+  box-shadow: 0 0 10px rgba(255, 0, 255, 0.12);
+}
+
+.archive-row:hover a {
+  color: var(--accent-magenta);
+  text-shadow: 0 0 5px rgba(255, 0, 255, 0.4);
 }
 
 .tag-group {
@@ -268,4 +280,10 @@
   font-size: 11px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  transition: color 0.12s linear;
+}
+
+.toc-box a:hover {
+  color: var(--accent-magenta);
+  text-shadow: 0 0 5px rgba(255, 0, 255, 0.4);
 }

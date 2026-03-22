@@ -49,46 +49,34 @@ body {
   overflow-x: hidden;
 }
 
-body::before,
-body::after,
 .screen-layer {
-  content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
+  z-index: 100;
 }
 
-body::before {
-  z-index: 50;
+.screen-layer-scanlines {
   background: linear-gradient(
     to bottom,
     rgba(255, 255, 255, 0) 0%,
     rgba(255, 255, 255, 0) 50%,
-    rgba(0, 0, 0, 0.15) 50%,
-    rgba(0, 0, 0, 0.15) 100%
+    rgba(0, 0, 0, 0.12) 50%,
+    rgba(0, 0, 0, 0.12) 100%
   );
   background-size: 100% 4px;
-  opacity: 0.6;
-}
-
-body::after {
-  z-index: 49;
-  background: radial-gradient(circle, rgba(0,0,0,0) 60%, rgba(0,0,0,0.6) 100%);
-  opacity: 0.98;
-}
-
-.screen-layer {
-  z-index: 0;
-}
-
-.screen-layer-scanlines {
-  background: linear-gradient(90deg, rgba(0, 255, 255, 0.02), rgba(0, 255, 255, 0) 25%, rgba(0, 255, 255, 0) 75%, rgba(0, 255, 255, 0.02));
-  opacity: 0.32;
+  opacity: 0.45;
 }
 
 .screen-layer-glow {
-  background: radial-gradient(circle at 50% 0%, rgba(0, 255, 255, 0.05), transparent 40%), radial-gradient(circle at 50% 100%, rgba(255, 0, 255, 0.04), transparent 45%);
+  background: radial-gradient(circle, rgba(0,0,0,0) 65%, rgba(0,0,0,0.5) 100%);
+  z-index: 99;
+}
+
+.screen-layer-flicker {
+  background: radial-gradient(circle at 50% 0%, rgba(0, 255, 255, 0.04), transparent 40%), radial-gradient(circle at 50% 100%, rgba(255, 0, 255, 0.03), transparent 45%);
   animation: crt-flicker 0.15s infinite;
+  z-index: 98;
 }
 
 @keyframes crt-flicker {
@@ -497,7 +485,7 @@ a {
   font-family: "VT323", monospace;
   font-size: clamp(2.6rem, 4.2vw, 4.2rem);
   margin-top: 10px;
-  line-height: 1;
+  line-height: 1.15;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--accent-green);
