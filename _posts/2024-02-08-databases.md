@@ -331,8 +331,9 @@ pinned: true
 
 ## 4. SQL（Structured Query Language）
 
-### 
-SQL是用于管理和查询数据库的标准语言。以下是一个简单的SQL查询示例：
+### SQL 简介
+
+SQL 是用于管理和查询数据库的标准语言。以下是一个简单的 SQL 查询示例：
 
 ```sql
 SELECT * FROM students WHERE age > 18;

@@ -84,6 +84,7 @@ google_analytics:
 
 utteranc:
   repo: Right202209/blog # Your github repo path, also see: https://utteranc.es
+  theme: github-dark
 
 #
 # !! 以下所有设置都不需要更改 !!

@@ -1,6 +1,10 @@
 .article-shell {
   justify-self: center;
-  width: 100%;
+  width: min(100%, var(--reading-width));
+}
+
+.page-post.read-mode .content-main {
+  justify-items: center;
 }
 
 .post-header {
@@ -161,6 +165,17 @@
   margin-top: 24px;
   padding-top: 18px;
   border-top: 1px solid rgba(0, 255, 255, 0.12);
+}
+
+.post-comments .utterances {
+  max-width: 100%;
+  margin-top: 12px;
+}
+
+.post-comments .utterances-frame {
+  border: 1px solid var(--border-soft);
+  background: #050505;
+  box-shadow: var(--shadow-soft);
 }
 
 .archive-list,
