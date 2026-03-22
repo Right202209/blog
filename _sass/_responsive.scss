@@ -119,11 +119,16 @@
   }
 
   .dashboard-hero h1,
-  #slogan,
   .page-block h1,
   .post-block h1 {
     max-width: none;
     font-size: clamp(3rem, 14vw, 4.2rem);
+  }
+
+  #slogan {
+    max-width: 100%;
+    font-size: clamp(2.5rem, 11.5vw, 3.8rem);
+    line-height: 0.94;
   }
 
   .hero-summary,
