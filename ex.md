@@ -7,181 +7,107 @@ import React, { useState, useEffect } from 'react';
 const CustomStyles = () => (
 
   <style dangerouslySetInnerHTML={{__html: `
-
-    @import url('https://fonts.googleapis.com/css2?family=VT323&family=Fira+Code:wght@400;500&display=swap');
-
-
+    @import url('https://fonts.googleapis.com/css2?family=VT323&family=Fira+Code:wght@400;500&family=Noto+Sans+SC:wght@400;500;700&display=swap');
 
     :root {
-
-      --crt-cyan: #00ffff;
-
-      --crt-magenta: #ff00ff;
-
-      --crt-yellow: #ffff00;
-
-      --crt-dim: #005555;
-
-      --bg-color: #050505;
-
+      --crt-cyan: #00afff;
+      --crt-magenta: #ff0050;
+      --crt-yellow: #f1fa8c;
+      --crt-dim: #1e3f5a;
+      --bg-color: #0e0e0e;
+      --text-main: #d0d0d0;
     }
-
-
 
     body {
-
       background-color: var(--bg-color);
-
-      color: var(--crt-cyan);
-
-      font-family: 'Fira Code', monospace;
-
+      color: var(--text-main);
+      font-family: 'Fira Code', 'Noto Sans SC', monospace;
       margin: 0;
-
       overflow-x: hidden;
-
     }
 
-
-
-    /* 扫描线效果 */
-
+    /* 扫描线与亚像素网格效果 */
     .scanlines {
-
       position: fixed;
-
       top: 0;
-
       left: 0;
-
       width: 100vw;
-
       height: 100vh;
-
       background: linear-gradient(
-
-        to bottom,
-
-        rgba(255,255,255,0),
-
-        rgba(255,255,255,0) 50%,
-
-        rgba(0,0,0,0.2) 50%,
-
-        rgba(0,0,0,0.2)
-
+        rgba(18, 16, 16, 0) 50%,
+        rgba(0, 0, 0, 0.25) 50%
+      ),
+      linear-gradient(
+        90deg,
+        rgba(255, 0, 0, 0.06),
+        rgba(0, 255, 0, 0.02),
+        rgba(0, 0, 255, 0.06)
       );
-
-      background-size: 100% 4px;
-
+      background-size: 100% 2px, 3px 100%;
       pointer-events: none;
-
       z-index: 50;
-
     }
 
-
-
-    /* 屏幕边缘晕影 (模拟球面显示器) */
-
+    /* 轻微的全屏泛光效果 */
     .vignette {
-
       position: fixed;
-
       top: 0;
-
       left: 0;
-
       width: 100vw;
-
       height: 100vh;
-
-      background: radial-gradient(circle, rgba(0,0,0,0) 60%, rgba(0,0,0,0.6) 100%);
-
+      background: radial-gradient(circle, rgba(0,0,0,0) 60%, rgba(0,0,0,0.4) 100%);
       pointer-events: none;
-
       z-index: 49;
-
     }
 
-
-
-    /* 屏幕闪烁效果 */
-
+    /* 屏幕闪烁效果 (模拟刷新率) */
     @keyframes flicker {
-
-      0% { opacity: 0.95; }
-
-      5% { opacity: 0.85; }
-
-      10% { opacity: 0.95; }
-
+      0% { opacity: 0.98; }
+      5% { opacity: 0.94; }
+      10% { opacity: 0.98; }
       15% { opacity: 1; }
-
       100% { opacity: 1; }
-
     }
-
     .crt-screen {
-
       animation: flicker 0.15s infinite;
-
     }
 
+    /* 磷光动态色差效果 */
+    @keyframes phosphor {
+      0% { text-shadow: 1px 0 2px rgba(0,30,255,.5), -1px 0 2px rgba(255,0,80,.3), 0 0 3px; }
+      25% { text-shadow: 0px 0 2px rgba(0,30,255,.5), 1px 0 2px rgba(255,0,80,.3), 0 0 3px; }
+      50% { text-shadow: -1px 0 2px rgba(0,30,255,.5), 0px 0 2px rgba(255,0,80,.3), 0 0 3px; }
+      75% { text-shadow: 0px 0 2px rgba(0,30,255,.5), -1px 0 2px rgba(255,0,80,.3), 0 0 3px; }
+      100% { text-shadow: 1px 0 2px rgba(0,30,255,.5), -1px 0 2px rgba(255,0,80,.3), 0 0 3px; }
+    }
 
-
-    /* 文字辉光 */
-
+    /* 专门为标题等高亮文字设置的辉光 */
     .glow-text {
-
-      text-shadow: 0 0 5px rgba(0, 255, 255, 0.6), 0 0 10px rgba(0, 255, 255, 0.3);
-
+      color: var(--crt-cyan);
+      animation: phosphor 1.6s infinite;
     }
-
     .glow-box {
-
-      box-shadow: 0 0 8px rgba(0, 255, 255, 0.2) inset, 0 0 8px rgba(0, 255, 255, 0.2);
-
+      box-shadow: 0 0 8px rgba(0, 175, 255, 0.2) inset, 0 0 8px rgba(0, 175, 255, 0.2);
     }
-
-
 
     /* 光标闪烁 */
-
     @keyframes blink {
-
       0%, 49% { opacity: 1; }
-
       50%, 100% { opacity: 0; }
-
     }
-
     .cursor-blink {
-
       animation: blink 1s step-end infinite;
-
     }
-
-
 
     /* 自定义滚动条 */
-
     ::-webkit-scrollbar {
-
       width: 12px;
-
       background: var(--bg-color);
-
       border-left: 1px solid var(--crt-dim);
-
     }
-
     ::-webkit-scrollbar-thumb {
-
       background: var(--crt-cyan);
-
     }
-
   `}} />
 
 );
@@ -214,11 +140,11 @@ const Navbar = ({ currentTab, setCurrentTab }) => {
 
   return (
 
-    <nav className="flex flex-col md:flex-row justify-between items-start md:items-center border-b-2 border-[#00ffff] pb-4 mb-8 glow-box p-4">
+    <nav className="flex flex-col md:flex-row justify-between items-start md:items-center border-b-2 border-[#00afff] pb-4 mb-8 glow-box p-4">
 
-      <div className="text-2xl font-bold font-['VT323'] tracking-widest mb-4 md:mb-0">
+      <div className="text-2xl font-bold font-['VT323'] tracking-widest mb-4 md:mb-0 text-[#00afff]">
 
-        root@vereis-clone:~# <span className="cursor-blink text-[#ff00ff]">_</span>
+        root@vereis-clone:~# <span className="cursor-blink text-[#ff0050]">_</span>
 
       </div>
 
@@ -236,9 +162,9 @@ const Navbar = ({ currentTab, setCurrentTab }) => {
 
               currentTab === tab 
 
-                ? 'bg-[#ff00ff] text-black font-bold' 
+                ? 'bg-[#ff0050] text-[#0e0e0e] font-bold' 
 
-                : 'bg-transparent text-[#00ffff] hover:bg-[#005555] hover:text-[#00ffff] border border-transparent hover:border-[#00ffff]'
+                : 'bg-transparent text-[#00afff] hover:bg-[#1e3f5a] hover:text-[#00afff] border border-transparent hover:border-[#00afff]'
 
             }`}
 
@@ -262,17 +188,17 @@ const Navbar = ({ currentTab, setCurrentTab }) => {
 
 const NoteCard = ({ note }) => (
 
-  <article className="border border-[#00ffff] p-4 group hover:bg-[#ff00ff] hover:text-black transition-none cursor-pointer flex flex-col h-full bg-black relative">
+  <article className="border border-[#00afff] p-4 group hover:bg-[#ff0050] hover:text-[#0e0e0e] transition-none cursor-pointer flex flex-col h-full bg-[#0e0e0e] relative">
 
     {/* 边角装饰 */}
 
-    <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-white opacity-50 group-hover:border-black"></div>
+    <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-[#d0d0d0] opacity-50 group-hover:border-[#0e0e0e]"></div>
 
-    <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-white opacity-50 group-hover:border-black"></div>
+    <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-[#d0d0d0] opacity-50 group-hover:border-[#0e0e0e]"></div>
 
     
 
-    <div className="flex justify-between items-center mb-3 text-xs border-b border-[#005555] group-hover:border-black pb-2">
+    <div className="flex justify-between items-center mb-3 text-xs border-b border-[#1e3f5a] group-hover:border-[#0e0e0e] pb-2">
 
       <span className="opacity-80">SYS.DATE: {note.date}</span>
 
@@ -280,7 +206,7 @@ const NoteCard = ({ note }) => (
 
         {note.tags.map(tag => (
 
-          <span key={tag} className="px-1 border border-[#ffff00] text-[#ffff00] group-hover:border-black group-hover:bg-black group-hover:text-[#ff00ff]">
+          <span key={tag} className="px-1 border border-[#f1fa8c] text-[#f1fa8c] group-hover:border-[#0e0e0e] group-hover:bg-[#0e0e0e] group-hover:text-[#ff0050]">
 
             #{tag}
 
@@ -292,7 +218,7 @@ const NoteCard = ({ note }) => (
 
     </div>
 
-    <h2 className="text-xl font-bold mb-3 glow-text group-hover:text-shadow-none leading-tight">
+    <h2 className="text-xl font-bold mb-3 glow-text group-hover:text-shadow-none leading-tight group-hover:text-[#0e0e0e] group-hover:animate-none">
 
       {note.title}
 
@@ -320,21 +246,21 @@ const HomeView = () => (
 
   <div className="space-y-8">
 
-    <section className="border border-[#00ffff] p-6 bg-black">
+    <section className="border border-[#00afff] p-6 bg-[#0e0e0e]">
 
-      <h1 className="text-3xl font-bold mb-4 glow-text font-['VT323'] uppercase tracking-widest text-[#ff00ff]">
+      <h1 className="text-3xl font-bold mb-4 glow-text font-['VT323'] uppercase tracking-widest !text-[#ff0050]">
 
         {'// SYSTEM_INITIALIZATION_COMPLETE'}
 
       </h1>
 
-      <div className="space-y-2 text-sm md:text-base opacity-90">
+      <div className="space-y-2 text-sm md:text-base opacity-90 text-[#d0d0d0]">
 
-        <p className="text-[#ffff00]">{'>'} LOADING KERNEL... OK</p>
+        <p className="text-[#f1fa8c]">{'>'} LOADING KERNEL... OK</p>
 
-        <p className="text-[#ffff00]">{'>'} MOUNTING FILE SYSTEMS... OK</p>
+        <p className="text-[#f1fa8c]">{'>'} MOUNTING FILE SYSTEMS... OK</p>
 
-        <p className="text-[#ffff00]">{'>'} ESTABLISHING SECURE CONNECTION... OK</p>
+        <p className="text-[#f1fa8c]">{'>'} ESTABLISHING SECURE CONNECTION... OK</p>
 
         <br />
 
@@ -350,15 +276,15 @@ const HomeView = () => (
 
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-      <div className="border border-[#00ffff] p-4 bg-black">
+      <div className="border border-[#00afff] p-4 bg-[#0e0e0e]">
 
-        <h3 className="border-b border-[#00ffff] pb-2 mb-4 font-bold text-[#ffff00]">LATEST_LOGS</h3>
+        <h3 className="border-b border-[#00afff] pb-2 mb-4 font-bold text-[#f1fa8c]">LATEST_LOGS</h3>
 
         <ul className="space-y-2 text-sm">
 
           {NOTES_DATA.slice(0, 3).map(note => (
 
-            <li key={note.id} className="flex justify-between hover:bg-[#005555] p-1 cursor-pointer">
+            <li key={note.id} className="flex justify-between hover:bg-[#1e3f5a] hover:text-[#00afff] p-1 cursor-pointer transition-colors">
 
               <span className="truncate pr-4">{'>'} {note.title}</span>
 
@@ -372,7 +298,7 @@ const HomeView = () => (
 
       </div>
 
-      <div className="border border-[#00ffff] p-4 bg-black flex flex-col items-center justify-center text-center text-[#ff00ff]">
+      <div className="border border-[#00afff] p-4 bg-[#0e0e0e] flex flex-col items-center justify-center text-center text-[#ff0050]">
 
         <pre className="text-xs md:text-sm leading-none mb-4 opacity-80">
 
@@ -410,7 +336,7 @@ const NotesView = () => (
 
   <div>
 
-    <div className="flex justify-between items-end mb-6 border-b border-[#005555] pb-2">
+    <div className="flex justify-between items-end mb-6 border-b border-[#1e3f5a] pb-2">
 
       <h1 className="text-2xl font-bold glow-text">DIRECTORY: /NOTES</h1>
 
@@ -444,7 +370,7 @@ export default function App() {
 
   return (
 
-    <div className="min-h-screen crt-screen relative text-[#00ffff] selection:bg-[#ff00ff] selection:text-black">
+    <div className="min-h-screen crt-screen relative text-[#d0d0d0] selection:bg-[#ff0050] selection:text-[#0e0e0e]">
 
       <CustomStyles />
 
@@ -470,9 +396,9 @@ export default function App() {
 
           {(currentTab === 'SYSTEM' || currentTab === 'ABOUT') && (
 
-            <div className="border border-[#ff00ff] p-8 text-center bg-black">
+            <div className="border border-[#ff0050] p-8 text-center bg-[#0e0e0e]">
 
-              <p className="animate-pulse text-[#ff00ff] text-xl" style={{ textShadow: '0 0 5px rgba(255,0,255,0.6)' }}>404 - MODULE_NOT_FOUND</p>
+              <p className="animate-pulse text-[#ff0050] text-xl" style={{ textShadow: '0 0 5px rgba(255,0,80,0.6)' }}>404 - MODULE_NOT_FOUND</p>
 
               <p className="mt-4 opacity-70">This sector is currently under construction.</p>
 
@@ -484,7 +410,7 @@ export default function App() {
 
 
 
-        <footer className="mt-12 border-t-2 border-[#00ffff] pt-4 text-xs md:text-sm flex flex-col md:flex-row justify-between opacity-80 glow-box p-2 text-[#ffff00]">
+        <footer className="mt-12 border-t-2 border-[#00afff] pt-4 text-xs md:text-sm flex flex-col md:flex-row justify-between opacity-80 glow-box p-2 text-[#f1fa8c]">
 
           <span>{'>'} SYSTEM STATUS: OPTIMAL</span>
 
