@@ -13,10 +13,14 @@
 
 .dashboard-hero-main,
 .dashboard-main,
-.dashboard-aside,
 .dashboard-hero-meta {
   display: grid;
   gap: var(--section-gap);
+}
+
+.home-dashboard .dashboard-main {
+  grid-template-columns: minmax(0, 1fr);
+  width: 100%;
 }
 
 .dashboard-hero-meta {
@@ -33,8 +37,6 @@
 .panel-heading h2,
 .post-card h3,
 .spotlight-panel h2,
-.overview-panel h2,
-.topics-panel h2,
 .tag-group h2 {
   font-family: 'Maple Mono', 'Fira Code', monospace;
   font-weight: 700;
@@ -120,8 +122,6 @@
 .panel-heading h2,
 .post-card h3,
 .spotlight-panel h2,
-.overview-panel h2,
-.topics-panel h2,
 .tag-group h2 {
   text-shadow: 0 0 6px rgba(0, 255, 255, 0.26);
 }
@@ -163,11 +163,6 @@
   text-shadow: 0 0 6px rgba(255, 255, 0, 0.22);
 }
 
-.dashboard-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 280px;
-  gap: var(--section-gap);
-}
 
 .dashboard-panel {
   padding: 16px;
@@ -202,8 +197,6 @@
 }
 
 .spotlight-panel,
-.overview-panel,
-.topics-panel,
 .system-panel {
   display: grid;
   gap: 12px;
@@ -328,23 +321,6 @@
   opacity: 0.7;
 }
 
-.topic-cloud {
-  gap: 8px;
-}
-
-.topic-cloud a {
-  justify-content: space-between;
-  min-width: min(100%, 150px);
-}
-
-.aside-copy {
-  font-size: 12px;
-  line-height: 1.7;
-}
-
-.plain-meta {
-  text-transform: uppercase;
-}
 
 .empty-panel {
   padding: 8px 0 2px;

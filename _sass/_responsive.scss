@@ -32,7 +32,6 @@
 }
 
 @media screen and (max-width: 1100px) {
-  .dashboard-grid,
   .dashboard-hero,
   .content-two-col,
   .page-post.read-mode .content-two-col {
@@ -43,7 +42,6 @@
     grid-template-columns: 1fr;
   }
 
-  .dashboard-aside,
   .content-aside {
     order: 2;
   }
@@ -97,7 +95,6 @@
   }
 
   .nav-links a,
-  .topic-cloud a,
   .hero-actions a,
   .pagination a,
   .back-link,
