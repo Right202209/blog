@@ -1,4 +1,5 @@
 @media (prefers-reduced-motion: reduce) {
+
   .ch,
   .screen-layer-glow,
   .nav-brand-copy strong::after {
@@ -16,6 +17,7 @@
 }
 
 @media (prefers-reduced-transparency: reduce) {
+
   .site-nav,
   .site-footer,
   .dashboard-panel,
@@ -32,6 +34,10 @@
 }
 
 @media screen and (max-width: 1100px) {
+  :root {
+    --reading-width: 100%;
+  }
+
   .dashboard-grid,
   .dashboard-hero,
   .content-two-col,
@@ -52,9 +58,12 @@
     order: 1;
   }
 
+  /* 移动端目录取消 sticky，正常流排列 */
   .toc-box {
     position: static;
     max-height: none;
+    border: 1px solid var(--border-soft);
+    background: rgba(14, 14, 14, 0.8);
   }
 }
 
@@ -137,7 +146,7 @@
     font-size: 14px;
   }
 
-  .hero-summary p + p {
+  .hero-summary p+p {
     margin-top: 4px;
   }
 
