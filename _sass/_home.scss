@@ -36,14 +36,18 @@
 .overview-panel h2,
 .topics-panel h2,
 .tag-group h2 {
-  font-family: "VT323", monospace;
-  font-weight: 400;
+  font-family: 'Maple Mono', 'Fira Code', monospace;
+  font-weight: 700;
   line-height: 1.02;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
 .dashboard-hero-main h1 {
+  font-family: 'Maple Mono', 'Fira Code', monospace;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+  margin: 0;
   color: var(--crt-magenta);
   text-shadow: 0 0 5px rgba(255, 0, 255, 0.6), 0 0 10px rgba(255, 0, 255, 0.3);
 }
@@ -167,6 +171,34 @@
 
 .dashboard-panel {
   padding: 16px;
+  position: relative;
+  border: 1px solid rgba(0, 255, 255, 0.05);
+}
+
+.dashboard-panel::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 10px;
+  height: 10px;
+  border-top: 1px solid var(--crt-cyan);
+  border-right: 1px solid var(--crt-cyan);
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+.dashboard-panel::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: -1px;
+  width: 10px;
+  height: 10px;
+  border-bottom: 1px solid var(--crt-cyan);
+  border-left: 1px solid var(--crt-cyan);
+  pointer-events: none;
+  opacity: 0.3;
 }
 
 .spotlight-panel,

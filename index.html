@@ -22,7 +22,10 @@ layout: default
       <div class="dashboard-hero-main">
         <p class="hero-eyebrow">{{ site.name }} / {{ t.terminal_boot }}</p>
         <p class="section-label">{{ t.system_init }}</p>
-        <h1 id="slogan">{{ site.description }}</h1>
+        <div style="display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;">
+          <h1 id="slogan" style="margin: 0;">{{ site.description }}</h1>
+          <span class="cursor-blink" style="font-size: 2rem; color: var(--crt-cyan); text-shadow: 0 0 10px var(--crt-cyan); line-height: 1;">█</span>
+        </div>
         <div class="hero-summary terminal-init-sequence">
           <p class="sequence-line">{{ t.kernel_ok }}</p>
           <p class="sequence-line">{{ t.archive_ok }}</p>

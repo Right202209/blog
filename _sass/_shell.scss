@@ -21,7 +21,7 @@
 body {
   background-color: var(--bg-color);
   color: var(--crt-cyan);
-  font-family: 'Fira Code', monospace;
+  font-family: 'Maple Mono', 'Fira Code', monospace;
   margin: 0;
   overflow-x: hidden;
   text-shadow: 0 0 5px rgba(0, 255, 255, 0.6), 0 0 10px rgba(0, 255, 255, 0.3);
@@ -35,13 +35,16 @@ body {
   width: 100vw;
   height: 100vh;
   background: linear-gradient(
-    to bottom,
-    rgba(255,255,255,0),
-    rgba(255,255,255,0) 50%,
-    rgba(0,0,0,0.2) 50%,
-    rgba(0,0,0,0.2)
+    rgba(18, 16, 16, 0) 50%,
+    rgba(0, 0, 0, 0.12) 50%
+  ),
+  linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.02),
+    rgba(0, 255, 0, 0.01),
+    rgba(0, 0, 255, 0.02)
   );
-  background-size: 100% 4px;
+  background-size: 100% 3px, 3px 100%;
   pointer-events: none;
   z-index: 100;
 }
@@ -53,18 +56,36 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: radial-gradient(circle, rgba(0,0,0,0) 60%, rgba(0,0,0,0.6) 100%);
+  background: radial-gradient(circle, rgba(0,0,0,0) 60%, rgba(0,0,0,0.4) 100%);
   pointer-events: none;
   z-index: 99;
 }
 
 /* 屏幕闪烁效果 */
 @keyframes flicker {
-  0% { opacity: 0.95; }
-  5% { opacity: 0.85; }
-  10% { opacity: 0.95; }
+  0% { opacity: 0.98; }
+  5% { opacity: 0.97; }
+  10% { opacity: 0.98; }
   15% { opacity: 1; }
   100% { opacity: 1; }
+}
+
+#crt-toggle {
+  background: transparent;
+  color: var(--crt-cyan);
+  border: 1px solid var(--crt-cyan);
+  cursor: pointer;
+  padding: 4px 12px;
+  font-family: inherit;
+  font-size: 0.75rem;
+  transition: all 0.2s ease;
+  margin-left: 8px;
+}
+
+#crt-toggle:hover {
+  background: var(--crt-cyan);
+  color: var(--bg-color);
+  box-shadow: 0 0 10px var(--crt-cyan);
 }
 
 .screen-layer-flicker {
@@ -90,6 +111,29 @@ body {
 }
 .cursor-blink {
   animation: blink 1s step-end infinite;
+}
+
+.crt-off .screen-layer-scanlines,
+.crt-off .screen-layer-glow,
+.crt-off .screen-layer-flicker {
+  display: none !important;
+}
+
+.crt-off,
+.crt-off .glow-text,
+.crt-off h1, .crt-off h2, .crt-off h3 {
+  text-shadow: none !important;
+}
+
+.crt-off ::-webkit-scrollbar {
+  border-left: 1px solid #333;
+}
+
+.crt-off {
+  --bg-color: #1a1a1a;
+  --crt-cyan: #e0e0e0;
+  --crt-magenta: #ff6e67;
+  --crt-yellow: #f1fa8c;
 }
 
 .site-shell {

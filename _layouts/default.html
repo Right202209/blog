@@ -35,10 +35,29 @@
 
     <script>
       (function () {
+        function setupCrtToggle() {
+          const btn = document.getElementById("crt-toggle");
+          if (!btn) return;
+          
+          const isOff = localStorage.getItem("crt-off") === "true";
+          if (isOff) {
+            document.body.classList.add("crt-off");
+            btn.textContent = "[X]";
+          }
+
+          btn.addEventListener("click", () => {
+            const turningOff = !document.body.classList.contains("crt-off");
+            document.body.classList.toggle("crt-off", turningOff);
+            localStorage.setItem("crt-off", turningOff);
+            btn.textContent = turningOff ? "[X]" : "[O]";
+          });
+        }
+
         function randomBetween(min, max) {
           return min + Math.round(Math.random() * (max - min));
         }
-
+        
+        // ... (existing pickSlogan function)
         function pickSlogan() {
           var slogan = document.getElementById("slogan");
           if (!slogan) return;
@@ -61,6 +80,7 @@
 
         window.addEventListener("DOMContentLoaded", function () {
           pickSlogan();
+          setupCrtToggle();
         });
       })();
     </script>

@@ -3,12 +3,13 @@
 
 <nav class="site-nav">
   <div class="nav-brand-copy">
-    <strong>root@{{ site.name | slugify }}:~# <span class="cursor-blink" style="color: var(--crt-magenta);">_</span></strong>
+    <strong>root@{{ site.name | slugify }}:~# <span class="cursor-blink" style="color: var(--crt-magenta);">█</span></strong>
   </div>
   <div class="nav-links">
     <a href="{{ site.baseurl }}/" class="{% if page.url == '/' %}active{% endif %}">[{{ t.home }}]</a>
     <a href="{{ site.baseurl }}/archive" class="{% if page.url == '/archive/' %}active{% endif %}">[{{ t.archive }}]</a>
     <a href="{{ site.baseurl }}/tags" class="{% if page.url == '/tags/' %}active{% endif %}">[{{ t.tags }}]</a>
     <a href="{{ site.baseurl }}/about" class="{% if page.url == '/about/' %}active{% endif %}">[{{ t.about }}]</a>
+    <button id="crt-toggle" aria-label="Toggle CRT Effect" style="background: transparent; color: var(--crt-cyan); border: 1px solid var(--crt-cyan); cursor: pointer; padding: 4px 8px; font-family: inherit;">[O]</button>
   </div>
 </nav>
