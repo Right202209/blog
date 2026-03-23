@@ -271,13 +271,13 @@ body {
 /* === 文章两栏布局 === */
 .content-two-col {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 260px;
-  gap: var(--section-gap);
+  grid-template-columns: minmax(0, 1fr) minmax(140px, 260px);
+  gap: clamp(10px, 2vw, var(--section-gap));
 }
 
 /* 阅读模式：文章主体宽度统一 */
 .page-post.read-mode .content-two-col {
-  grid-template-columns: minmax(0, var(--reading-width)) 240px;
+  grid-template-columns: minmax(0, var(--reading-width)) minmax(140px, 240px);
   justify-content: center;
   align-items: start;
 }

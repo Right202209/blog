@@ -39,9 +39,7 @@
   }
 
   .dashboard-grid,
-  .dashboard-hero,
-  .content-two-col,
-  .page-post.read-mode .content-two-col {
+  .dashboard-hero {
     grid-template-columns: 1fr;
   }
 
@@ -49,21 +47,8 @@
     grid-template-columns: 1fr;
   }
 
-  .dashboard-aside,
-  .content-aside {
+  .dashboard-aside {
     order: 2;
-  }
-
-  .content-main {
-    order: 1;
-  }
-
-  /* 移动端目录取消 sticky，正常流排列 */
-  .toc-box {
-    position: static;
-    max-height: none;
-    border: 1px solid var(--border-soft);
-    background: rgba(14, 14, 14, 0.8);
   }
 }
 
