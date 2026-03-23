@@ -49,7 +49,7 @@
   font-weight: 700;
   margin: 0;
   color: var(--crt-magenta);
-  text-shadow: 0 0 5px rgba(255, 0, 80, 0.6), 0 0 10px rgba(255, 0, 80, 0.3);
+  text-shadow: 0 0 5px rgba(255, 176, 0, 0.6), 0 0 10px rgba(255, 176, 0, 0.3);
 }
 
 .sequence-line {
@@ -123,7 +123,7 @@
 .overview-panel h2,
 .topics-panel h2,
 .tag-group h2 {
-  text-shadow: 0 0 6px rgba(0, 175, 255, 0.2);
+  text-shadow: 0 0 6px rgba(255, 176, 0, 0.2);
 }
 
 .spotlight-panel h2 {
@@ -290,7 +290,7 @@
 
 .post-card::before {
   inset: 1px;
-  border-color: rgba(0, 255, 255, 0.04);
+  border-color: rgba(255, 176, 0, 0.04);
 }
 
 .post-card h3 {
@@ -309,24 +309,7 @@
   color: var(--accent-yellow);
 }
 
-.topic-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
 
-.topic-list a {
-  padding: 4px 8px;
-  font-size: 10px;
-  background: var(--bg-color);
-  color: var(--accent-yellow);
-  border-color: rgba(255, 255, 0, 0.35);
-}
-
-.topic-list a span {
-  color: inherit;
-  opacity: 0.7;
-}
 
 .topic-cloud {
   gap: 8px;

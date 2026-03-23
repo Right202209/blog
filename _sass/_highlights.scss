@@ -1,3 +1,4 @@
+/* === 代码高亮 (琥珀磷光配色) === */
 pre,
 code {
   font-family: inherit;
@@ -12,40 +13,45 @@ pre.highlight {
 }
 
 .highlight {
-  background: #0a0a0a;
+  background: #0a0a08;
   color: var(--text-main);
 }
 
+/* 注释 */
 .highlight .c,
 .highlight .cm,
 .highlight .c1,
 .highlight .cs,
 .highlight .cp {
-  color: #6da1a1;
+  color: #7a6e50;
   font-style: italic;
 }
 
+/* 错误 */
 .highlight .err,
 .highlight .gr,
 .highlight .gt {
-  color: var(--accent-magenta);
+  color: #ff6e40;
 }
 
+/* 关键字 */
 .highlight .k,
 .highlight .kc,
 .highlight .kd,
 .highlight .kp,
 .highlight .kr,
 .highlight .ow {
-  color: var(--accent-yellow);
+  color: #ffb000;
   font-weight: 600;
 }
 
+/* 运算符 & 标签 */
 .highlight .o,
 .highlight .nt {
   color: var(--text-main);
 }
 
+/* 辅助信息 */
 .highlight .gh,
 .highlight .gu,
 .highlight .gp,
@@ -53,17 +59,19 @@ pre.highlight {
 .highlight .w,
 .highlight .nn,
 .highlight .bp {
-  color: #6f9a9a;
+  color: #8a7a50;
 }
 
+/* 类型 & 函数名 */
 .highlight .kt,
 .highlight .nb,
 .highlight .nc,
 .highlight .nf,
 .highlight .ne {
-  color: #9effd8;
+  color: #39ff14;
 }
 
+/* 变量 */
 .highlight .na,
 .highlight .no,
 .highlight .ni,
@@ -71,18 +79,20 @@ pre.highlight {
 .highlight .vc,
 .highlight .vg,
 .highlight .vi {
-  color: #74f6ff;
+  color: #ffd080;
 }
 
+/* 数字 */
 .highlight .m,
 .highlight .mf,
 .highlight .mh,
 .highlight .mi,
 .highlight .mo,
 .highlight .il {
-  color: #fff089;
+  color: #ff9060;
 }
 
+/* 字符串 */
 .highlight .s,
 .highlight .sb,
 .highlight .sc,
@@ -95,19 +105,21 @@ pre.highlight {
 .highlight .sx,
 .highlight .ss,
 .highlight .sr {
-  color: #ff8fff;
+  color: #80ff80;
 }
 
+/* Diff 删除 */
 .highlight .gd,
 .highlight .gd .x {
-  color: #ff9dff;
-  background: rgba(255, 0, 255, 0.12);
+  color: #ff6e40;
+  background: rgba(255, 110, 64, 0.1);
 }
 
+/* Diff 添加 */
 .highlight .gi,
 .highlight .gi .x {
-  color: #9effd8;
-  background: rgba(0, 255, 255, 0.08);
+  color: #39ff14;
+  background: rgba(57, 255, 20, 0.06);
 }
 
 .highlight .ge,
