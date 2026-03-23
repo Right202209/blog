@@ -51,7 +51,7 @@
   font-weight: 700;
   margin: 0;
   color: var(--crt-magenta);
-  text-shadow: 0 0 5px rgba(255, 0, 255, 0.6), 0 0 10px rgba(255, 0, 255, 0.3);
+  text-shadow: 0 0 5px rgba(255, 176, 0, 0.6), 0 0 10px rgba(255, 176, 0, 0.3);
 }
 
 .sequence-line {
@@ -90,7 +90,7 @@
   font-size: 13px;
 }
 
-.hero-summary p + p {
+.hero-summary p+p {
   margin-top: 4px;
 }
 
@@ -112,7 +112,7 @@
   gap: 12px;
   margin-bottom: 12px;
   padding-bottom: 8px;
-  border-bottom: 1px solid rgba(0, 255, 255, 0.12);
+  border-bottom: 1px solid var(--border-soft);
 }
 
 .panel-heading-compact {
@@ -123,7 +123,7 @@
 .post-card h3,
 .spotlight-panel h2,
 .tag-group h2 {
-  text-shadow: 0 0 6px rgba(0, 255, 255, 0.26);
+  text-shadow: 0 0 6px rgba(255, 176, 0, 0.2);
 }
 
 .spotlight-panel h2 {
@@ -140,7 +140,7 @@
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 12px;
   padding-top: 12px;
-  border-top: 1px solid rgba(0, 255, 255, 0.12);
+  border-top: 1px solid var(--border-soft);
 }
 
 .metric-list div:first-child {
@@ -167,7 +167,7 @@
 .dashboard-panel {
   padding: 16px;
   position: relative;
-  border: 1px solid rgba(0, 255, 255, 0.05);
+  border: 1px solid var(--border-soft);
 }
 
 .dashboard-panel::before {
@@ -266,7 +266,7 @@
   justify-content: space-between;
   gap: 8px 12px;
   padding-bottom: 8px;
-  border-bottom: 1px solid rgba(0, 255, 255, 0.12);
+  border-bottom: 1px solid var(--border-soft);
 }
 
 .post-card::after {
@@ -283,7 +283,7 @@
 
 .post-card::before {
   inset: 1px;
-  border-color: rgba(0, 255, 255, 0.04);
+  border-color: rgba(255, 176, 0, 0.04);
 }
 
 .post-card h3 {
@@ -298,28 +298,11 @@
 
 .card-command {
   padding-top: 7px;
-  border-top: 1px solid rgba(0, 255, 255, 0.12);
+  border-top: 1px solid var(--border-soft);
   color: var(--accent-yellow);
 }
 
-.topic-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
 
-.topic-list a {
-  padding: 4px 8px;
-  font-size: 10px;
-  background: #050505;
-  color: var(--accent-yellow);
-  border-color: rgba(255, 255, 0, 0.35);
-}
-
-.topic-list a span {
-  color: inherit;
-  opacity: 0.7;
-}
 
 
 .empty-panel {
