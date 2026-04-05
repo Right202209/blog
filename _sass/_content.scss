@@ -1,60 +1,48 @@
+.page-shell {
+  padding-top: 12px;
+}
+
 .article-shell {
   width: 100%;
   max-width: var(--reading-width);
   margin-inline: auto;
 }
 
+.page-content > :first-child,
+.entry > :first-child {
+  margin-top: 0;
+}
+
+.page-content > :last-child,
+.entry > :last-child {
+  margin-bottom: 0;
+}
+
 .post-header {
-  display: grid;
-  gap: 12px;
-  margin-bottom: 22px;
+  margin-bottom: 32px;
 }
 
 .post-meta-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 10px;
 }
 
 .post-meta-row span {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: var(--bg-muted);
+  color: var(--text-emphasis);
+  font-size: 0.88rem;
 }
 
 .entry {
   color: var(--text-main);
-  font-size: 15px;
-  line-height: 1.85;
-}
-
-.entry>*:first-child {
-  margin-top: 0;
-}
-
-.entry h1,
-.entry h2,
-.entry h3,
-.entry h4,
-.entry h5,
-.entry h6 {
-  margin: 1.85em 0 0.62em;
-  color: var(--accent-yellow);
-  font-family: 'Maple Mono', 'Fira Code', monospace;
-  font-weight: 700;
-  line-height: 1.08;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  text-shadow: 0 0 6px rgba(255, 176, 0, 0.16);
-  scroll-margin-top: calc(var(--nav-height) + 24px);
-}
-
-.entry h2 {
-  font-size: 2.3rem;
-}
-
-.entry h3 {
-  font-size: 1.9rem;
+  font-family: var(--font-serif);
+  font-size: 1.08rem;
+  line-height: 1.95;
 }
 
 .entry p,
@@ -64,58 +52,89 @@
 .entry pre,
 .entry table,
 .entry img,
-.entry .highlight {
-  margin-bottom: 1.08em;
+.entry .highlight,
+.entry figure {
+  margin-bottom: 1.4em;
 }
 
 .entry p,
 .entry li,
 .entry blockquote {
-  color: var(--text-muted);
+  color: var(--text-secondary);
+}
+
+.entry h1,
+.entry h2,
+.entry h3,
+.entry h4,
+.entry h5,
+.entry h6 {
+  color: var(--text-main);
+  font-family: var(--font-serif);
+  font-weight: 500;
+  line-height: 1.15;
+  scroll-margin-top: calc(var(--nav-height) + 24px);
+}
+
+.entry h2 {
+  margin: 2.2em 0 0.7em;
+  font-size: clamp(2rem, 3.8vw, 2.8rem);
+}
+
+.entry h3 {
+  margin: 1.9em 0 0.6em;
+  font-size: clamp(1.55rem, 3vw, 2rem);
+}
+
+.entry h4,
+.entry h5,
+.entry h6 {
+  margin: 1.6em 0 0.5em;
+  font-size: 1.2rem;
 }
 
 .entry ul,
 .entry ol {
-  padding-left: 1.45em;
+  padding-left: 1.4em;
 }
 
-.entry li+li {
-  margin-top: 0.4em;
+.entry li + li {
+  margin-top: 0.5em;
 }
 
 .entry strong,
 .entry b,
 .entry th {
   color: var(--text-main);
+  font-weight: 600;
 }
 
 .entry hr {
-  margin: 2em 0;
+  margin: 2.5em 0;
   border: 0;
   border-top: 1px solid var(--border-soft);
 }
 
-.entry :not(pre)>code {
-  padding: 0.14em 0.42em;
-  border: 1px solid rgba(255, 176, 0, 0.28);
-  background: var(--bg-surface-strong);
-  color: var(--accent-yellow);
+.entry :not(pre) > code {
+  padding: 0.2em 0.45em;
+  border-radius: 8px;
+  background: var(--bg-muted);
+  color: var(--text-emphasis);
   font-size: 0.88em;
 }
 
 .entry pre,
 .entry .highlight {
   overflow-x: auto;
-  max-width: 100%;
-  border: 1px solid var(--border-soft);
-  background: #0a0a0a;
-  box-shadow: inset 0 0 12px rgba(0, 92, 92, 0.12);
-  word-break: break-all;
-  white-space: pre;
+  border: 1px solid var(--color-border-dark);
+  border-radius: 24px;
+  background: var(--bg-dark);
+  color: var(--color-warm-silver);
+  box-shadow: 0 18px 48px rgba(20, 20, 19, 0.14);
 }
 
 .entry pre {
-  padding: 16px;
+  padding: 22px 24px;
 }
 
 .entry .highlight {
@@ -125,6 +144,7 @@
 .entry .highlight pre {
   margin: 0;
   border: 0;
+  border-radius: 24px;
   box-shadow: none;
 }
 
@@ -134,102 +154,60 @@
   border: 0;
   background: transparent;
   color: inherit;
-  font-size: 0.95em;
+  font-size: 0.92em;
   word-break: normal;
   white-space: pre;
 }
 
 .entry blockquote {
-  padding: 0.14em 0 0.14em 14px;
-  border-left: 2px solid var(--accent-magenta);
+  padding: 18px 22px;
+  border-left: 3px solid var(--color-terracotta);
+  border-radius: 0 20px 20px 0;
+  background: rgba(201, 100, 66, 0.06);
+  font-size: 1.02rem;
 }
 
 .entry img {
-  display: block;
-  max-width: 100%;
   border: 1px solid var(--border-soft);
+  border-radius: 24px;
+  box-shadow: var(--shadow-soft);
 }
 
 .entry table {
   width: 100%;
-  border-collapse: collapse;
-  font-size: 14px;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
 }
 
 .entry th,
 .entry td {
-  padding: 10px 12px;
+  padding: 12px 14px;
   border: 1px solid var(--border-soft);
   text-align: left;
 }
 
+.entry th {
+  background: var(--bg-muted);
+}
+
 .post-comments {
-  margin-top: 24px;
-  padding-top: 18px;
-  border-top: 1px solid rgba(255, 176, 0, 0.12);
+  margin-top: 40px;
+  padding: 28px;
+  border: 1px solid var(--color-border-dark);
+  border-radius: 28px;
+  background: var(--bg-dark);
+  color: var(--color-ivory);
 }
 
 .post-comments .utterances {
   max-width: 100%;
-  margin-top: 12px;
+  margin-top: 16px;
 }
 
 .post-comments .utterances-frame {
-  border: 1px solid var(--border-soft);
-  background: var(--bg-surface-strong);
-  box-shadow: var(--shadow-soft);
-}
-
-.tag-group {
-  display: grid;
-  gap: 12px;
+  border-radius: 18px;
 }
 
 .tag-group h2 {
-  font-size: 1.8rem;
-}
-
-.pagination {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  margin-top: 18px;
-}
-
-.pagination .prev,
-.pagination .next {
-  display: inline-flex;
-}
-
-.post-pagination {
-  justify-content: space-between;
-}
-
-/* 目录列表样式 (position/尺寸在 _shell.scss 中定义) */
-.toc-box ul {
-  list-style: none;
-}
-
-.toc-box ul ul {
-  margin-top: 8px;
-  padding-left: 10px;
-  border-left: 1px solid var(--border-soft);
-}
-
-.toc-box li+li {
-  margin-top: 8px;
-}
-
-.toc-box a {
-  color: var(--text-muted);
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  transition: color 0.12s linear, text-shadow 0.12s linear;
-}
-
-.toc-box a:hover,
-.toc-box a.is-active {
-  color: var(--accent-magenta);
-  text-shadow: 0 0 8px rgba(255, 0, 80, 0.5);
+  margin-bottom: 4px;
 }

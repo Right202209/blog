@@ -2,12 +2,17 @@
 layout: page
 title: 归档
 permalink: /archive/
+section_label: Archive
+description: 按时间浏览全部文章，也可以直接按标题、标签或日期筛选。
 ---
+
+{% assign lang = page.lang | default: site.lang | default: "zh" %}
+{% assign t = site.data.i18n.languages[lang] %}
 
 <div class="archive-list">
   <div class="list-filter">
-    <label for="archive-filter">Filter</label>
-    <input id="archive-filter" type="search" placeholder="筛选标题 / 标签 / 日期" />
+    <label for="archive-filter">{{ t.filter_label }}</label>
+    <input id="archive-filter" type="search" placeholder="{{ t.archive_search_placeholder }}" />
   </div>
   {% for post in site.posts %}
     <div class="archive-row" data-title="{{ post.title | downcase | escape }}" data-date="{{ post.date | date: "%Y-%m-%d" | escape }}" data-tags="{% if post.tags %}{{ post.tags | join: ',' | downcase | escape }}{% endif %}">

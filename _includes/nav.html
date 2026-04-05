@@ -2,14 +2,24 @@
 {% assign t = site.data.i18n.languages[lang] %}
 
 <nav class="site-nav">
-  <div class="nav-brand-copy">
-    <strong>root@{{ site.name | slugify }}:~# <span class="cursor-blink" style="color: var(--crt-magenta);">█</span></strong>
-  </div>
-  <div class="nav-links">
-    <a href="{{ site.baseurl }}/" class="{% if page.url == '/' %}active{% endif %}">[{{ t.home }}]</a>
-    <a href="{{ site.baseurl }}/archive" class="{% if page.url == '/archive/' %}active{% endif %}">[{{ t.archive }}]</a>
-    <a href="{{ site.baseurl }}/tags" class="{% if page.url == '/tags/' %}active{% endif %}">[{{ t.tags }}]</a>
-    <a href="{{ site.baseurl }}/about" class="{% if page.url == '/about/' %}active{% endif %}">[{{ t.about }}]</a>
-    <button id="crt-toggle" aria-label="Toggle CRT Effect" style="background: transparent; color: var(--crt-cyan); border: 1px solid var(--crt-cyan); cursor: pointer; padding: 4px 8px; font-family: inherit;">[O]</button>
+  <div class="container nav-inner">
+    <a class="nav-brand" href="{{ site.baseurl }}/" aria-label="{{ site.name }}">
+      <span class="logo-mark">{{ site.name | slice: 0, 1 | upcase }}</span>
+      <span class="nav-brand-copy">
+        <strong>{{ site.name }}</strong>
+        <span>{{ site.description }}</span>
+      </span>
+    </a>
+
+    <div class="nav-links">
+      <a href="{{ site.baseurl }}/" class="{% if page.url == '/' %}active{% endif %}">{{ t.home }}</a>
+      <a href="{{ site.baseurl }}/archive" class="{% if page.url == '/archive/' %}active{% endif %}">{{ t.archive }}</a>
+      <a href="{{ site.baseurl }}/tags" class="{% if page.url == '/tags/' %}active{% endif %}">{{ t.tags }}</a>
+      <a href="{{ site.baseurl }}/about" class="{% if page.url == '/about/' %}active{% endif %}">{{ t.about }}</a>
+    </div>
+
+    <div class="nav-actions">
+      <a class="button button-brand button-small" href="{{ site.baseurl }}/archive">{{ t.browse_archive }}</a>
+    </div>
   </div>
 </nav>

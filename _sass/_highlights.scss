@@ -1,11 +1,10 @@
-/* === 代码高亮 (琥珀磷光配色) === */
 pre,
 code {
-  font-family: inherit;
+  font-family: var(--font-mono);
 }
 
 code.highlighter-rouge {
-  color: var(--accent-yellow);
+  color: #f1c8a3;
 }
 
 pre.highlight {
@@ -13,45 +12,40 @@ pre.highlight {
 }
 
 .highlight {
-  background: #0a0a08;
-  color: var(--text-main);
+  background: transparent;
+  color: var(--color-warm-silver);
 }
 
-/* 注释 */
 .highlight .c,
 .highlight .cm,
 .highlight .c1,
 .highlight .cs,
 .highlight .cp {
-  color: #7a6e50;
+  color: #8f867a;
   font-style: italic;
 }
 
-/* 错误 */
 .highlight .err,
 .highlight .gr,
 .highlight .gt {
-  color: #ff6e40;
+  color: #ff8a6d;
 }
 
-/* 关键字 */
 .highlight .k,
 .highlight .kc,
 .highlight .kd,
 .highlight .kp,
 .highlight .kr,
 .highlight .ow {
-  color: #ffb000;
+  color: #f1c8a3;
   font-weight: 600;
 }
 
-/* 运算符 & 标签 */
 .highlight .o,
 .highlight .nt {
-  color: var(--text-main);
+  color: #faf9f5;
 }
 
-/* 辅助信息 */
 .highlight .gh,
 .highlight .gu,
 .highlight .gp,
@@ -59,19 +53,17 @@ pre.highlight {
 .highlight .w,
 .highlight .nn,
 .highlight .bp {
-  color: #8a7a50;
+  color: #a39b90;
 }
 
-/* 类型 & 函数名 */
 .highlight .kt,
 .highlight .nb,
 .highlight .nc,
 .highlight .nf,
 .highlight .ne {
-  color: #39ff14;
+  color: #d97757;
 }
 
-/* 变量 */
 .highlight .na,
 .highlight .no,
 .highlight .ni,
@@ -79,20 +71,18 @@ pre.highlight {
 .highlight .vc,
 .highlight .vg,
 .highlight .vi {
-  color: #ffd080;
+  color: #f0d3ba;
 }
 
-/* 数字 */
 .highlight .m,
 .highlight .mf,
 .highlight .mh,
 .highlight .mi,
 .highlight .mo,
 .highlight .il {
-  color: #ff9060;
+  color: #ebb089;
 }
 
-/* 字符串 */
 .highlight .s,
 .highlight .sb,
 .highlight .sc,
@@ -105,21 +95,19 @@ pre.highlight {
 .highlight .sx,
 .highlight .ss,
 .highlight .sr {
-  color: #80ff80;
+  color: #cdbd8c;
 }
 
-/* Diff 删除 */
-.highlight .gd,
-.highlight .gd .x {
-  color: #ff6e40;
-  background: rgba(255, 110, 64, 0.1);
-}
-
-/* Diff 添加 */
 .highlight .gi,
 .highlight .gi .x {
-  color: #39ff14;
-  background: rgba(57, 255, 20, 0.06);
+  color: #ced8c4;
+  background: rgba(113, 138, 106, 0.16);
+}
+
+.highlight .gd,
+.highlight .gd .x {
+  color: #f1b19b;
+  background: rgba(181, 51, 51, 0.16);
 }
 
 .highlight .ge,

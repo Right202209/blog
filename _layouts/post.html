@@ -11,31 +11,29 @@ layout: default
   {% assign reading_time = 1 %}
 {% endif %}
 
-<div class="content-wrap ch">
+<div class="content-wrap page-shell">
   <div class="container">
-    <div class="content-two-col post-layout">
+    <div class="content-two-col post-layout {% if page.toc == true %}has-aside{% else %}no-aside{% endif %}">
       <main class="content-main">
-        <article class="page-block post-block article-shell corner-decor">
-          <div class="corner-decor-tl"></div>
-          <div class="corner-decor-br"></div>
-          <a class="back-link" href="{{ site.baseurl }}/">[← {{ t.back_home }}]</a>
+        <article class="page-block post-block article-shell">
+          <a class="back-link button button-secondary button-small" href="{{ site.baseurl }}/">{{ t.back_home }}</a>
 
           <header class="post-header">
             <p class="section-label">{{ t.post_label }}</p>
             <h1>{{ page.title }}</h1>
             <div class="post-meta-row">
-              <span>{{ t.author_label }}: {{ post_author }}</span>
-              <span>{{ t.date_label }}: {{ page.date | date: "%Y-%m-%d" }}</span>
-              <span>{{ t.read_label }}: {{ reading_time }} {{ t.reading_time }}</span>
+              <span>{{ t.author_label }} · {{ post_author }}</span>
+              <span>{{ t.date_label }} · {{ page.date | date: "%Y-%m-%d" }}</span>
+              <span>{{ t.read_label }} · {{ reading_time }} {{ t.reading_time }}</span>
               <span id="busuanzi_container_page_pv" style="display:none;">
-                {{ t.views_label }}: <span id="busuanzi_value_page_pv"></span> {{ t.times }}
+                {{ t.views_label }} · <span id="busuanzi_value_page_pv"></span> {{ t.times }}
               </span>
             </div>
 
             {% if page.tags and page.tags.size > 0 %}
             <div class="topic-list post-topics">
               {% for tag in page.tags %}
-              <a href="{{ site.url }}{{ site.baseurl }}/tags#{{ tag | slugify }}">#{{ tag }}</a>
+              <a href="{{ site.baseurl }}/tags#{{ tag | slugify }}">#{{ tag }}</a>
               {% endfor %}
             </div>
             {% endif %}
@@ -55,12 +53,12 @@ layout: default
         <div class="pagination post-pagination">
           {% if page.previous.url %}
             <span class="prev">
-              <a href="{{ site.url }}{{ site.baseurl }}{{ page.previous.url }}">← {{ t.prev }}</a>
+              <a class="button button-secondary button-small" href="{{ site.baseurl }}{{ page.previous.url }}">{{ t.prev }}</a>
             </span>
           {% endif %}
           {% if page.next.url %}
             <span class="next">
-              <a href="{{ site.url }}{{ site.baseurl }}{{ page.next.url }}">{{ t.next }} →</a>
+              <a class="button button-secondary button-small" href="{{ site.baseurl }}{{ page.next.url }}">{{ t.next }}</a>
             </span>
           {% endif %}
         </div>
@@ -68,7 +66,7 @@ layout: default
 
       {% if page.toc == true %}
       <aside class="content-aside">
-        <div class="toc-box">
+        <div class="toc-box surface-card">
           <p class="section-label">{{ t.toc_label }}</p>
           {% include toc.html html=content %}
         </div>

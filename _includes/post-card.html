@@ -4,18 +4,16 @@
 {% unless post.content contains site.excerpt_separator or post.content != post.excerpt %}
   {% assign excerpt_text = post.content | strip_html | strip_newlines %}
 {% endunless %}
-{% assign card_class = include.class | default: 'dashboard-card post-card' %}
+{% assign card_class = include.class | default: 'post-card' %}
 
-<article class="{{ card_class }} corner-decor">
-  <div class="corner-decor-tl"></div>
-  <div class="corner-decor-br"></div>
+<article class="{{ card_class }}">
   <div class="post-card-head">
-    <p class="post-meta">{{ post.date | date: "%Y-%m-%d" }} · {{ post_author }}</p>
+    <p class="post-meta">{{ post.date | date: "%Y-%m-%d" }}</p>
     {% if include.label %}
     <p class="card-kicker">{{ include.label }}</p>
     {% endif %}
   </div>
-  <h3 class="glow-text"><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h3>
+  <h3><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h3>
   <p class="post-excerpt">{{ excerpt_text | truncate: include.truncate | default: 180 }}</p>
   {% if include.show_tags and post.tags and post.tags.size > 0 %}
   <div class="topic-list post-topics">
@@ -24,5 +22,8 @@
     {% endfor %}
   </div>
   {% endif %}
-  <p class="card-command">&gt; READ_FILE</p>
+  <div class="post-card-footer">
+    <span class="card-author">{{ post_author }}</span>
+    <a class="card-command" href="{{ site.baseurl }}{{ post.url }}">{{ include.read_more | default: "Read more" }}</a>
+  </div>
 </article>

@@ -2,7 +2,12 @@
 layout: page
 title: 标签
 permalink: /tags/
+section_label: Topics
+description: 按主题整理全部文章，也可以快速筛选到相关条目。
 ---
+
+{% assign lang = page.lang | default: site.lang | default: "zh" %}
+{% assign t = site.data.i18n.languages[lang] %}
 
 <div class="topic-list tags-nav">
   {% for tag in site.tags %}
@@ -12,8 +17,8 @@ permalink: /tags/
 
 <div class="tags-archive">
   <div class="list-filter">
-    <label for="tags-filter">Filter</label>
-    <input id="tags-filter" type="search" placeholder="筛选标题 / 标签" />
+    <label for="tags-filter">{{ t.filter_label }}</label>
+    <input id="tags-filter" type="search" placeholder="{{ t.tags_search_placeholder }}" />
   </div>
   {% for tag in site.tags %}
     <section class="tag-group" data-tag="{{ tag[0] | downcase | escape }}">

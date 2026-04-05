@@ -1,8 +1,16 @@
 {% assign lang = page.lang | default: site.lang | default: "zh" %}
 {% assign t = site.data.i18n.languages[lang] %}
 
-<footer class="mt-12 border-t-2 border-[#00ffff] pt-4 text-xs md:text-sm flex flex-col md:flex-row justify-between opacity-80 glow-box p-2 text-[#ffff00]">
-  <span>{'>'} SYSTEM STATUS: OPTIMAL</span>
-  <span>{'>'} MEMORY: 640K OUGHT TO BE ENOUGH FOR ANYBODY</span>
-  <span>(C) 2026 CRT_DESIGN_LABS</span>
+<footer class="site-footer">
+  <div class="container footer-shell">
+    <div class="footer-copy-block">
+      <p class="footer-title">{{ site.name }}</p>
+      <p class="footer-copy">{{ site.footer-text | default: site.description }}</p>
+    </div>
+    <div class="footer-meta">
+      <p>{{ site.description }}</p>
+      {% include svg-icons.html %}
+      <p class="footer-copyright">© {{ site.time | date: "%Y" }} {{ site.name }}</p>
+    </div>
+  </div>
 </footer>

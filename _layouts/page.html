@@ -2,14 +2,20 @@
 layout: default
 ---
 
-<div class="content-wrap ch">
-  <div class="container">
-    <article class="page-block corner-decor">
-      <div class="corner-decor-tl"></div>
-      <div class="corner-decor-br"></div>
-      <p class="section-label">Page</p>
-      <h1>{{ page.title }}</h1>
-      <div class="entry">
+{% assign lang = page.lang | default: site.lang | default: "zh" %}
+{% assign t = site.data.i18n.languages[lang] %}
+
+<div class="content-wrap page-shell">
+  <div class="container container-narrow">
+    <article class="page-block">
+      <header class="page-header">
+        <p class="section-label">{{ page.section_label | default: t.page_label }}</p>
+        <h1>{{ page.title }}</h1>
+        {% if page.description %}
+        <p class="page-intro">{{ page.description }}</p>
+        {% endif %}
+      </header>
+      <div class="entry page-content">
         {{ content }}
       </div>
     </article>
