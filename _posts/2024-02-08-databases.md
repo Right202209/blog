@@ -37,8 +37,6 @@ pinned: true
 
   2. **唯一约束（Unique Constraint）：** 除了主键之外，还可以使用唯一约束来保证数据的唯一性。唯一约束要求某一列或一组列中的值在表中是唯一的，但不要求其成为主键。
 
-     sqlCopy code
-
      ```sql
      -- 创建一个用户表（User），包含用户名和电子邮件地址，要求用户名和电子邮件地址都是唯一的 
      CREATE TABLE User (    user_id INT PRIMARY KEY AUTO_INCREMENT,    username VARCHAR(50) UNIQUE, -- 用户名必须唯一    
@@ -166,8 +164,8 @@ pinned: true
 
      > 创建一个关系模型的表格：
 
-     ```
-     sqlCopy code-- 创建一个名为 Students 的表格，用于存储学生信息
+     ```sql
+     -- 创建一个名为 Students 的表格，用于存储学生信息
      
      CREATE TABLE Students (
          student_id INT PRIMARY KEY,
@@ -197,8 +195,8 @@ pinned: true
 
       在关系型数据库中使用面向对象模型：
 
-      ```
-      sqlCopy code-- 创建一个名为 Person 的表格，用于存储人员信息
+      ```sql
+      -- 创建一个名为 Person 的表格，用于存储人员信息
       
       CREATE TABLE Person (
           person_id INT PRIMARY KEY,
@@ -248,8 +246,8 @@ pinned: true
 
       > 在 MongoDB 中使用文档模型存储数据：
 
-      ```
-      javascriptCopy code// 在 MongoDB 中插入一个文档
+      ```javascript
+      // 在 MongoDB 中插入一个文档
       
       db.students.insertOne({
           "student_id": 1001,
@@ -285,8 +283,8 @@ pinned: true
 
      >在 Apache HBase 中使用列存储模型存储数据：
 
-     ```
-     javaCopy codeimport org.apache.hadoop.hbase.TableName;
+     ```java
+     import org.apache.hadoop.hbase.TableName;
      import org.apache.hadoop.hbase.HBaseConfiguration;
      import org.apache.hadoop.hbase.client.Connection;
      import org.apache.hadoop.hbase.client.ConnectionFactory;
@@ -355,8 +353,8 @@ SQL（Structured Query Language）是一种专门用于管理关系型数据库�
 
      1. 创建表格（CREATE TABLE）：
 
-     ```
-     sqlCopy codeCREATE TABLE Employees (
+     ```sql
+     CREATE TABLE Employees (
          EmployeeID INT PRIMARY KEY,
          LastName VARCHAR(50),
          FirstName VARCHAR(50),
@@ -368,29 +366,26 @@ SQL（Structured Query Language）是一种专门用于管理关系型数据库�
 
      1. 修改表格（ALTER TABLE）：
 
-     ```
-     sqlCopy codeALTER TABLE Employees
+     ```sql
+     ALTER TABLE Employees
      ADD Email VARCHAR(100);
      ```
 
      1. 删除表格（DROP TABLE）：
 
-     ```
-     sqlCopy code
+     ```sql
      DROP TABLE Employees;
      ```
 
      1. 创建索引（CREATE INDEX）：
 
-     ```
-     sqlCopy code
+     ```sql
      CREATE INDEX idx_lastname ON Employees(LastName);
      ```
 
      1. 删除索引（DROP INDEX）：
 
-     ```
-     sqlCopy code
+     ```sql
      DROP INDEX idx_lastname ON Employees;
      ```
 
@@ -408,31 +403,31 @@ SQL（Structured Query Language）是一种专门用于管理关系型数据库�
 
      1. 插入数据（INSERT INTO）：
 
-     ```
-     sqlCopy codeINSERT INTO Employees (EmployeeID, LastName, FirstName, BirthDate, DepartmentID)
+     ```sql
+     INSERT INTO Employees (EmployeeID, LastName, FirstName, BirthDate, DepartmentID)
      VALUES (1, 'Smith', 'John', '1990-05-25', 101);
      ```
 
      1. 查询数据（SELECT）：
 
-     ```
-     sqlCopy codeSELECT EmployeeID, LastName, FirstName
+     ```sql
+     SELECT EmployeeID, LastName, FirstName
      FROM Employees
      WHERE DepartmentID = 101;
      ```
 
      1. 更新数据（UPDATE）：
 
-     ```
-     sqlCopy codeUPDATE Employees
+     ```sql
+     UPDATE Employees
      SET DepartmentID = 102
      WHERE LastName = 'Smith';
      ```
 
      1. 删除数据（DELETE FROM）：
 
-     ```
-     sqlCopy codeDELETE FROM Employees
+     ```sql
+     DELETE FROM Employees
      WHERE EmployeeID = 1;
      ```
 
@@ -448,15 +443,13 @@ SQL（Structured Query Language）是一种专门用于管理关系型数据库�
 
      1. 授予权限（GRANT）：
 
-     ```
-     sqlCopy code
+     ```sql
      GRANT SELECT, INSERT ON Employees TO user1;
      ```
 
      1. 撤销权限（REVOKE）：
 
-     ```
-     sqlCopy code
+     ```sql
      REVOKE INSERT ON Employees FROM user1;
      ```
 
@@ -484,8 +477,8 @@ SQL（Structured Query Language）是一种专门用于管理关系型数据库�
 
       以下是一个简单的数据查询示例：
 
-      ```
-      sqlCopy code-- 从名为 Employees 的表中检索所有员工的姓氏和名字
+      ```sql
+      -- 从名为 Employees 的表中检索所有员工的姓氏和名字
       SELECT LastName, FirstName
       FROM Employees;
       ```
@@ -494,8 +487,8 @@ SQL（Structured Query Language）是一种专门用于管理关系型数据库�
 
       另外，SELECT语句还可以进行更复杂的查询，如下所示：
 
-      ```
-      sqlCopy code-- 从名为 Orders 的表中检索订单数量大于100的顾客ID
+      ```sql
+      -- 从名为 Orders 的表中检索订单数量大于100的顾客ID
       SELECT CustomerID, COUNT(OrderID) AS OrderCount
       FROM Orders
       GROUP BY CustomerID
@@ -508,8 +501,7 @@ SQL（Structured Query Language）是一种专门用于管理关系型数据库�
 
    1. **数据过滤：** 数据过滤是根据特定的条件从数据库中选择符合条件的数据记录。常见的过滤操作使用 `WHERE` 子句来指定条件，只有满足条件的数据记录才会被检索出来。例如：
 
-   ```
-   sqlCopy code
+   ```sql
    SELECT * FROM employees WHERE department = 'Sales';
    ```
 
@@ -517,8 +509,7 @@ SQL（Structured Query Language）是一种专门用于管理关系型数据库�
 
    1. **数据排序：** 数据排序是对查询结果按照指定的列或表达式进行排序，以便更容易地理解和分析数据。常见的排序操作使用 `ORDER BY` 子句来指定排序的列和排序顺序（升序或降序）。例如：
 
-   ```
-   sqlCopy code
+   ```sql
    SELECT * FROM products ORDER BY price DESC;
    ```
 
@@ -526,8 +517,7 @@ SQL（Structured Query Language）是一种专门用于管理关系型数据库�
 
    1. **组合过滤和排序：** 可以将数据过滤和排序操作组合在一起，以获取满足特定条件并按照指定顺序排列的数据记录。例如：
 
-   ```
-   sqlCopy code
+   ```sql
    SELECT * FROM customers WHERE city = 'New York' ORDER BY last_name;
    ```
 
@@ -535,8 +525,8 @@ SQL（Structured Query Language）是一种专门用于管理关系型数据库�
 
    在 SELECT 查询中使用 WHERE 子句和 ORDER BY 子句：
 
-   ```
-   sqlCopy code-- 从名为 Employees 的表中检索年龄大于等于 30 岁的员工，并按照姓氏进行升序排序
+   ```sql
+   -- 从名为 Employees 的表中检索年龄大于等于 30 岁的员工，并按照姓氏进行升序排序
    SELECT LastName, FirstName, Age
    FROM Employees
    WHERE Age >= 30
@@ -555,8 +545,8 @@ SQL（Structured Query Language）是一种专门用于管理关系型数据库�
       - `MIN()`：计算数据列的最小值。
    2. **使用 GROUP BY 子句进行分组：** 在执行聚合操作时，通常需要使用 `GROUP BY` 子句对数据进行分组。`GROUP BY` 子句将查询结果按照指定的列进行分组，然后对每个分组执行聚合函数计算。
 
-   ```
-   sqlCopy codeSELECT department, COUNT(*) AS num_employees
+   ```sql
+   SELECT department, COUNT(*) AS num_employees
    FROM employees
    GROUP BY department;
    ```
@@ -565,8 +555,8 @@ SQL（Structured Query Language）是一种专门用于管理关系型数据库�
 
    1. **使用 HAVING 子句进行条件筛选：** 与 `WHERE` 子句类似，`HAVING` 子句用于对分组后的数据进行条件筛选。它通常用于筛选聚合结果中满足特定条件的数据组。
 
-   ```
-   sqlCopy codeSELECT department, AVG(salary) AS avg_salary
+   ```sql
+   SELECT department, AVG(salary) AS avg_salary
    FROM employees
    GROUP BY department
    HAVING AVG(salary) > 50000;
@@ -576,8 +566,8 @@ SQL（Structured Query Language）是一种专门用于管理关系型数据库�
 
    >使用聚合函数进行数据聚合：
 
-   ```
-   sqlCopy code-- 统计名为 Orders 的表中订单的总数
+   ```sql
+   -- 统计名为 Orders 的表中订单的总数
    SELECT COUNT(*) AS TotalOrders
    FROM Orders;
    ```
@@ -586,8 +576,8 @@ SQL（Structured Query Language）是一种专门用于管理关系型数据库�
 
    > 另一个示例是计算销售总额的总和：
 
-   ```
-   sqlCopy code-- 计算名为 Sales 的表中销售总额
+   ```sql
+   -- 计算名为 Sales 的表中销售总额
    SELECT SUM(SalesAmount) AS TotalSales
    FROM Sales;
    ```
@@ -600,32 +590,32 @@ SQL（Structured Query Language）是一种专门用于管理关系型数据库�
 
    1. **内连接（Inner Join）：** 内连接返回两个表格中符合连接条件的行，即两个表格中的行必须具有相同的连接列值。
 
-   ```
-   sqlCopy codeSELECT orders.order_id, customers.customer_name
+   ```sql
+   SELECT orders.order_id, customers.customer_name
    FROM orders
    INNER JOIN customers ON orders.customer_id = customers.customer_id;
    ```
 
    1. **左连接（Left Join）：** 左连接返回左侧表格的所有行，以及与右侧表格中匹配的行。如果右侧表格中没有匹配的行，则返回 `NULL` 值。
 
-   ```
-   sql codeSELECT customers.customer_name, orders.order_id
+   ```sql
+   SELECT customers.customer_name, orders.order_id
    FROM customers
    LEFT JOIN orders ON customers.customer_id = orders.customer_id;
    ```
 
    1. **右连接（Right Join）：** 右连接返回右侧表格的所有行，以及与左侧表格中匹配的行。如果左侧表格中没有匹配的行，则返回 `NULL` 值。
 
-   ```
-   sqlCopy codeSELECT orders.order_id, customers.customer_name
+   ```sql
+   SELECT orders.order_id, customers.customer_name
    FROM orders
    RIGHT JOIN customers ON orders.customer_id = customers.customer_id;
    ```
 
    1. **全连接（Full Join）：** 全连接返回左侧表格和右侧表格的所有行，如果某一侧表格中没有匹配的行，则返回 `NULL` 值。
 
-   ```
-   sqlCopy codeSELECT customers.customer_name, orders.order_id
+   ```sql
+   SELECT customers.customer_name, orders.order_id
    FROM customers
    FULL JOIN orders ON customers.customer_id = orders.customer_id;
    ```
@@ -644,8 +634,8 @@ SQL作为一种标准化的查询语言，具有通用性和广泛应用性。�
 
       > 在SQL数据库中，创建B-树索引通常是通过CREATE INDEX语句来实现的。以下是一个示例代码：
 
-      ```
-      sqlCopy code-- 在名为 Employees 的表格中创建一个B-树索引，用于加速 LastName 列的检索
+      ```sql
+      -- 在名为 Employees 的表格中创建一个B-树索引，用于加速 LastName 列的检索
       CREATE INDEX idx_lastname ON Employees(LastName);
       ```
 
@@ -671,8 +661,8 @@ SQL作为一种标准化的查询语言，具有通用性和广泛应用性。�
 
       >在关系型数据库中，创建B+树索引通常也是通过CREATE INDEX语句来实现的。以下是一个示例代码：
 
-      ```
-      sqlCopy code-- 在名为 Students 的表格中创建一个B+树索引，用于加速按照学生姓名（Name）的检索
+      ```sql
+      -- 在名为 Students 的表格中创建一个B+树索引，用于加速按照学生姓名（Name）的检索
       CREATE INDEX idx_name ON Students(Name);
       ```
 
@@ -698,8 +688,8 @@ SQL作为一种标准化的查询语言，具有通用性和广泛应用性。�
 
       >在MySQL中，哈希索引通常不是主流索引类型，但可以在特定场景下使用。
 
-      ```
-      sqlCopy code-- 在名为 Students 的表格中创建一个哈希索引，用于加速按照学生ID（StudentID）的等值查询
+      ```sql
+      -- 在名为 Students 的表格中创建一个哈希索引，用于加速按照学生ID（StudentID）的等值查询
       CREATE INDEX idx_student_id ON Students(StudentID) USING HASH;
       ```
 
@@ -726,8 +716,8 @@ SQL作为一种标准化的查询语言，具有通用性和广泛应用性。�
 
       假设我们有一个名为 `articles` 的表，其中包含了一个 `content` 列，存储了文章的内容。
 
-      ```
-      sqlCopy code-- 在名为 articles 的表格中创建一个全文索引，用于加速文章内容的全文搜索
+      ```sql
+      -- 在名为 articles 的表格中创建一个全文索引，用于加速文章内容的全文搜索
       CREATE FULLTEXT INDEX idx_content ON articles(content);
       ```
 
@@ -735,8 +725,8 @@ SQL作为一种标准化的查询语言，具有通用性和广泛应用性。�
 
       一旦创建了全文索引，就可以使用全文搜索功能来进行文本搜索。以下是一个简单的例子：
 
-      ```
-      sqlCopy code-- 在 articles 表中进行全文搜索，查找包含 "database" 关键词的文章
+      ```sql
+      -- 在 articles 表中进行全文搜索，查找包含 "database" 关键词的文章
       SELECT * FROM articles WHERE MATCH(content) AGAINST('database');
       ```
 
@@ -763,8 +753,8 @@ SQL作为一种标准化的查询语言，具有通用性和广泛应用性。�
 
       假设我们有一个名为 `locations` 的表，其中包含了一个 `geom` 列，存储了位置的几何信息。
 
-      ```
-      sqlCopy code-- 在名为 locations 的表格中创建一个空间索引，用于加速位置数据的空间查询
+      ```sql
+      -- 在名为 locations 的表格中创建一个空间索引，用于加速位置数据的空间查询
       CREATE INDEX idx_geom ON locations USING GIST (geom);
       ```
 
@@ -772,8 +762,8 @@ SQL作为一种标准化的查询语言，具有通用性和广泛应用性。�
 
       一旦创建了空间索引，就可以使用空间查询功能来进行位置数据的空间查询。以下是一个简单的例子：
 
-      ```
-      sqlCopy code-- 在 locations 表中进行空间查询，查找包含指定点的位置
+      ```sql
+      -- 在 locations 表中进行空间查询，查找包含指定点的位置
       SELECT *
       FROM locations
       WHERE ST_Contains(geom, ST_GeomFromText('POINT(10 20)'));
@@ -804,8 +794,7 @@ SQL作为一种标准化的查询语言，具有通用性和广泛应用性。�
 
       首先，创建位图索引：
 
-      ```
-      sqlCopy code
+      ```sql
       CREATE BITMAP INDEX idx_department_id ON employees(department_id);
       ```
 
@@ -813,8 +802,8 @@ SQL作为一种标准化的查询语言，具有通用性和广泛应用性。�
 
       一旦创建了位图索引，可以使用位图索引来加速数据的检索和过滤。以下是一个简单的例子：
 
-      ```
-      sqlCopy code-- 查询部门ID为 100 的员工
+      ```sql
+      -- 查询部门ID为 100 的员工
       SELECT * FROM employees
       WHERE department_id = 100;
       ```
@@ -863,22 +852,22 @@ SQL作为一种标准化的查询语言，具有通用性和广泛应用性。�
 
       1. **单列索引：**
 
-      ```
-      sqlCopy code-- 在名为 Employees 的表格中创建一个单列索引，用于加速 LastName 列的检索
+      ```sql
+      -- 在名为 Employees 的表格中创建一个单列索引，用于加速 LastName 列的检索
       CREATE INDEX idx_lastname ON Employees(LastName);
       ```
 
       1. **复合索引：**
 
-      ```
-      sqlCopy code-- 在名为 Employees 的表格中创建一个复合索引，用于加速 LastName 和 FirstName 列的组合检索
+      ```sql
+      -- 在名为 Employees 的表格中创建一个复合索引，用于加速 LastName 和 FirstName 列的组合检索
       CREATE INDEX idx_lastname_firstname ON Employees(LastName, FirstName);
       ```
 
       1. **唯一索引：**
 
-      ```
-      sqlCopy code-- 在名为 Employees 的表格中创建一个唯一索引，确保 EmployeeID 列的数值唯一
+      ```sql
+      -- 在名为 Employees 的表格中创建一个唯一索引，确保 EmployeeID 列的数值唯一
       CREATE UNIQUE INDEX idx_employeeid_unique ON Employees(EmployeeID);
       ```
 
@@ -929,22 +918,19 @@ SQL作为一种标准化的查询语言，具有通用性和广泛应用性。�
 
    - 在 MySQL 中，创建单列索引的语法如下：
 
-     ```
-     sqlCopy code
+     ```sql
      CREATE INDEX index_name ON table_name(column_name);
      ```
 
    - 创建复合索引：
 
-     ```
-     sqlCopy code
+     ```sql
      CREATE INDEX index_name ON table_name(column1, column2);
      ```
 
    - 创建唯一索引：
 
-     ```
-     sqlCopy code
+     ```sql
      CREATE UNIQUE INDEX index_name ON table_name(column_name);
      ```
 
