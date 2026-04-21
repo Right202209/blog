@@ -6,14 +6,14 @@
 
 .post-header {
   display: grid;
-  gap: 12px;
-  margin-bottom: 22px;
+  gap: 14px;
+  margin-bottom: 28px;
 }
 
 .post-meta-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 14px;
 }
 
 .post-meta-row span {
@@ -103,7 +103,7 @@
 }
 
 .entry :not(pre)>code {
-  padding: 0.1em 0.4em;
+  padding: 0.15em 0.5em;
   border: 1px solid rgba(255, 176, 0, 0.18);
   background: rgba(255, 176, 0, 0.06);
   color: var(--accent-yellow);
@@ -123,7 +123,7 @@
 }
 
 .entry pre {
-  padding: 16px;
+  padding: 18px;
 }
 
 .entry .highlight {
@@ -148,7 +148,7 @@
 }
 
 .entry blockquote {
-  padding: 0.5em 14px 0.5em 16px;
+  padding: 0.6em 16px 0.6em 18px;
   border-left: 3px solid var(--accent-magenta);
   background: rgba(57, 255, 20, 0.03);
   color: var(--text-main);
@@ -168,7 +168,7 @@
 
 .entry th,
 .entry td {
-  padding: 10px 12px;
+  padding: 12px 14px;
   border: 1px solid var(--border-soft);
   text-align: left;
 }
@@ -185,8 +185,8 @@
 }
 
 .post-comments {
-  margin-top: 24px;
-  padding-top: 18px;
+  margin-top: 32px;
+  padding-top: 22px;
   border-top: 1px solid rgba(255, 176, 0, 0.12);
 }
 
@@ -203,7 +203,7 @@
 
 .tag-group {
   display: grid;
-  gap: 12px;
+  gap: 14px;
 }
 
 .tag-group h2 {
@@ -214,7 +214,7 @@
   display: flex;
   justify-content: space-between;
   gap: 12px;
-  margin-top: 18px;
+  margin-top: 22px;
 }
 
 .pagination .prev,
@@ -233,24 +233,26 @@
 
 .toc-box ul ul {
   margin-top: 8px;
-  padding-left: 10px;
+  padding-left: 12px;
   border-left: 1px solid var(--border-soft);
 }
 
 .toc-box li+li {
-  margin-top: 8px;
+  margin-top: 10px;
 }
 
 .toc-box a {
   color: var(--text-muted);
-  font-size: 11px;
-  letter-spacing: 0.06em;
+  font-size: 12px;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  transition: color 0.12s linear, text-shadow 0.12s linear;
+  transition: color var(--dur-fast) var(--ease-smooth),
+              text-shadow var(--dur-fast) var(--ease-smooth),
+              padding-left var(--dur-fast) var(--ease-smooth);
 }
 
 .toc-box a:hover,
 .toc-box a.is-active {
   color: var(--accent-magenta);
-  text-shadow: 0 0 8px rgba(255, 0, 80, 0.5);
+  text-shadow: 0 0 8px rgba(57, 255, 20, 0.5);
 }

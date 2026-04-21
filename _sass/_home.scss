@@ -7,7 +7,7 @@
   grid-template-columns: minmax(0, 1.45fr) minmax(240px, 0.55fr);
   gap: var(--section-gap);
   align-items: start;
-  padding: 20px;
+  padding: 28px 24px;
   margin-bottom: var(--section-gap);
 }
 
@@ -25,12 +25,12 @@
 
 .dashboard-hero-meta {
   align-content: start;
-  gap: 10px;
+  gap: 12px;
 }
 
 .dashboard-hero-main {
   align-content: start;
-  gap: 8px;
+  gap: 14px;
 }
 
 .dashboard-hero h1,
@@ -86,37 +86,38 @@
 
 .hero-summary {
   max-width: 56ch;
-  margin-top: 2px;
-  font-size: 13px;
+  margin-top: 6px;
+  font-size: 14px;
+  line-height: 1.65;
 }
 
 .hero-summary p+p {
-  margin-top: 4px;
+  margin-top: 6px;
 }
 
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 2px;
+  gap: 10px;
+  margin-top: 8px;
 }
 
 .panel-compact {
-  padding: 14px;
+  padding: 18px;
 }
 
 .panel-heading {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 12px;
-  padding-bottom: 8px;
+  gap: 14px;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
   border-bottom: 1px solid var(--border-soft);
 }
 
 .panel-heading-compact {
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 .panel-heading h2,
@@ -132,14 +133,14 @@
 
 .metric-list {
   display: grid;
-  gap: 10px;
+  gap: 12px;
 }
 
 .metric-list div {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 12px;
-  padding-top: 12px;
+  padding-top: 14px;
   border-top: 1px solid var(--border-soft);
 }
 
@@ -150,8 +151,8 @@
 
 .metric-list dt {
   color: var(--text-dim);
-  letter-spacing: 0.18em;
-  font-size: 11px;
+  letter-spacing: 0.14em;
+  font-size: 12px;
   text-transform: uppercase;
 }
 
@@ -165,7 +166,7 @@
 
 
 .dashboard-panel {
-  padding: 16px;
+  padding: 20px;
   position: relative;
   border: 1px solid var(--border-soft);
 }
@@ -199,19 +200,19 @@
 .spotlight-panel,
 .system-panel {
   display: grid;
-  gap: 12px;
+  gap: 14px;
 }
 
 .spotlight-excerpt {
-  max-width: 60ch;
-  font-size: 13px;
-  line-height: 1.7;
+  max-width: 62ch;
+  font-size: 14px;
+  line-height: 1.75;
 }
 
 .highlight-grid,
 .feed-list {
   display: grid;
-  gap: 10px;
+  gap: 14px;
 }
 
 .highlight-grid {
@@ -221,11 +222,11 @@
 .dashboard-card,
 .post-card {
   display: grid;
-  gap: 10px;
+  gap: 12px;
 }
 
 .dashboard-card {
-  padding: 12px;
+  padding: 16px;
 }
 
 .post-card {
@@ -265,7 +266,7 @@
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 8px 12px;
-  padding-bottom: 8px;
+  padding-bottom: 10px;
   border-bottom: 1px solid var(--border-soft);
 }
 
@@ -287,17 +288,17 @@
 }
 
 .post-card h3 {
-  font-size: 2.05rem;
-  line-height: 0.98;
+  font-size: 1.95rem;
+  line-height: 1.08;
 }
 
 .post-excerpt {
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.75;
 }
 
 .card-command {
-  padding-top: 7px;
+  padding-top: 10px;
   border-top: 1px solid var(--border-soft);
   color: var(--accent-yellow);
 }
@@ -306,14 +307,14 @@
 
 
 .empty-panel {
-  padding: 8px 0 2px;
+  padding: 12px 0 4px;
   color: var(--text-dim);
 }
 
 .overflow-feed {
-  margin-top: 12px;
+  margin-top: 16px;
 }
 
 .pagination-single {
-  margin-top: 16px;
+  margin-top: 20px;
 }

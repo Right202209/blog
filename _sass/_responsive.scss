@@ -67,7 +67,7 @@
 @media screen and (max-width: 760px) {
   :root {
     --container-width: calc(100vw - 18px);
-    --section-gap: 14px;
+    --section-gap: 16px;
   }
 
   .site-shell {
@@ -120,7 +120,7 @@
   .dashboard-card,
   .archive-row,
   .list-filter {
-    padding: 11px;
+    padding: 14px;
   }
 
   .dashboard-hero h1,
