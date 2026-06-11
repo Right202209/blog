@@ -99,6 +99,73 @@ em, i {
   mask-image: linear-gradient(180deg, transparent 0, #000 120px, #000 calc(100% - 80px), transparent 100%);
 }
 
+// 浮墨: faint watermark glyphs and ink washes drifting behind the page
+.paper-motes {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+
+  .mote {
+    position: absolute;
+    display: block;
+
+    > span {
+      display: block;
+    }
+  }
+
+  .mote-glyph > span {
+    font-family: var(--font-display);
+    font-weight: 600;
+    line-height: 1;
+    color: rgba(40, 35, 26, 0.045);
+    user-select: none;
+  }
+
+  .mote-wash > span {
+    border-radius: 50%;
+    background: radial-gradient(circle at 38% 38%, rgba(178, 58, 39, 0.055), transparent 68%);
+  }
+
+  .mote-1 {
+    top: 11%;
+    left: 5%;
+    > span { font-size: 11rem; }
+  }
+
+  .mote-2 {
+    top: 56%;
+    right: 3%;
+    > span { font-size: 14rem; }
+  }
+
+  .mote-3 {
+    bottom: 7%;
+    left: 16%;
+    > span { font-size: 9rem; }
+  }
+
+  .mote-4 {
+    top: 26%;
+    right: 20%;
+    > span {
+      width: 360px;
+      height: 360px;
+    }
+  }
+
+  .mote-5 {
+    bottom: 14%;
+    left: 42%;
+    > span {
+      width: 480px;
+      height: 480px;
+    }
+  }
+}
+
 // ------------------------------------------------------------- layout
 
 .site-shell {

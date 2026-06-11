@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+  <title>LOFFER使用基础教程 – Right – 以证据为起点，以方法为路径。</title>
+
+      <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="LOFFER是个可以帮助你get off from LOFTER的软件（我知道这个pun很烂）。这是一个可以直接发布在GitHub page的Jekyll博客，你不需要编写代码或使用命令行即可配置属于你的LOFFER。本文为针对完全没有代码基础的朋友的基础教程。注意LOFFER是一个博客模板。虽然意图有针对lof..." />
+    <meta property="og:description" content="LOFFER是个可以帮助你get off from LOFTER的软件（我知道这个pun很烂）。这是一个可以直接发布在GitHub page的Jekyll博客，你不需要编写代码或使用命令行即可配置属于你的LOFFER。本文为针对完全没有代码基础的朋友的基础教程。注意LOFFER是一个博客模板。虽然意图有针对lof..." />
+    
+    <meta name="author" content="Right" />
+    <link rel="canonical" href="https://right202209.github.io/blog/document/">
+
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://right202209.github.io/blog/document/" />
+    <meta property="og:site_name" content="Right" />
+    <meta property="og:image" content="https://right202209.github.io/blog/images/logo.jpg" />
+
+    
+    <meta property="og:title" content="LOFFER使用基础教程" />
+    <meta property="twitter:title" content="LOFFER使用基础教程" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@" />
+    <meta name="twitter:description" content="LOFFER是个可以帮助你get off from LOFTER的软件（我知道这个pun很烂）。这是一个可以直接发布在GitHub page的Jekyll博客，你不需要编写代码或使用命令行即可配置属于你的LOFFER。本文为针对完全没有代码基础的朋友的基础教程。注意LOFFER是一个博客模板。虽然意图有针对lof..." />
+    <meta name="twitter:image" content="https://right202209.github.io/blog/images/logo.jpg" />
+  <!-- Theme fonts: Noto Serif SC (display) · LXGW WenKai Screen (body) · IBM Plex Mono (meta/code) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;900&family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.css" rel="stylesheet">
+
+
+  <link rel="stylesheet" type="text/css" href="/blog/style.css" />
+  <link rel="alternate" type="application/rss+xml" title="Right - 以证据为起点，以方法为路径。" href="/blog/feed.xml" />
+  <link rel="shortcut icon" href="images/favicon.ico">
+  
+  <script type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$']]
+      }
+    };
+  </script>
+</head>
+
+  
+  
+  
+  
+  <body class="layout-post page-post">
+    <div class="paper-grain" aria-hidden="true"></div>
+    <div class="paper-columns" aria-hidden="true"></div>
+    <div class="paper-motes" aria-hidden="true">
+      <span class="mote mote-glyph mote-1" data-depth="0.35"><span>考</span></span>
+      <span class="mote mote-glyph mote-2" data-depth="0.6"><span>據</span></span>
+      <span class="mote mote-glyph mote-3" data-depth="0.45"><span>墨</span></span>
+      <span class="mote mote-wash mote-4" data-depth="0.25"><span></span></span>
+      <span class="mote mote-wash mote-5" data-depth="0.5"><span></span></span>
+    </div>
+
+    <div class="site-shell">
+      
+
+
+<nav class="site-nav">
+  <a class="nav-brand" href="/blog/">
+    <span class="brand-seal" aria-hidden="true">札</span>
+    <span class="brand-copy">
+      <strong class="brand-name">Right</strong>
+      <span class="brand-sub">札记</span>
+    </span>
+  </a>
+  <div class="nav-links">
+    <a href="/blog/" class="">首页</a>
+    <a href="/blog/archive" class="">归档</a>
+    <a href="/blog/tags" class="">标签</a>
+    <a href="/blog/about" class="">关于</a>
+  </div>
+</nav>
+
+
+      <main class="main">
+        
+
+
+
+
+
+
+<div class="content-wrap">
+  <div class="container">
+    <div class="content-two-col post-layout">
+      <main class="content-main">
+        <article class="article-folio reveal">
+          <a class="back-link" href="/blog/">← 返回首页</a>
+
+          <header class="post-header">
+            <span class="post-side-label" aria-hidden="true">文</span>
+            <h1 class="post-title">LOFFER使用基础教程</h1>
+            <p class="entry-meta post-meta-row">
+              <time datetime="2013-08-02T00:00:00+08:00">2013.08.02</time>
+              <span class="meta-dot" aria-hidden="true">·</span>
+              <span>来自中世界</span>
+              <span class="meta-dot" aria-hidden="true">·</span>
+              <span>1 分钟读完</span>
+              <span id="busuanzi_container_page_pv" style="display:none;">
+                <span class="meta-dot" aria-hidden="true">·</span>
+                阅读 <span id="busuanzi_value_page_pv"></span> 次
+              </span>
+            </p>
+
+            
+            <p class="post-topics">
+              
+              <a class="meta-tag" href="https://right202209.github.io/blog/tags#sample">#sample</a>
+              
+              <a class="meta-tag" href="https://right202209.github.io/blog/tags#document">#document</a>
+              
+            </p>
+            
+            <div class="header-rule" aria-hidden="true"></div>
+          </header>
+
+          <div class="entry">
+            <p>LOFFER是个可以帮助你get off from LOFTER的软件（我知道这个pun很烂）。</p>
+
+<p>这是一个可以直接发布在GitHub page的Jekyll博客，你不需要编写代码或使用命令行即可配置属于你的LOFFER。</p>
+
+<p>本文为针对完全没有代码基础的朋友的基础教程。</p>
+
+<h2 id="注意">注意</h2>
+
+<p>LOFFER是一个<strong>博客模板</strong>。</p>
+
+<p>虽然意图有针对lofter用户，但是我个人狠不赞同纯外链停车操作，你整整齐齐打理个自由自在没有敏感词的个人博客有啥不好。</p>
+
+<p><strong>不要用我的Discus账户，请配置你自己的，本文档中有教程</strong></p>
+
+<p>如有疑问，请阅读<a href="https://pages.github.com/">GitHub Pages官方说明</a>。</p>
+
+<h2 id="图文教程">图文教程</h2>
+
+<p>注意以下需要上电脑操作。</p>
+
+<h3 id="第一步-使用这个template">第一步 使用这个template</h3>
+
+<p>请点击<a href="https://github.com/">GitHub</a>，注册一个GitHub账户，这是完全免费的，只要提供邮箱即可。</p>
+
+<p>现在你看到的LOFFER，是作为一个GitHub上的Repository（代码库）存在的，我将之设为可以作为template（模板），你可以用这个模板来生成一份自己的LOFFER。</p>
+
+<p>点击<a href="https://github.com/FromEndWorld/LOFFER">LOFFER</a>，进入LOFFER的GitHub Repository页面，然后点<strong>Use this template</strong>，如图所示。</p>
+
+<p><img src="https://raw.githubusercontent.com/FromEndWorld/LOFFER/master/images/usetemplate.png" alt="img" /></p>
+
+<p>你会进入如下页面，请给你的博客起个名字，这里只能用字母和少数特殊字符，没有关系，这个名称并不影响你的博客页面显示。</p>
+
+<p><img src="https://raw.githubusercontent.com/FromEndWorld/LOFFER/master/images/nameyourbolg.png" alt="img" /></p>
+
+<p>点击<strong>Create repository from template</strong>，你很快就会看到如下页面，GitHub已经将LOFFER中所有的文件复制到你的新代码库中。</p>
+
+<p>下一步，点击Settings，进入相关设置。</p>
+
+<p><img src="https://raw.githubusercontent.com/FromEndWorld/LOFFER/master/images/Settings.png" alt="img" /></p>
+
+<p>向下拉页面，你会看到“GitHub Pages”，这是GitHub内置的网站host服务，选择master，如图所示：</p>
+
+<p><img src="https://raw.githubusercontent.com/FromEndWorld/LOFFER/master/images/pages.png" alt="img" /></p>
+
+<p>在几秒钟后，刷新此页面，你通常会看到这个绿色的东西（如果没看到，多等一会），你的网站已经发布成功，点击这个链接，即可查看：</p>
+
+<p><img src="https://raw.githubusercontent.com/FromEndWorld/LOFFER/master/images/published.png" alt="img" /></p>
+
+<p>你可能会看到网站长得很丑，这是因为样式表尚未从正确的地址加载，没关系，请继续下一步。</p>
+
+<h3 id="第二步-设置站点信息">第二步 设置站点信息</h3>
+
+<p>在你的博客的GitHub代码库页面里，选择Code，文件列表里选择_config.yml，点击打开，然后点击右上角笔形图标修改文档。</p>
+
+<p><img src="https://raw.githubusercontent.com/FromEndWorld/LOFFER/master/images/config.png" alt="img" /></p>
+
+<p>关于如何修改站点信息，在文件内有文档说明。</p>
+
+<p>修改完成后，点击<strong>Commit changes</strong>（提交修改）。每次修改过代码库并且提交后，GitHub Pages都会自动重新发布网站，只要等上几分钟，再次刷新你的博客页面，就会看到你的修改了。这一修改完成后，你的博客站应该可以正常显示了。</p>
+
+<p>如果刷新看不到效果，请使用“强刷新”，一般来说按ctrl+R。</p>
+
+<p>还有一点，<strong>LOFFER使用的是MIT协议，大意就是全部开源随意使用，如果你要保留自己博文的权利，请编辑LICENSE文件，写上类似“博文作者保留权利”这样的内容。</strong></p>
+
+<h3 id="第三步-发布博文">第三步 发布博文</h3>
+
+<p>在你的博客的GitHub代码库页面里，点开_posts文件夹，这里面就是你的博客文章。</p>
+
+<p>这些文章使用的格式是Markdown，文件后缀名是md，这是一种非常简单易用的有格式文本标记语言，你应该已经注意到，在LOFFER自带的示例性博文中有一篇中文的<a href="https://fromendworld.github.io/LOFFER/chinese-markdown-cheatsheet/">Markdown语法介绍</a>。</p>
+
+<p>更简单的办法是使用<a href="https://typora.io/">Typora</a>，这是一个全图形化界面，全实时预览的Markdown写作软件，非常轻量，而且免费。</p>
+
+<p><img src="https://raw.githubusercontent.com/FromEndWorld/LOFFER/master/images/Typora.png" alt="img" /></p>
+
+<p>在发布博文前，你需要在文章的头部添加这样的内容，包括你的文章标题，发布日期，作者名，和tag等。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---
+layout: post
+title: LOFFER文档
+date: 2019-06-02
+Author: 来自中世界
+categories: 
+tags: [sample, document]
+comments: true
+--- 
+</code></pre></div></div>
+
+<p>完成后，保存为.md文件，文件名是date-标题，例如 2019-06-02-document.md (注意这里的标题会成为这篇博文的链接，所以请使用字母而非中文，它不影响页面上显示的标题)，然后上传到_posts文件夹，再提交修改，很快就可以在博客上看到新文章了。</p>
+
+<h3 id="可选图片怎么办">可选：图片怎么办？</h3>
+
+<p>少量图片可以上传到images文件夹，然后在博文中添加。</p>
+
+<p>但是GitHub用来当做图床有滥用之嫌，如果你的博客以图片为主，建议选择外链图床，例如<a href="https://sm.ms/">sm.ms</a>就是和很好的选择。</p>
+
+<p>要寻找更适合自己的图床，敬请搜索一下。</p>
+
+<p>在博文中添加图片的Markdown语法是：<code class="language-plaintext highlighter-rouge">![图片名](URL)</code></p>
+
+<h3 id="可选添加评论区">可选：添加评论区</h3>
+
+<h4 id="disqus">Disqus</h4>
+
+<p>LOFFER支持Disqus评论，虽然Disqus很丑，但是它是免费的，设置起来又方便，因此大家也就不要嫌弃它。</p>
+
+<p><strong>注意：目前有一些LOFFER使用者没有修改示例站现有的Disqus配置，那么你用的就是我的Disqus站点，这样不好，不好……</strong></p>
+
+<p><strong>请根据一下教程配置你自己的站点。</strong></p>
+
+<p>首先，注册一个<a href="https://disqus.com/">Disqus</a>账户，我们可以选择这个免费方案：</p>
+
+<p><img src="https://raw.githubusercontent.com/FromEndWorld/LOFFER/master/images/Disqus-plan.png" alt="img" /></p>
+
+<p>注册成功后，新建一个站点（site），以LOFFER为例设置步骤如下：</p>
+
+<p>首先站点名LOFFER，生成了shortname是loffer，类型可以随便选。</p>
+
+<p><img src="https://raw.githubusercontent.com/FromEndWorld/LOFFER/master/images/Disqus-1.png" alt="img" /></p>
+
+<p>安装时选择Jekyll。</p>
+
+<p><img src="https://raw.githubusercontent.com/FromEndWorld/LOFFER/master/images/Disqus-2.png" alt="img" /></p>
+
+<p>最后填入你的博客地址，语言可以选中文，点Complete，即可！</p>
+
+<p><img src="https://raw.githubusercontent.com/FromEndWorld/LOFFER/master/images/Disqus-3.png" alt="img" /></p>
+
+<p>然后需要回到你的博客，修改_config.yml文件，在disqus字段填上你的shortname，commit，完成！</p>
+
+<h4 id="gitalk">Gitalk</h4>
+
+<p>LOFFER 0.2.0版本支持Gitalk评论区（在LOFFER示例站中仍然是Disqus，可以在<a href="https://himring.top/gitalk/">我的博客</a>查看Gitalk的demo），设置方法如下：</p>
+
+<p>首先，创建一个<a href="https://github.com/settings/applications/new">OAuth application</a>, 设置如图：</p>
+
+<p><img src="https://raw.githubusercontent.com/FromEndWorld/LOFFER/master/images/application_settings.png" alt="img" /></p>
+
+<p>点Register后就会看到你所需要的两个值，clientID和clientSecret，把它们复制到你的_config.yml文件中相应的字段：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gitalk:
+  clientID: &lt;你的clientID&gt;
+  clientSecret: &lt;你的clientSecret&gt;
+  repo: &lt;你的repository名称&gt;
+  owner: &lt;你的GitHub用户名&gt;
+  proxy: &lt;代理地址&gt;
+</code></pre></div></div>
+
+<p>然后commit，你的Gitalk评论区就会出现了。第一次使用的时候，需要你来进入文章页，来初始化评论区，这一操作会在你的repository上创建一个Issue，此后的评论就是对这个Issue的回复。</p>
+
+<p>你可以进入你的repository的Issue页面，点<strong>Unsubscribe</strong>来避免收到大量相关邮件。</p>
+
+<p>注意：出于很明显的原因，最好不要同时添加Disqus和Gitalk评论区。</p>
+
+<h3 id="导入lofter的内容">导入LOFTER的内容</h3>
+
+<p>这部分由于LOFTER的导出文件十分<del>优秀</del>，需要另外解决。</p>
+
+<p>诸位可以使用我修改的脚本<a href="https://github.com/FromEndWorld/lofter2Jekyll">lofter2Jekyll</a>，功能为将lofter导出的文件转换成可用于Jekyll的MD文档，还可以将图片批量下载到本地。</p>
+
+<p>也可以使用<a href="http://underdream.lofter.com/post/38ea7d_1c5d8a983">墨问非名太太的脚本</a>，其中选择Jekyll输出即可。</p>
+
+<h2 id="致谢">致谢</h2>
+
+<ul>
+  <li><a href="https://github.com/jekyll/jekyll">Jekyll</a> - 这是本站存在的根基</li>
+  <li><a href="https://github.com/aweekj/kiko-now">Kiko-now</a> - 我首先是fork这个主题，然后再其上进行修改汉化，才有了LOFFER</li>
+  <li><a href="https://fontawesome.com/">Font Awesome</a> - 社交网络图标来自FontAwesome的免费开源内容</li>
+</ul>
+
+<h2 id="帮助这个项目">帮助这个项目</h2>
+
+<p>介绍更多人来使用它，摆脱lofter自由飞翔！</p>
+
+<p>当然如果单说写同人的话，我还是建议大家都去AO3，但是自家博客自己架也很酷炫，你还可以选择很多其他的Jeykll主题，GitHub上有很多，或者试试其他博客架设工具，例如Hexo，与代码斗其乐无穷。</p>
+
+<p>最后，回到<a href="https://github.com/FromEndWorld/LOFFER">LOFFER</a>，给我点一个☆吧！</p>
+
+<p><img src="https://raw.githubusercontent.com/FromEndWorld/LOFFER/master/images/givemefive.png" alt="img" /></p>
+
+          </div>
+
+          <section class="post-comments">
+            
+            
+<script src="https://utteranc.es/client.js"
+        repo="Right202209/blog"
+        issue-term="issue-term"
+        label="utteranc"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+            
+          </section>
+        </article>
+
+        <nav class="pagination post-pagination">
+          
+            <span class="prev">
+              <a href="https://right202209.github.io/blog/chinese-markdown-cheatsheet/">← 上一篇</a>
+            </span>
+          
+          
+            <span class="next">
+              <a href="https://right202209.github.io/blog/math-test/">下一篇 →</a>
+            </span>
+          
+        </nav>
+      </main>
+
+      
+      <aside class="content-aside">
+        <div class="toc-box">
+          <p class="toc-label">目录</p>
+          <ul>
+  <li><a href="#注意">注意</a></li>
+  <li><a href="#图文教程">图文教程</a>
+    <ul>
+      <li><a href="#第一步-使用这个template">第一步 使用这个template</a></li>
+      <li><a href="#第二步-设置站点信息">第二步 设置站点信息</a></li>
+      <li><a href="#第三步-发布博文">第三步 发布博文</a></li>
+      <li><a href="#可选图片怎么办">可选：图片怎么办？</a></li>
+      <li><a href="#可选添加评论区">可选：添加评论区</a>
+        <ul>
+          <li><a href="#disqus">Disqus</a></li>
+          <li><a href="#gitalk">Gitalk</a></li>
+        </ul>
+      </li>
+      <li><a href="#导入lofter的内容">导入LOFTER的内容</a></li>
+    </ul>
+  </li>
+  <li><a href="#致谢">致谢</a></li>
+  <li><a href="#帮助这个项目">帮助这个项目</a></li>
+</ul>
+        </div>
+      </aside>
+      
+    </div>
+  </div>
+</div>
+
+      </main>
+
+      
+
+
+<footer class="site-footer">
+  <div class="footer-rule" aria-hidden="true"></div>
+  <div class="footer-inner">
+    <p class="footer-colophon">
+      <span class="footer-mark" aria-hidden="true">▪</span>
+      Having a nice day~
+    </p>
+    <div class="footer-links">
+      
+      <a href="https://github.com/Right202209">GitHub</a>
+      
+      
+      <a href="mailto:tunhe38@gmail.com">Email</a>
+      
+      
+      <a href="/blog/feed.xml">RSS</a>
+      
+    </div>
+    <p class="footer-meta">© 2026 Right · 纸上得来终觉浅</p>
+  </div>
+</footer>
+
+    </div>
+
+    
+
+
+    <script>
+      (function () {
+        function pickSlogan() {
+          var slogan = document.getElementById("slogan");
+          if (!slogan) return;
+
+          var lines = [
+            "以证据为起点，以方法为路径。",
+            
+            "把判断写下来，再让证据修正它。",
+            "记录技术、方法，以及能长期复用的经验。",
+            "在噪音很多的时候，尽量保留清晰的页面和思路。"
+            
+          ];
+
+          slogan.textContent = lines[Math.floor(Math.random() * lines.length)];
+        }
+
+        window.addEventListener("DOMContentLoaded", pickSlogan);
+      })();
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+<script>
+  (function () {
+    if (!window.gsap || !window.ScrollTrigger) return;
+    gsap.registerPlugin(ScrollTrigger);
+
+    window.addEventListener("DOMContentLoaded", function () {
+      gsap.matchMedia().add("(prefers-reduced-motion: no-preference)", function () {
+        // 浮墨 background motes: soft fade-in, slow drift, scroll parallax
+        gsap.utils.toArray(".paper-motes .mote").forEach(function (mote, i) {
+          var inner = mote.firstElementChild;
+          var depth = parseFloat(mote.dataset.depth) || 0.4;
+
+          gsap.from(mote, { opacity: 0, duration: 1.4, delay: 0.2 + i * 0.15, ease: "power1.out" });
+
+          // perpetual drift, like ink suspended in water
+          gsap.to(inner, {
+            x: gsap.utils.random(-28, 28),
+            y: gsap.utils.random(-22, 22),
+            rotation: gsap.utils.random(-3, 3),
+            duration: gsap.utils.random(14, 22),
+            ease: "sine.inOut",
+            yoyo: true,
+            repeat: -1
+          });
+
+          // depth parallax: nearer motes slide further as the page scrolls
+          gsap.to(mote, {
+            y: function () { return -window.innerHeight * depth * 0.5; },
+            ease: "none",
+            scrollTrigger: {
+              trigger: document.documentElement,
+              start: 0,
+              end: "max",
+              scrub: 1.2,
+              invalidateOnRefresh: true
+            }
+          });
+        });
+
+        // 証據 seal: stamp-press entrance, then return transform to CSS (hover)
+        var seal = document.querySelector(".hero-seal");
+        if (seal) {
+          gsap.from(seal, {
+            scale: 1.4,
+            opacity: 0,
+            duration: 0.5,
+            delay: 0.45,
+            ease: "back.out(1.7)",
+            clearProps: "transform,opacity"
+          });
+        }
+
+        // Ledger entries rise in as they scroll into view
+        gsap.utils.toArray(".ledger-entry").forEach(function (entry) {
+          gsap.from(entry, {
+            y: 18,
+            opacity: 0,
+            duration: 0.55,
+            ease: "power2.out",
+            clearProps: "transform,opacity",
+            scrollTrigger: {
+              trigger: entry,
+              start: "top 90%",
+              once: true
+            }
+          });
+        });
+
+        // Post header rule: ink line drawn from the left
+        gsap.utils.toArray(".header-rule").forEach(function (rule) {
+          gsap.from(rule, {
+            scaleX: 0,
+            transformOrigin: "left center",
+            duration: 0.8,
+            delay: 0.25,
+            ease: "power2.inOut",
+            clearProps: "transform"
+          });
+        });
+      });
+
+      window.addEventListener("load", function () {
+        ScrollTrigger.refresh();
+      });
+    });
+  })();
+</script>
+
+  </body>
+</html>

@@ -7,6 +7,38 @@
 
     window.addEventListener("DOMContentLoaded", function () {
       gsap.matchMedia().add("(prefers-reduced-motion: no-preference)", function () {
+        // 浮墨 background motes: soft fade-in, slow drift, scroll parallax
+        gsap.utils.toArray(".paper-motes .mote").forEach(function (mote, i) {
+          var inner = mote.firstElementChild;
+          var depth = parseFloat(mote.dataset.depth) || 0.4;
+
+          gsap.from(mote, { opacity: 0, duration: 1.4, delay: 0.2 + i * 0.15, ease: "power1.out" });
+
+          // perpetual drift, like ink suspended in water
+          gsap.to(inner, {
+            x: gsap.utils.random(-28, 28),
+            y: gsap.utils.random(-22, 22),
+            rotation: gsap.utils.random(-3, 3),
+            duration: gsap.utils.random(14, 22),
+            ease: "sine.inOut",
+            yoyo: true,
+            repeat: -1
+          });
+
+          // depth parallax: nearer motes slide further as the page scrolls
+          gsap.to(mote, {
+            y: function () { return -window.innerHeight * depth * 0.5; },
+            ease: "none",
+            scrollTrigger: {
+              trigger: document.documentElement,
+              start: 0,
+              end: "max",
+              scrub: 1.2,
+              invalidateOnRefresh: true
+            }
+          });
+        });
+
         // 証據 seal: stamp-press entrance, then return transform to CSS (hover)
         var seal = document.querySelector(".hero-seal");
         if (seal) {

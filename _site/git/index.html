@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+  <title>Git – Right – 以证据为起点，以方法为路径。</title>
+
+      <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="这是一份我自己的 Git 笔记版教程：内容完整，但语气更像备忘。1. 安装 Git1.1 Windows  下载：Git for Windows。  安装选默认即可。  验证安装：    git --version        有版本号就说明成功。  1.2 macOSbrew install gitgit -..." />
+    <meta property="og:description" content="这是一份我自己的 Git 笔记版教程：内容完整，但语气更像备忘。1. 安装 Git1.1 Windows  下载：Git for Windows。  安装选默认即可。  验证安装：    git --version        有版本号就说明成功。  1.2 macOSbrew install gitgit -..." />
+    
+    <meta name="author" content="Right" />
+    <link rel="canonical" href="https://right202209.github.io/blog/git/">
+
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://right202209.github.io/blog/git/" />
+    <meta property="og:site_name" content="Right" />
+    <meta property="og:image" content="https://right202209.github.io/blog/images/logo.jpg" />
+
+    
+    <meta property="og:title" content="Git" />
+    <meta property="twitter:title" content="Git" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@" />
+    <meta name="twitter:description" content="这是一份我自己的 Git 笔记版教程：内容完整，但语气更像备忘。1. 安装 Git1.1 Windows  下载：Git for Windows。  安装选默认即可。  验证安装：    git --version        有版本号就说明成功。  1.2 macOSbrew install gitgit -..." />
+    <meta name="twitter:image" content="https://right202209.github.io/blog/images/logo.jpg" />
+  <!-- Theme fonts: Noto Serif SC (display) · LXGW WenKai Screen (body) · IBM Plex Mono (meta/code) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;900&family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.css" rel="stylesheet">
+
+
+  <link rel="stylesheet" type="text/css" href="/blog/style.css" />
+  <link rel="alternate" type="application/rss+xml" title="Right - 以证据为起点，以方法为路径。" href="/blog/feed.xml" />
+  <link rel="shortcut icon" href="images/favicon.ico">
+  
+  <script type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$']]
+      }
+    };
+  </script>
+</head>
+
+  
+  
+  
+  
+  <body class="layout-post page-post">
+    <div class="paper-grain" aria-hidden="true"></div>
+    <div class="paper-columns" aria-hidden="true"></div>
+    <div class="paper-motes" aria-hidden="true">
+      <span class="mote mote-glyph mote-1" data-depth="0.35"><span>考</span></span>
+      <span class="mote mote-glyph mote-2" data-depth="0.6"><span>據</span></span>
+      <span class="mote mote-glyph mote-3" data-depth="0.45"><span>墨</span></span>
+      <span class="mote mote-wash mote-4" data-depth="0.25"><span></span></span>
+      <span class="mote mote-wash mote-5" data-depth="0.5"><span></span></span>
+    </div>
+
+    <div class="site-shell">
+      
+
+
+<nav class="site-nav">
+  <a class="nav-brand" href="/blog/">
+    <span class="brand-seal" aria-hidden="true">札</span>
+    <span class="brand-copy">
+      <strong class="brand-name">Right</strong>
+      <span class="brand-sub">札记</span>
+    </span>
+  </a>
+  <div class="nav-links">
+    <a href="/blog/" class="">首页</a>
+    <a href="/blog/archive" class="">归档</a>
+    <a href="/blog/tags" class="">标签</a>
+    <a href="/blog/about" class="">关于</a>
+  </div>
+</nav>
+
+
+      <main class="main">
+        
+
+
+
+
+
+
+<div class="content-wrap">
+  <div class="container">
+    <div class="content-two-col post-layout">
+      <main class="content-main">
+        <article class="article-folio reveal">
+          <a class="back-link" href="/blog/">← 返回首页</a>
+
+          <header class="post-header">
+            <span class="post-side-label" aria-hidden="true">文</span>
+            <h1 class="post-title">Git</h1>
+            <p class="entry-meta post-meta-row">
+              <time datetime="2024-11-09T00:00:00+08:00">2024.11.09</time>
+              <span class="meta-dot" aria-hidden="true">·</span>
+              <span>Right</span>
+              <span class="meta-dot" aria-hidden="true">·</span>
+              <span>2 分钟读完</span>
+              <span id="busuanzi_container_page_pv" style="display:none;">
+                <span class="meta-dot" aria-hidden="true">·</span>
+                阅读 <span id="busuanzi_value_page_pv"></span> 次
+              </span>
+            </p>
+
+            
+            <p class="post-topics">
+              
+              <a class="meta-tag" href="https://right202209.github.io/blog/tags#notes">#notes</a>
+              
+              <a class="meta-tag" href="https://right202209.github.io/blog/tags#toold">#toold</a>
+              
+            </p>
+            
+            <div class="header-rule" aria-hidden="true"></div>
+          </header>
+
+          <div class="entry">
+            <p>这是一份我自己的 Git 笔记版教程：内容完整，但语气更像备忘。</p>
+
+<hr />
+
+<h2 id="1-安装-git">1. 安装 Git</h2>
+
+<h3 id="11-windows">1.1 Windows</h3>
+<ol>
+  <li>下载：<a href="https://gitforwindows.org/">Git for Windows</a>。</li>
+  <li>安装选默认即可。</li>
+  <li>验证安装：
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git <span class="nt">--version</span>
+</code></pre></div>    </div>
+    <p>有版本号就说明成功。</p>
+  </li>
+</ol>
+
+<h3 id="12-macos">1.2 macOS</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew <span class="nb">install </span>git
+git <span class="nt">--version</span>
+</code></pre></div></div>
+
+<h3 id="13-linux以-ubuntu-为例">1.3 Linux（以 Ubuntu 为例）</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt-get update
+<span class="nb">sudo </span>apt-get <span class="nb">install </span>git
+git <span class="nt">--version</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="2-基础配置">2. 基础配置</h2>
+
+<p>我只记两行：</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config <span class="nt">--global</span> user.name <span class="s2">"你的名字"</span>
+git config <span class="nt">--global</span> user.email <span class="s2">"你的邮箱"</span>
+</code></pre></div></div>
+
+<p>看当前配置：</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config <span class="nt">--list</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="3-基本概念速记">3. 基本概念（速记）</h2>
+
+<ul>
+  <li><strong>仓库</strong>：项目目录 + 历史记录</li>
+  <li><strong>暂存区</strong>：待提交的缓冲区</li>
+  <li><strong>提交</strong>：一次快照</li>
+  <li><strong>分支</strong>：并行线路（通常 <code class="language-plaintext highlighter-rouge">main</code>/<code class="language-plaintext highlighter-rouge">master</code>）</li>
+</ul>
+
+<hr />
+
+<h2 id="4-常用命令">4. 常用命令</h2>
+
+<h3 id="41-初始化仓库">4.1 初始化仓库</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git init
+</code></pre></div></div>
+
+<h3 id="42-克隆仓库">4.2 克隆仓库</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone &lt;仓库地址&gt;
+</code></pre></div></div>
+<p>自定义目录名：</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone &lt;仓库名称&gt; &lt;本地名称&gt;
+</code></pre></div></div>
+
+<h3 id="43-查看仓库状态">4.3 查看仓库状态</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git status
+</code></pre></div></div>
+
+<h3 id="44-添加到暂存区">4.4 添加到暂存区</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git add &lt;文件名&gt;       <span class="c"># 添加指定文件</span>
+git add <span class="nb">.</span>              <span class="c"># 添加所有修改的文件</span>
+</code></pre></div></div>
+
+<h3 id="45-提交更改">4.5 提交更改</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git commit <span class="nt">-m</span> <span class="s2">"提交信息"</span>
+</code></pre></div></div>
+
+<h3 id="46-查看日志">4.6 查看日志</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git log
+</code></pre></div></div>
+
+<h3 id="47-远程仓库操作">4.7 远程仓库操作</h3>
+<ul>
+  <li>添加远程：
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git remote add origin &lt;仓库地址&gt;
+</code></pre></div>    </div>
+  </li>
+  <li>推送：
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git push origin &lt;分支名&gt;
+</code></pre></div>    </div>
+  </li>
+  <li>拉取：
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git pull origin &lt;分支名&gt;
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="48-分支操作">4.8 分支操作</h3>
+<ul>
+  <li>新建：
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git branch &lt;分支名&gt;
+</code></pre></div>    </div>
+  </li>
+  <li>切换：
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git checkout &lt;分支名&gt;
+</code></pre></div>    </div>
+  </li>
+  <li>合并：
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git merge &lt;分支名&gt;
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="5-基本工作流程">5. 基本工作流程</h2>
+
+<ol>
+  <li>初始化或克隆</li>
+  <li>修改文件</li>
+  <li><code class="language-plaintext highlighter-rouge">git add &lt;文件名&gt;</code></li>
+  <li><code class="language-plaintext highlighter-rouge">git commit -m "提交信息"</code></li>
+  <li>需要同步就 <code class="language-plaintext highlighter-rouge">git push origin &lt;分支名&gt;</code></li>
+</ol>
+
+<hr />
+
+<h2 id="6-其他常用命令">6. 其他常用命令</h2>
+
+<h3 id="61-查看差异">6.1 查看差异</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git diff
+git diff <span class="nt">--cached</span>
+</code></pre></div></div>
+
+<h3 id="62-回退操作">6.2 回退操作</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 回退到上一个提交（保留改动）</span>
+ git reset <span class="nt">--soft</span> HEAD^
+
+<span class="c"># 回退并丢弃改动（确认不需要）</span>
+ git reset <span class="nt">--hard</span> HEAD^
+</code></pre></div></div>
+
+<h3 id="63-删除文件">6.3 删除文件</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git <span class="nb">rm</span> &lt;文件名&gt;
+git commit <span class="nt">-m</span> <span class="s2">"删除文件"</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="7-连接-github-等代码托管平台">7. 连接 GitHub 等代码托管平台</h2>
+
+<h3 id="71-创建-github-账号">7.1 创建 GitHub 账号</h3>
+<p>先注册：<a href="https://github.com/">GitHub 官网</a>。</p>
+
+<h3 id="72-生成并配置-ssh-密钥">7.2 生成并配置 SSH 密钥</h3>
+
+<h4 id="721-生成-ssh-密钥">7.2.1 生成 SSH 密钥</h4>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh-keygen <span class="nt">-t</span> rsa <span class="nt">-b</span> 4096 <span class="nt">-C</span> <span class="s2">"your_email@example.com"</span>
+</code></pre></div></div>
+<p>按提示存储到 <code class="language-plaintext highlighter-rouge">~/.ssh/</code>（默认即可），可设置密码或留空。</p>
+
+<p>生成文件：</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">id_ed25519</code>: 私钥</li>
+  <li><code class="language-plaintext highlighter-rouge">id_ed25519.pub</code>: 公钥</li>
+</ul>
+
+<h4 id="722-添加到-ssh-代理">7.2.2 添加到 SSH 代理</h4>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">eval</span> <span class="s2">"</span><span class="si">$(</span>ssh-agent <span class="nt">-s</span><span class="si">)</span><span class="s2">"</span>
+ssh-add ~/.ssh/id_rsa
+</code></pre></div></div>
+
+<h4 id="723-添加到-github">7.2.3 添加到 GitHub</h4>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat</span> ~/.ssh/id_rsa.pub
+</code></pre></div></div>
+<p>复制内容 → <strong>Settings</strong> → <strong>SSH and GPG keys</strong> → <strong>New SSH key</strong>。</p>
+
+<h4 id="724-测试连接">7.2.4 测试连接</h4>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh <span class="nt">-T</span> git@github.com
+</code></pre></div></div>
+<p>看到 “Hi username! …” 就说明成功。</p>
+
+<h3 id="73-绑定远程仓库">7.3 绑定远程仓库</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git remote add origin git@github.com:username/repository.git
+git remote <span class="nt">-v</span>
+</code></pre></div></div>
+
+<h3 id="74-推送到-github">7.4 推送到 GitHub</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git push <span class="nt">-u</span> origin main
+</code></pre></div></div>
+<p>默认分支是 <code class="language-plaintext highlighter-rouge">master</code> 就改成 <code class="language-plaintext highlighter-rouge">master</code>。</p>
+
+<p>后续同步：</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git add <span class="nb">.</span>
+git commit <span class="nt">-m</span> <span class="s2">"更新信息"</span>
+git push origin main
+</code></pre></div></div>
+
+<h3 id="75-克隆仓库到本地">7.5 克隆仓库到本地</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone git@github.com:username/repository.git
+</code></pre></div></div>
+
+<h3 id="76-设置全局-github-信息可选">7.6 设置全局 GitHub 信息（可选）</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config <span class="nt">--global</span> user.name <span class="s2">"你的GitHub用户名"</span>
+git config <span class="nt">--global</span> user.email <span class="s2">"你的GitHub邮箱"</span>
+</code></pre></div></div>
+
+<h3 id="77-windows-额外配置">7.7 Windows 额外配置</h3>
+<p>如果用 Git Bash 或 PowerShell，注意 <code class="language-plaintext highlighter-rouge">HOME</code> 环境变量和 <code class="language-plaintext highlighter-rouge">~/.ssh</code> 路径正确，避免找不到密钥。</p>
+
+          </div>
+
+          <section class="post-comments">
+            
+            
+<script src="https://utteranc.es/client.js"
+        repo="Right202209/blog"
+        issue-term="issue-term"
+        label="utteranc"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+            
+          </section>
+        </article>
+
+        <nav class="pagination post-pagination">
+          
+            <span class="prev">
+              <a href="https://right202209.github.io/blog/Minio/">← 上一篇</a>
+            </span>
+          
+          
+            <span class="next">
+              <a href="https://right202209.github.io/blog/post-7/">下一篇 →</a>
+            </span>
+          
+        </nav>
+      </main>
+
+      
+      <aside class="content-aside">
+        <div class="toc-box">
+          <p class="toc-label">目录</p>
+          <ul>
+  <li><a href="#1-安装-git">1. 安装 Git</a>
+    <ul>
+      <li><a href="#11-windows">1.1 Windows</a></li>
+      <li><a href="#12-macos">1.2 macOS</a></li>
+      <li><a href="#13-linux以-ubuntu-为例">1.3 Linux（以 Ubuntu 为例）</a></li>
+    </ul>
+  </li>
+  <li><a href="#2-基础配置">2. 基础配置</a></li>
+  <li><a href="#3-基本概念速记">3. 基本概念（速记）</a></li>
+  <li><a href="#4-常用命令">4. 常用命令</a>
+    <ul>
+      <li><a href="#41-初始化仓库">4.1 初始化仓库</a></li>
+      <li><a href="#42-克隆仓库">4.2 克隆仓库</a></li>
+      <li><a href="#43-查看仓库状态">4.3 查看仓库状态</a></li>
+      <li><a href="#44-添加到暂存区">4.4 添加到暂存区</a></li>
+      <li><a href="#45-提交更改">4.5 提交更改</a></li>
+      <li><a href="#46-查看日志">4.6 查看日志</a></li>
+      <li><a href="#47-远程仓库操作">4.7 远程仓库操作</a></li>
+      <li><a href="#48-分支操作">4.8 分支操作</a></li>
+    </ul>
+  </li>
+  <li><a href="#5-基本工作流程">5. 基本工作流程</a></li>
+  <li><a href="#6-其他常用命令">6. 其他常用命令</a>
+    <ul>
+      <li><a href="#61-查看差异">6.1 查看差异</a></li>
+      <li><a href="#62-回退操作">6.2 回退操作</a></li>
+      <li><a href="#63-删除文件">6.3 删除文件</a></li>
+    </ul>
+  </li>
+  <li><a href="#7-连接-github-等代码托管平台">7. 连接 GitHub 等代码托管平台</a>
+    <ul>
+      <li><a href="#71-创建-github-账号">7.1 创建 GitHub 账号</a></li>
+      <li><a href="#72-生成并配置-ssh-密钥">7.2 生成并配置 SSH 密钥</a>
+        <ul>
+          <li><a href="#721-生成-ssh-密钥">7.2.1 生成 SSH 密钥</a></li>
+          <li><a href="#722-添加到-ssh-代理">7.2.2 添加到 SSH 代理</a></li>
+          <li><a href="#723-添加到-github">7.2.3 添加到 GitHub</a></li>
+          <li><a href="#724-测试连接">7.2.4 测试连接</a></li>
+        </ul>
+      </li>
+      <li><a href="#73-绑定远程仓库">7.3 绑定远程仓库</a></li>
+      <li><a href="#74-推送到-github">7.4 推送到 GitHub</a></li>
+      <li><a href="#75-克隆仓库到本地">7.5 克隆仓库到本地</a></li>
+      <li><a href="#76-设置全局-github-信息可选">7.6 设置全局 GitHub 信息（可选）</a></li>
+      <li><a href="#77-windows-额外配置">7.7 Windows 额外配置</a></li>
+    </ul>
+  </li>
+</ul>
+        </div>
+      </aside>
+      
+    </div>
+  </div>
+</div>
+
+      </main>
+
+      
+
+
+<footer class="site-footer">
+  <div class="footer-rule" aria-hidden="true"></div>
+  <div class="footer-inner">
+    <p class="footer-colophon">
+      <span class="footer-mark" aria-hidden="true">▪</span>
+      Having a nice day~
+    </p>
+    <div class="footer-links">
+      
+      <a href="https://github.com/Right202209">GitHub</a>
+      
+      
+      <a href="mailto:tunhe38@gmail.com">Email</a>
+      
+      
+      <a href="/blog/feed.xml">RSS</a>
+      
+    </div>
+    <p class="footer-meta">© 2026 Right · 纸上得来终觉浅</p>
+  </div>
+</footer>
+
+    </div>
+
+    
+
+
+    <script>
+      (function () {
+        function pickSlogan() {
+          var slogan = document.getElementById("slogan");
+          if (!slogan) return;
+
+          var lines = [
+            "以证据为起点，以方法为路径。",
+            
+            "把判断写下来，再让证据修正它。",
+            "记录技术、方法，以及能长期复用的经验。",
+            "在噪音很多的时候，尽量保留清晰的页面和思路。"
+            
+          ];
+
+          slogan.textContent = lines[Math.floor(Math.random() * lines.length)];
+        }
+
+        window.addEventListener("DOMContentLoaded", pickSlogan);
+      })();
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+<script>
+  (function () {
+    if (!window.gsap || !window.ScrollTrigger) return;
+    gsap.registerPlugin(ScrollTrigger);
+
+    window.addEventListener("DOMContentLoaded", function () {
+      gsap.matchMedia().add("(prefers-reduced-motion: no-preference)", function () {
+        // 浮墨 background motes: soft fade-in, slow drift, scroll parallax
+        gsap.utils.toArray(".paper-motes .mote").forEach(function (mote, i) {
+          var inner = mote.firstElementChild;
+          var depth = parseFloat(mote.dataset.depth) || 0.4;
+
+          gsap.from(mote, { opacity: 0, duration: 1.4, delay: 0.2 + i * 0.15, ease: "power1.out" });
+
+          // perpetual drift, like ink suspended in water
+          gsap.to(inner, {
+            x: gsap.utils.random(-28, 28),
+            y: gsap.utils.random(-22, 22),
+            rotation: gsap.utils.random(-3, 3),
+            duration: gsap.utils.random(14, 22),
+            ease: "sine.inOut",
+            yoyo: true,
+            repeat: -1
+          });
+
+          // depth parallax: nearer motes slide further as the page scrolls
+          gsap.to(mote, {
+            y: function () { return -window.innerHeight * depth * 0.5; },
+            ease: "none",
+            scrollTrigger: {
+              trigger: document.documentElement,
+              start: 0,
+              end: "max",
+              scrub: 1.2,
+              invalidateOnRefresh: true
+            }
+          });
+        });
+
+        // 証據 seal: stamp-press entrance, then return transform to CSS (hover)
+        var seal = document.querySelector(".hero-seal");
+        if (seal) {
+          gsap.from(seal, {
+            scale: 1.4,
+            opacity: 0,
+            duration: 0.5,
+            delay: 0.45,
+            ease: "back.out(1.7)",
+            clearProps: "transform,opacity"
+          });
+        }
+
+        // Ledger entries rise in as they scroll into view
+        gsap.utils.toArray(".ledger-entry").forEach(function (entry) {
+          gsap.from(entry, {
+            y: 18,
+            opacity: 0,
+            duration: 0.55,
+            ease: "power2.out",
+            clearProps: "transform,opacity",
+            scrollTrigger: {
+              trigger: entry,
+              start: "top 90%",
+              once: true
+            }
+          });
+        });
+
+        // Post header rule: ink line drawn from the left
+        gsap.utils.toArray(".header-rule").forEach(function (rule) {
+          gsap.from(rule, {
+            scaleX: 0,
+            transformOrigin: "left center",
+            duration: 0.8,
+            delay: 0.25,
+            ease: "power2.inOut",
+            clearProps: "transform"
+          });
+        });
+      });
+
+      window.addEventListener("load", function () {
+        ScrollTrigger.refresh();
+      });
+    });
+  })();
+</script>
+
+  </body>
+</html>

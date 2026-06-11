@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+  <title>修改 Git 提交者信息 – Right – 以证据为起点，以方法为路径。</title>
+
+      <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="最近整理仓库时，发现很多win 和 wsl上提交的乱提交者信息修改最近一次提交 (Last Commit)刚刚完成提交，发现用户名或邮箱写错了，用 --amend 命令。  修改为当前全局配置的信息：      git commit --amend --reset-author --no-edit        ..." />
+    <meta property="og:description" content="最近整理仓库时，发现很多win 和 wsl上提交的乱提交者信息修改最近一次提交 (Last Commit)刚刚完成提交，发现用户名或邮箱写错了，用 --amend 命令。  修改为当前全局配置的信息：      git commit --amend --reset-author --no-edit        ..." />
+    
+    <meta name="author" content="Right" />
+    <link rel="canonical" href="https://right202209.github.io/blog/%E4%BF%AE%E6%94%B9Git%E6%8F%90%E4%BA%A4%E8%80%85%E4%BF%A1%E6%81%AF/">
+
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://right202209.github.io/blog/%E4%BF%AE%E6%94%B9Git%E6%8F%90%E4%BA%A4%E8%80%85%E4%BF%A1%E6%81%AF/" />
+    <meta property="og:site_name" content="Right" />
+    <meta property="og:image" content="https://right202209.github.io/blog/images/logo.jpg" />
+
+    
+    <meta property="og:title" content="修改 Git 提交者信息" />
+    <meta property="twitter:title" content="修改 Git 提交者信息" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@" />
+    <meta name="twitter:description" content="最近整理仓库时，发现很多win 和 wsl上提交的乱提交者信息修改最近一次提交 (Last Commit)刚刚完成提交，发现用户名或邮箱写错了，用 --amend 命令。  修改为当前全局配置的信息：      git commit --amend --reset-author --no-edit        ..." />
+    <meta name="twitter:image" content="https://right202209.github.io/blog/images/logo.jpg" />
+  <!-- Theme fonts: Noto Serif SC (display) · LXGW WenKai Screen (body) · IBM Plex Mono (meta/code) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;900&family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.css" rel="stylesheet">
+
+
+  <link rel="stylesheet" type="text/css" href="/blog/style.css" />
+  <link rel="alternate" type="application/rss+xml" title="Right - 以证据为起点，以方法为路径。" href="/blog/feed.xml" />
+  <link rel="shortcut icon" href="images/favicon.ico">
+  
+  <script type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$']]
+      }
+    };
+  </script>
+</head>
+
+  
+  
+  
+  
+  <body class="layout-post page-post">
+    <div class="paper-grain" aria-hidden="true"></div>
+    <div class="paper-columns" aria-hidden="true"></div>
+    <div class="paper-motes" aria-hidden="true">
+      <span class="mote mote-glyph mote-1" data-depth="0.35"><span>考</span></span>
+      <span class="mote mote-glyph mote-2" data-depth="0.6"><span>據</span></span>
+      <span class="mote mote-glyph mote-3" data-depth="0.45"><span>墨</span></span>
+      <span class="mote mote-wash mote-4" data-depth="0.25"><span></span></span>
+      <span class="mote mote-wash mote-5" data-depth="0.5"><span></span></span>
+    </div>
+
+    <div class="site-shell">
+      
+
+
+<nav class="site-nav">
+  <a class="nav-brand" href="/blog/">
+    <span class="brand-seal" aria-hidden="true">札</span>
+    <span class="brand-copy">
+      <strong class="brand-name">Right</strong>
+      <span class="brand-sub">札记</span>
+    </span>
+  </a>
+  <div class="nav-links">
+    <a href="/blog/" class="">首页</a>
+    <a href="/blog/archive" class="">归档</a>
+    <a href="/blog/tags" class="">标签</a>
+    <a href="/blog/about" class="">关于</a>
+  </div>
+</nav>
+
+
+      <main class="main">
+        
+
+
+
+
+
+
+<div class="content-wrap">
+  <div class="container">
+    <div class="content-two-col post-layout">
+      <main class="content-main">
+        <article class="article-folio reveal">
+          <a class="back-link" href="/blog/">← 返回首页</a>
+
+          <header class="post-header">
+            <span class="post-side-label" aria-hidden="true">文</span>
+            <h1 class="post-title">修改 Git 提交者信息</h1>
+            <p class="entry-meta post-meta-row">
+              <time datetime="2026-03-15T00:00:00+08:00">2026.03.15</time>
+              <span class="meta-dot" aria-hidden="true">·</span>
+              <span>Right</span>
+              <span class="meta-dot" aria-hidden="true">·</span>
+              <span>1 分钟读完</span>
+              <span id="busuanzi_container_page_pv" style="display:none;">
+                <span class="meta-dot" aria-hidden="true">·</span>
+                阅读 <span id="busuanzi_value_page_pv"></span> 次
+              </span>
+            </p>
+
+            
+            <p class="post-topics">
+              
+              <a class="meta-tag" href="https://right202209.github.io/blog/tags#tool">#tool</a>
+              
+            </p>
+            
+            <div class="header-rule" aria-hidden="true"></div>
+          </header>
+
+          <div class="entry">
+            <p>最近整理仓库时，发现很多win 和 wsl上提交的乱提交者信息</p>
+
+<hr />
+
+<h3 id="修改最近一次提交-last-commit">修改最近一次提交 (Last Commit)</h3>
+<p>刚刚完成提交，发现用户名或邮箱写错了，用 <code class="language-plaintext highlighter-rouge">--amend</code> 命令。</p>
+
+<ul>
+  <li><strong>修改为当前全局配置的信息：</strong>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  git commit <span class="nt">--amend</span> <span class="nt">--reset-author</span> <span class="nt">--no-edit</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong>手动指定修改信息：</strong>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  git commit <span class="nt">--amend</span> <span class="nt">--author</span><span class="o">=</span><span class="s2">"用户名 &lt;邮箱@example.com&gt;"</span> <span class="nt">--no-edit</span>
+</code></pre></div>    </div>
+    <p><em><code class="language-plaintext highlighter-rouge">--no-edit</code> 表示保持原有的提交说明不变。</em></p>
+  </li>
+</ul>
+
+<hr />
+
+<h3 id="2-修改历史中的某一次提交">2. 修改历史中的某一次提交</h3>
+<p>要修改的不是最后一次，需要使用<strong>交互式变基</strong>。</p>
+
+<ol>
+  <li><strong>启动变基：</strong>
+找到想修改的提交的<strong>前一个</strong>提交ID（例如 <code class="language-plaintext highlighter-rouge">abc1234</code>）。
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git rebase <span class="nt">-i</span> abc1234
+</code></pre></div>    </div>
+  </li>
+  <li><strong>编辑标记：</strong>
+在弹出的文本编辑器中，将目标提交前的 <code class="language-plaintext highlighter-rouge">pick</code> 改为 <code class="language-plaintext highlighter-rouge">edit</code>，然后保存退出。</li>
+  <li><strong>修改信息：</strong>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git commit <span class="nt">--amend</span> <span class="nt">--author</span><span class="o">=</span><span class="s2">"用户名 &lt;邮箱@example.com&gt;"</span> <span class="nt">--no-edit</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong>完成变基：</strong>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git rebase <span class="nt">--continue</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<hr />
+
+<h3 id="3-批量修改历史提交-慎用">3. 批量修改历史提交 (慎用)</h3>
+
+<p>要更换整个仓库历史中某个特定邮箱的所有提交记录时，可以用 <code class="language-plaintext highlighter-rouge">git filter-repo</code>或传统的 <code class="language-plaintext highlighter-rouge">git filter-branch</code>。</p>
+
+<h4 id="使用-git-filter-branch">使用 <code class="language-plaintext highlighter-rouge">git filter-branch</code></h4>
+<p>在仓库根目录运行以下脚本（记得将旧邮箱、新名字、新邮箱替换为对的~）：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git filter-branch <span class="nt">--env-filter</span> <span class="s1">'
+OLD_EMAIL="old@example.com"
+CORRECT_NAME="NewName"
+CORRECT_EMAIL="new@example.com"
+
+if [ "$GIT_COMMITTER_EMAIL" = "$OLD_EMAIL" ]
+then
+    export GIT_COMMITTER_NAME="$CORRECT_NAME"
+    export GIT_COMMITTER_EMAIL="$CORRECT_EMAIL"
+fi
+if [ "$GIT_AUTHOR_EMAIL" = "$OLD_EMAIL" ]
+then
+    export GIT_AUTHOR_NAME="$CORRECT_NAME"
+    export GIT_AUTHOR_EMAIL="$CORRECT_EMAIL"
+fi
+'</span> <span class="nt">--tag-name-filter</span> <span class="nb">cat</span> <span class="nt">--</span> <span class="nt">--branches</span> <span class="nt">--tags</span>
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="4-预防措施设置正确的配置">4. 预防措施：设置正确的配置</h3>
+<p>为了避免以后再次出错，建议检查并设置好 Git 配置：</p>
+
+<ul>
+  <li><strong>全局设置（作用于所有项目）：</strong>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  git config <span class="nt">--global</span> user.name <span class="s2">"你的名字"</span>
+  git config <span class="nt">--global</span> user.email <span class="s2">"你的邮箱"</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong>当前项目设置（覆盖全局，适用于区分工作/个人项目）：</strong>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  git config user.name <span class="s2">"你的名字"</span>
+  git config user.email <span class="s2">"你的邮箱"</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<hr />
+
+<h3 id="️">⚠️</h3>
+<ol>
+  <li><strong>不要在公共分支上操作：</strong> 修改历史提交会改变提交的 Hash ID。如果你已经将代码 <code class="language-plaintext highlighter-rouge">push</code> 到了远程仓库，修改历史后必须使用 <code class="language-plaintext highlighter-rouge">git push --force</code> 强制推送。这会干扰其他协作开发者的分支，<strong>请务必先与团队沟通</strong>。</li>
+  <li><strong>备份：</strong> 在进行批量修改（如 <code class="language-plaintext highlighter-rouge">filter-branch</code>）之前，建议先备份仓库。</li>
+</ol>
+
+          </div>
+
+          <section class="post-comments">
+            
+            
+<script src="https://utteranc.es/client.js"
+        repo="Right202209/blog"
+        issue-term="issue-term"
+        label="utteranc"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+            
+          </section>
+        </article>
+
+        <nav class="pagination post-pagination">
+          
+            <span class="prev">
+              <a href="https://right202209.github.io/blog/oh-my-zsh/">← 上一篇</a>
+            </span>
+          
+          
+        </nav>
+      </main>
+
+      
+      <aside class="content-aside">
+        <div class="toc-box">
+          <p class="toc-label">目录</p>
+          <ul>
+  <li><a href="#修改最近一次提交-last-commit">修改最近一次提交 (Last Commit)</a></li>
+  <li><a href="#2-修改历史中的某一次提交">2. 修改历史中的某一次提交</a></li>
+  <li><a href="#3-批量修改历史提交-慎用">3. 批量修改历史提交 (慎用)</a>
+    <ul>
+      <li><a href="#使用-git-filter-branch">使用 <code class="language-plaintext highlighter-rouge">git filter-branch</code></a></li>
+    </ul>
+  </li>
+  <li><a href="#4-预防措施设置正确的配置">4. 预防措施：设置正确的配置</a></li>
+  <li><a href="#️">⚠️</a></li>
+</ul>
+        </div>
+      </aside>
+      
+    </div>
+  </div>
+</div>
+
+      </main>
+
+      
+
+
+<footer class="site-footer">
+  <div class="footer-rule" aria-hidden="true"></div>
+  <div class="footer-inner">
+    <p class="footer-colophon">
+      <span class="footer-mark" aria-hidden="true">▪</span>
+      Having a nice day~
+    </p>
+    <div class="footer-links">
+      
+      <a href="https://github.com/Right202209">GitHub</a>
+      
+      
+      <a href="mailto:tunhe38@gmail.com">Email</a>
+      
+      
+      <a href="/blog/feed.xml">RSS</a>
+      
+    </div>
+    <p class="footer-meta">© 2026 Right · 纸上得来终觉浅</p>
+  </div>
+</footer>
+
+    </div>
+
+    
+
+
+    <script>
+      (function () {
+        function pickSlogan() {
+          var slogan = document.getElementById("slogan");
+          if (!slogan) return;
+
+          var lines = [
+            "以证据为起点，以方法为路径。",
+            
+            "把判断写下来，再让证据修正它。",
+            "记录技术、方法，以及能长期复用的经验。",
+            "在噪音很多的时候，尽量保留清晰的页面和思路。"
+            
+          ];
+
+          slogan.textContent = lines[Math.floor(Math.random() * lines.length)];
+        }
+
+        window.addEventListener("DOMContentLoaded", pickSlogan);
+      })();
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+<script>
+  (function () {
+    if (!window.gsap || !window.ScrollTrigger) return;
+    gsap.registerPlugin(ScrollTrigger);
+
+    window.addEventListener("DOMContentLoaded", function () {
+      gsap.matchMedia().add("(prefers-reduced-motion: no-preference)", function () {
+        // 浮墨 background motes: soft fade-in, slow drift, scroll parallax
+        gsap.utils.toArray(".paper-motes .mote").forEach(function (mote, i) {
+          var inner = mote.firstElementChild;
+          var depth = parseFloat(mote.dataset.depth) || 0.4;
+
+          gsap.from(mote, { opacity: 0, duration: 1.4, delay: 0.2 + i * 0.15, ease: "power1.out" });
+
+          // perpetual drift, like ink suspended in water
+          gsap.to(inner, {
+            x: gsap.utils.random(-28, 28),
+            y: gsap.utils.random(-22, 22),
+            rotation: gsap.utils.random(-3, 3),
+            duration: gsap.utils.random(14, 22),
+            ease: "sine.inOut",
+            yoyo: true,
+            repeat: -1
+          });
+
+          // depth parallax: nearer motes slide further as the page scrolls
+          gsap.to(mote, {
+            y: function () { return -window.innerHeight * depth * 0.5; },
+            ease: "none",
+            scrollTrigger: {
+              trigger: document.documentElement,
+              start: 0,
+              end: "max",
+              scrub: 1.2,
+              invalidateOnRefresh: true
+            }
+          });
+        });
+
+        // 証據 seal: stamp-press entrance, then return transform to CSS (hover)
+        var seal = document.querySelector(".hero-seal");
+        if (seal) {
+          gsap.from(seal, {
+            scale: 1.4,
+            opacity: 0,
+            duration: 0.5,
+            delay: 0.45,
+            ease: "back.out(1.7)",
+            clearProps: "transform,opacity"
+          });
+        }
+
+        // Ledger entries rise in as they scroll into view
+        gsap.utils.toArray(".ledger-entry").forEach(function (entry) {
+          gsap.from(entry, {
+            y: 18,
+            opacity: 0,
+            duration: 0.55,
+            ease: "power2.out",
+            clearProps: "transform,opacity",
+            scrollTrigger: {
+              trigger: entry,
+              start: "top 90%",
+              once: true
+            }
+          });
+        });
+
+        // Post header rule: ink line drawn from the left
+        gsap.utils.toArray(".header-rule").forEach(function (rule) {
+          gsap.from(rule, {
+            scaleX: 0,
+            transformOrigin: "left center",
+            duration: 0.8,
+            delay: 0.25,
+            ease: "power2.inOut",
+            clearProps: "transform"
+          });
+        });
+      });
+
+      window.addEventListener("load", function () {
+        ScrollTrigger.refresh();
+      });
+    });
+  })();
+</script>
+
+  </body>
+</html>

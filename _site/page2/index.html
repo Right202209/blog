@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+  <title>Right – 以证据为起点，以方法为路径。</title>
+
+      <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="以证据为起点，以方法为路径。">
+    <meta property="og:description" content="以证据为起点，以方法为路径。" />
+    
+    <meta name="author" content="Right" />
+    <link rel="canonical" href="https://right202209.github.io/blog/page2/">
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://right202209.github.io/blog/page2/" />
+    <meta property="og:site_name" content="Right" />
+    <meta property="og:image" content="https://right202209.github.io/blog/images/logo.jpg" />
+
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@" />
+    <meta name="twitter:description" content="以证据为起点，以方法为路径。" />
+    <meta name="twitter:image" content="https://right202209.github.io/blog/images/logo.jpg" />
+  <!-- Theme fonts: Noto Serif SC (display) · LXGW WenKai Screen (body) · IBM Plex Mono (meta/code) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;900&family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.css" rel="stylesheet">
+
+
+  <link rel="stylesheet" type="text/css" href="/blog/style.css" />
+  <link rel="alternate" type="application/rss+xml" title="Right - 以证据为起点，以方法为路径。" href="/blog/feed.xml" />
+  <link rel="shortcut icon" href="images/favicon.ico">
+  
+  <script type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$']]
+      }
+    };
+  </script>
+</head>
+
+  
+  
+  
+  
+  <body class="layout-default page-page">
+    <div class="paper-grain" aria-hidden="true"></div>
+    <div class="paper-columns" aria-hidden="true"></div>
+    <div class="paper-motes" aria-hidden="true">
+      <span class="mote mote-glyph mote-1" data-depth="0.35"><span>考</span></span>
+      <span class="mote mote-glyph mote-2" data-depth="0.6"><span>據</span></span>
+      <span class="mote mote-glyph mote-3" data-depth="0.45"><span>墨</span></span>
+      <span class="mote mote-wash mote-4" data-depth="0.25"><span></span></span>
+      <span class="mote mote-wash mote-5" data-depth="0.5"><span></span></span>
+    </div>
+
+    <div class="site-shell">
+      
+
+
+<nav class="site-nav">
+  <a class="nav-brand" href="/blog/">
+    <span class="brand-seal" aria-hidden="true">札</span>
+    <span class="brand-copy">
+      <strong class="brand-name">Right</strong>
+      <span class="brand-sub">札记</span>
+    </span>
+  </a>
+  <div class="nav-links">
+    <a href="/blog/" class="">首页</a>
+    <a href="/blog/archive" class="">归档</a>
+    <a href="/blog/tags" class="">标签</a>
+    <a href="/blog/about" class="">关于</a>
+  </div>
+</nav>
+
+
+      <main class="main">
+        
+
+
+
+
+
+
+
+
+
+<div class="content-wrap home-folio">
+  <div class="container">
+
+    <header class="folio-hero reveal">
+      <span class="hero-side-label" aria-hidden="true">卷首语</span>
+      <div class="hero-main">
+        <p class="hero-eyebrow">Right · 札记</p>
+        <h1 id="slogan" class="hero-slogan">以证据为起点，以方法为路径。</h1>
+        <p class="hero-note">这里持续记录技术、方法、实验与长期可复用的工作笔记。</p>
+        <div class="hero-actions">
+          <a href="/blog/archive">查阅归档</a>
+          <a href="/blog/about">关于本站</a>
+        </div>
+      </div>
+      <div class="hero-seal" aria-hidden="true">
+        <span>証</span><span>據</span>
+      </div>
+    </header>
+
+    <p class="folio-stats reveal reveal-1">
+      <span>现存 10 篇</span>
+      <span class="meta-dot" aria-hidden="true">·</span>
+      <span>最近更新 2026.03.15</span>
+    </p>
+
+    
+    <section class="folio-section spotlight reveal reveal-2">
+      <h2 class="section-heading"><span class="heading-ordinal">甲</span>新墨未干</h2>
+      <article class="spotlight-entry">
+        <h3 class="spotlight-title"><a href="/blog/%E4%BF%AE%E6%94%B9Git%E6%8F%90%E4%BA%A4%E8%80%85%E4%BF%A1%E6%81%AF/">修改 Git 提交者信息</a></h3>
+        <p class="spotlight-excerpt">
+          
+            最近整理仓库时，发现很多win 和 wsl上提交的乱提交者信息修改最近一次提交 (Last Commit)刚刚完成提交，发现用户名或邮箱写错了，用 --amend 命令。  修改为当前全局配置的信息：      git commit --amend --reset-author --no-edit        手动指定修改信息：      git commit --amend --author="用户名 &lt;邮箱@examp...
+          
+        </p>
+        <p class="entry-meta">
+          <time datetime="2026-03-15T00:00:00+08:00">2026.03.15</time>
+          <span class="meta-dot" aria-hidden="true">·</span>
+          <span>Right</span>
+          <a class="spotlight-link" href="/blog/%E4%BF%AE%E6%94%B9Git%E6%8F%90%E4%BA%A4%E8%80%85%E4%BF%A1%E6%81%AF/">续读全文 →</a>
+        </p>
+      </article>
+    </section>
+    
+
+    
+    <section class="folio-section reveal reveal-3">
+      <h2 class="section-heading"><span class="heading-ordinal">乙</span>置顶常读</h2>
+      <div class="ledger-list">
+        
+          
+
+
+
+
+
+
+
+
+<article class="ledger-entry ">
+  <span class="entry-num" aria-hidden="true">〇一</span>
+  <div class="entry-body">
+    <div class="entry-head">
+      <h3 class="entry-title"><a href="/blog/git/">Git</a></h3>
+      
+      <span class="entry-seal">置顶</span>
+      
+    </div>
+    <p class="entry-excerpt">这是一份我自己的 Git 笔记版教程：内容完整，但语气更像备忘。1. 安装 Git1.1 Windows  下载：Git for Windows。  安装选默认即可。  验证安装：    git --version        有版本号就说明成功。  1.2 macOSb...</p>
+    <p class="entry-meta">
+      <time datetime="2024-11-09T00:00:00+08:00">2024.11.09</time>
+      <span class="meta-dot" aria-hidden="true">·</span>
+      <span>Right</span>
+      
+      <span class="meta-dot" aria-hidden="true">·</span>
+      
+      <a class="meta-tag" href="/blog/tags#notes">#notes</a>
+      
+      <a class="meta-tag" href="/blog/tags#toold">#toold</a>
+      
+      
+    </p>
+  </div>
+</article>
+
+        
+          
+
+
+
+
+
+
+
+
+<article class="ledger-entry ">
+  <span class="entry-num" aria-hidden="true">〇二</span>
+  <div class="entry-body">
+    <div class="entry-head">
+      <h3 class="entry-title"><a href="/blog/Minio/">Minio</a></h3>
+      
+      <span class="entry-seal">置顶</span>
+      
+    </div>
+    <p class="entry-excerpt">一份Git的基础使用教程，包括MinIO的安装、使用、常用命令。Github github.com/minio/minio官网 MinIO部署与安装Docker安装运行以下命令以使用临时数据卷将 MinIO 的最新稳定映像作为容器运行：docker pull minio/m...</p>
+    <p class="entry-meta">
+      <time datetime="2024-08-24T00:00:00+08:00">2024.08.24</time>
+      <span class="meta-dot" aria-hidden="true">·</span>
+      <span>Right</span>
+      
+      <span class="meta-dot" aria-hidden="true">·</span>
+      
+      <a class="meta-tag" href="/blog/tags#notes">#notes</a>
+      
+      <a class="meta-tag" href="/blog/tags#tools">#tools</a>
+      
+      
+    </p>
+  </div>
+</article>
+
+        
+          
+
+
+
+
+
+
+
+
+<article class="ledger-entry ">
+  <span class="entry-num" aria-hidden="true">〇三</span>
+  <div class="entry-body">
+    <div class="entry-head">
+      <h3 class="entry-title"><a href="/blog/databases/">数据库</a></h3>
+      
+      <span class="entry-seal">置顶</span>
+      
+    </div>
+    <p class="entry-excerpt">数据库原理主要内容1. 数据库是什么？数据库是一个组织数据的集合，可供快速访问、管理和更新。它是应用程序的基础，用于存储和检索数据。数据库是一个组织数据的集合，可供快速访问、管理和更新的系统。它是一个电子化的数据存储系统，旨在有效地存储和检索大量的数据。数据库系统能够存储各...</p>
+    <p class="entry-meta">
+      <time datetime="2024-02-08T00:00:00+08:00">2024.02.08</time>
+      <span class="meta-dot" aria-hidden="true">·</span>
+      <span>Right</span>
+      
+      <span class="meta-dot" aria-hidden="true">·</span>
+      
+      <a class="meta-tag" href="/blog/tags#notes">#notes</a>
+      
+      <a class="meta-tag" href="/blog/tags#codes">#codes</a>
+      
+      
+    </p>
+  </div>
+</article>
+
+        
+          
+
+
+
+
+
+
+
+
+<article class="ledger-entry ">
+  <span class="entry-num" aria-hidden="true">〇四</span>
+  <div class="entry-body">
+    <div class="entry-head">
+      <h3 class="entry-title"><a href="/blog/Date-Structure/">数据结构</a></h3>
+      
+      <span class="entry-seal">置顶</span>
+      
+    </div>
+    <p class="entry-excerpt">数据结构。1. 数组（Array）      解释：        数组是一种线性数据结构，由一系列连续的内存单元组成，用于存储相同类型的元素。        基本操作：        访问、插入、删除、查找。        示例代码（Python）：    # 创建数组a...</p>
+    <p class="entry-meta">
+      <time datetime="2024-02-07T00:00:00+08:00">2024.02.07</time>
+      <span class="meta-dot" aria-hidden="true">·</span>
+      <span>Right</span>
+      
+      <span class="meta-dot" aria-hidden="true">·</span>
+      
+      <a class="meta-tag" href="/blog/tags#notes">#notes</a>
+      
+      <a class="meta-tag" href="/blog/tags#codes">#codes</a>
+      
+      
+    </p>
+  </div>
+</article>
+
+        
+          
+
+
+
+
+
+
+
+
+<article class="ledger-entry ">
+  <span class="entry-num" aria-hidden="true">〇五</span>
+  <div class="entry-body">
+    <div class="entry-head">
+      <h3 class="entry-title"><a href="/blog/document/">LOFFER使用基础教程</a></h3>
+      
+      <span class="entry-seal">置顶</span>
+      
+    </div>
+    <p class="entry-excerpt">LOFFER是个可以帮助你get off from LOFTER的软件（我知道这个pun很烂）。这是一个可以直接发布在GitHub page的Jekyll博客，你不需要编写代码或使用命令行即可配置属于你的LOFFER。本文为针对完全没有代码基础的朋友的基础教程。注意LOFF...</p>
+    <p class="entry-meta">
+      <time datetime="2013-08-02T00:00:00+08:00">2013.08.02</time>
+      <span class="meta-dot" aria-hidden="true">·</span>
+      <span>来自中世界</span>
+      
+      <span class="meta-dot" aria-hidden="true">·</span>
+      
+      <a class="meta-tag" href="/blog/tags#sample">#sample</a>
+      
+      <a class="meta-tag" href="/blog/tags#document">#document</a>
+      
+      
+    </p>
+  </div>
+</article>
+
+        
+      </div>
+    </section>
+    
+
+    <section class="folio-section reveal reveal-4">
+      <h2 class="section-heading"><span class="heading-ordinal">丙</span>目录</h2>
+
+      
+      <div class="ledger-list">
+        
+          
+
+
+
+
+
+
+
+
+<article class="ledger-entry ">
+  <span class="entry-num" aria-hidden="true">〇一</span>
+  <div class="entry-body">
+    <div class="entry-head">
+      <h3 class="entry-title"><a href="/blog/oh-my-zsh/">Zsh 与 Oh My Zsh 安装配置指南</a></h3>
+      
+    </div>
+    <p class="entry-excerpt">                    参考来源：[zsh 安装与配置        Leehow的小站](https://www.haoyep.com/posts/zsh-config-oh-my-zsh/)              OS -&gt; Ubuntu1. 环境准备更新软件源并...</p>
+    <p class="entry-meta">
+      <time datetime="2026-02-20T00:00:00+08:00">2026.02.20</time>
+      <span class="meta-dot" aria-hidden="true">·</span>
+      <span>Right</span>
+      
+      <span class="meta-dot" aria-hidden="true">·</span>
+      
+      <a class="meta-tag" href="/blog/tags#document">#document</a>
+      
+      
+    </p>
+  </div>
+</article>
+
+        
+          
+
+
+
+
+
+
+
+
+<article class="ledger-entry ">
+  <span class="entry-num" aria-hidden="true">〇二</span>
+  <div class="entry-body">
+    <div class="entry-head">
+      <h3 class="entry-title"><a href="/blog/post-7/">博客现代化改造</a></h3>
+      
+    </div>
+    <p class="entry-excerpt">博客现代化改造：Issue 驱动与扁平化布局站点整体风格改为更紧凑的阅读节奏：少留白、少卡片、弱装饰。工作流上继续强化自动化，保证“随时能写、写完就发”。1. Issue 驱动的发布流程把写作入口放在 GitHub：  Issue 即草稿：标题/正文即文章内容，标签用于分类。  Actions...</p>
+    <p class="entry-meta">
+      <time datetime="2026-02-09T00:00:00+08:00">2026.02.09</time>
+      <span class="meta-dot" aria-hidden="true">·</span>
+      <span>Right</span>
+      
+      <span class="meta-dot" aria-hidden="true">·</span>
+      
+      <a class="meta-tag" href="/blog/tags#document">#document</a>
+      
+      
+    </p>
+  </div>
+</article>
+
+        
+          
+
+
+
+
+
+
+
+
+<article class="ledger-entry ">
+  <span class="entry-num" aria-hidden="true">〇三</span>
+  <div class="entry-body">
+    <div class="entry-head">
+      <h3 class="entry-title"><a href="/blog/math-test/">LaTex渲染的说明和测试</a></h3>
+      
+    </div>
+    <p class="entry-excerpt">LaTeX渲染已经在全站头部文件引入，可以直接使用，公式块上下使用$$标明，内联公式则用$.最好不要让公式出现在文章摘要里。Jekyll的默认文章摘要是第一段，但是我在使用中发现它选取摘要不是很稳定，因此加入了手动摘要分割线，默认为`</p>
+    <p class="entry-meta">
+      <time datetime="2019-07-24T00:00:00+08:00">2019.07.24</time>
+      <span class="meta-dot" aria-hidden="true">·</span>
+      <span>来自中世界</span>
+      
+      <span class="meta-dot" aria-hidden="true">·</span>
+      
+      <a class="meta-tag" href="/blog/tags#sample">#sample</a>
+      
+      <a class="meta-tag" href="/blog/tags#document">#document</a>
+      
+      
+    </p>
+  </div>
+</article>
+
+        
+          
+
+
+
+
+
+
+
+
+<article class="ledger-entry ">
+  <span class="entry-num" aria-hidden="true">〇四</span>
+  <div class="entry-body">
+    <div class="entry-head">
+      <h3 class="entry-title"><a href="/blog/chinese-markdown-cheatsheet/">Markdown语法简介</a></h3>
+      
+    </div>
+    <p class="entry-excerpt">本中文版Markdown语法简介来自博客 https://blog.shengbin.me/posts/markdown-syntax，并由我完成了汉化。其中的站位文字来自狗屁不通文章生成器。Markdown语法的完整文档在这里。下面整理的这些为了方便写博客时参考。分段与分行以一个或多个空行来...</p>
+    <p class="entry-meta">
+      <time datetime="2013-07-16T00:00:00+08:00">2013.07.16</time>
+      <span class="meta-dot" aria-hidden="true">·</span>
+      <span>Shengbin</span>
+      
+      <span class="meta-dot" aria-hidden="true">·</span>
+      
+      <a class="meta-tag" href="/blog/tags#sample">#sample</a>
+      
+      <a class="meta-tag" href="/blog/tags#markdown">#markdown</a>
+      
+      
+    </p>
+  </div>
+</article>
+
+        
+      </div>
+      
+
+      
+    </section>
+
+  </div>
+</div>
+
+      </main>
+
+      
+
+
+<footer class="site-footer">
+  <div class="footer-rule" aria-hidden="true"></div>
+  <div class="footer-inner">
+    <p class="footer-colophon">
+      <span class="footer-mark" aria-hidden="true">▪</span>
+      Having a nice day~
+    </p>
+    <div class="footer-links">
+      
+      <a href="https://github.com/Right202209">GitHub</a>
+      
+      
+      <a href="mailto:tunhe38@gmail.com">Email</a>
+      
+      
+      <a href="/blog/feed.xml">RSS</a>
+      
+    </div>
+    <p class="footer-meta">© 2026 Right · 纸上得来终觉浅</p>
+  </div>
+</footer>
+
+    </div>
+
+    
+
+
+    <script>
+      (function () {
+        function pickSlogan() {
+          var slogan = document.getElementById("slogan");
+          if (!slogan) return;
+
+          var lines = [
+            "以证据为起点，以方法为路径。",
+            
+            "把判断写下来，再让证据修正它。",
+            "记录技术、方法，以及能长期复用的经验。",
+            "在噪音很多的时候，尽量保留清晰的页面和思路。"
+            
+          ];
+
+          slogan.textContent = lines[Math.floor(Math.random() * lines.length)];
+        }
+
+        window.addEventListener("DOMContentLoaded", pickSlogan);
+      })();
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+<script>
+  (function () {
+    if (!window.gsap || !window.ScrollTrigger) return;
+    gsap.registerPlugin(ScrollTrigger);
+
+    window.addEventListener("DOMContentLoaded", function () {
+      gsap.matchMedia().add("(prefers-reduced-motion: no-preference)", function () {
+        // 浮墨 background motes: soft fade-in, slow drift, scroll parallax
+        gsap.utils.toArray(".paper-motes .mote").forEach(function (mote, i) {
+          var inner = mote.firstElementChild;
+          var depth = parseFloat(mote.dataset.depth) || 0.4;
+
+          gsap.from(mote, { opacity: 0, duration: 1.4, delay: 0.2 + i * 0.15, ease: "power1.out" });
+
+          // perpetual drift, like ink suspended in water
+          gsap.to(inner, {
+            x: gsap.utils.random(-28, 28),
+            y: gsap.utils.random(-22, 22),
+            rotation: gsap.utils.random(-3, 3),
+            duration: gsap.utils.random(14, 22),
+            ease: "sine.inOut",
+            yoyo: true,
+            repeat: -1
+          });
+
+          // depth parallax: nearer motes slide further as the page scrolls
+          gsap.to(mote, {
+            y: function () { return -window.innerHeight * depth * 0.5; },
+            ease: "none",
+            scrollTrigger: {
+              trigger: document.documentElement,
+              start: 0,
+              end: "max",
+              scrub: 1.2,
+              invalidateOnRefresh: true
+            }
+          });
+        });
+
+        // 証據 seal: stamp-press entrance, then return transform to CSS (hover)
+        var seal = document.querySelector(".hero-seal");
+        if (seal) {
+          gsap.from(seal, {
+            scale: 1.4,
+            opacity: 0,
+            duration: 0.5,
+            delay: 0.45,
+            ease: "back.out(1.7)",
+            clearProps: "transform,opacity"
+          });
+        }
+
+        // Ledger entries rise in as they scroll into view
+        gsap.utils.toArray(".ledger-entry").forEach(function (entry) {
+          gsap.from(entry, {
+            y: 18,
+            opacity: 0,
+            duration: 0.55,
+            ease: "power2.out",
+            clearProps: "transform,opacity",
+            scrollTrigger: {
+              trigger: entry,
+              start: "top 90%",
+              once: true
+            }
+          });
+        });
+
+        // Post header rule: ink line drawn from the left
+        gsap.utils.toArray(".header-rule").forEach(function (rule) {
+          gsap.from(rule, {
+            scaleX: 0,
+            transformOrigin: "left center",
+            duration: 0.8,
+            delay: 0.25,
+            ease: "power2.inOut",
+            clearProps: "transform"
+          });
+        });
+      });
+
+      window.addEventListener("load", function () {
+        ScrollTrigger.refresh();
+      });
+    });
+  })();
+</script>
+
+  </body>
+</html>
