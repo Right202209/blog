@@ -4,9 +4,9 @@
 //
 
 :root {
-  --paper: #f5efe2;
-  --paper-deep: #ede4cf;
-  --paper-shade: #e3d8bf;
+  --paper: #faf7f0;
+  --paper-deep: #f3eee2;
+  --paper-shade: #e9e1d0;
   --ink: #28231a;
   --ink-soft: #6e6553;
   --ink-faint: #9c917a;
@@ -30,8 +30,8 @@ html {
 
 body {
   background-color: var(--paper);
-  background-image: radial-gradient(ellipse 120% 90% at 50% -10%, rgba(255, 252, 242, 0.9), transparent 60%),
-    radial-gradient(ellipse 140% 100% at 50% 110%, rgba(150, 128, 90, 0.14), transparent 55%);
+  background-image: radial-gradient(ellipse 120% 90% at 50% -10%, rgba(255, 254, 250, 0.9), transparent 60%),
+    radial-gradient(ellipse 140% 100% at 50% 110%, rgba(150, 128, 90, 0.1), transparent 55%);
   color: var(--ink);
   font-family: var(--font-body);
   line-height: 1.9;
@@ -181,7 +181,7 @@ em, i {
 }
 
 .container {
-  max-width: 880px;
+  max-width: 1080px;
   margin: 0 auto;
   padding: 0 28px;
 }
@@ -228,7 +228,7 @@ em, i {
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  max-width: 880px;
+  max-width: 1080px;
   width: 100%;
   margin: 0 auto;
   padding: 30px 28px 22px;
@@ -526,7 +526,7 @@ em, i {
 
 .site-footer {
   flex-shrink: 0;
-  max-width: 880px;
+  max-width: 1080px;
   width: 100%;
   margin: 0 auto;
   padding: 0 28px 44px;

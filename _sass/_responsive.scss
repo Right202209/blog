@@ -20,6 +20,8 @@
   .content-aside {
     position: static;
     order: -1;
+    max-height: none;
+    overflow: visible;
   }
 
   .toc-box {
@@ -27,6 +29,26 @@
     border-top: 1px solid var(--hairline);
     border-bottom: 1px solid var(--hairline-soft);
     padding: 14px 4px;
+  }
+
+  .index-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .index-aside {
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 26px 48px;
+    border-left: 0;
+    border-top: 1px solid var(--hairline);
+    padding: 24px 0 0;
+    margin-top: 10px;
+
+    .dir-module {
+      flex: 1 1 220px;
+      min-width: 0;
+    }
   }
 }
 

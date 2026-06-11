@@ -68,14 +68,66 @@ layout: default
         </nav>
       </main>
 
-      {% if page.toc == true %}
+      {% assign has_headings = false %}
+      {% if content contains '<h2' or content contains '<h3' or content contains '<h4' %}
+        {% assign has_headings = true %}
+      {% endif %}
+      {% if page.toc != false and has_headings %}
       <aside class="content-aside">
-        <div class="toc-box">
-          <p class="toc-label">{{ t.toc_label }}</p>
-          {% include toc.html html=content %}
-        </div>
+        <details class="toc-box" id="post-toc" open>
+          <summary class="toc-label">{{ t.toc_label }}</summary>
+          <nav class="toc-body">
+            {% include toc.html html=content sanitize=true h_min=2 h_max=4 %}
+          </nav>
+        </details>
       </aside>
       {% endif %}
     </div>
   </div>
 </div>
+
+<script>
+  (function () {
+    var toc = document.getElementById("post-toc");
+    if (!toc) return;
+
+    // fold the directory by default on narrow screens
+    if (window.matchMedia("(max-width: 980px)").matches) {
+      toc.removeAttribute("open");
+    }
+
+    var heads = [];
+    toc.querySelectorAll("a[href^='#']").forEach(function (a) {
+      var id = decodeURIComponent(a.getAttribute("href").slice(1));
+      var h = document.getElementById(id);
+      if (h) heads.push([h, a]);
+    });
+    if (!heads.length) return;
+
+    var active = null;
+    function update() {
+      var current = heads[0][1];
+      for (var i = 0; i < heads.length; i++) {
+        if (heads[i][0].getBoundingClientRect().top <= 96) current = heads[i][1];
+      }
+      if (current !== active) {
+        if (active) active.classList.remove("active");
+        active = current;
+        active.classList.add("active");
+      }
+    }
+
+    var ticking = false;
+    window.addEventListener("scroll", function () {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () {
+        ticking = false;
+        update();
+      });
+    }, { passive: true });
+
+    window.addEventListener("load", update);
+    update();
+  })();
+</script>

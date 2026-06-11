@@ -14,7 +14,8 @@
 
 .page-post .content-two-col,
 .post-layout {
-  grid-template-columns: minmax(0, 1fr) 200px;
+  grid-template-columns: minmax(0, 1fr) 240px;
+  column-gap: 60px;
 }
 
 .post-layout:not(:has(.content-aside)) {
@@ -263,7 +264,12 @@
 
 .content-aside {
   position: sticky;
-  top: 28px;
+  top: 32px;
+  max-height: calc(100vh - 64px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--hairline-soft) transparent;
 }
 
 .toc-box {
@@ -272,12 +278,32 @@
   font-size: 0.84rem;
 
   .toc-label {
+    display: block;
     font-family: var(--font-display);
     font-weight: 900;
     font-size: 0.8rem;
     letter-spacing: 0.34em;
     color: var(--vermilion);
     margin-bottom: 10px;
+    cursor: pointer;
+    user-select: none;
+    list-style: none;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &::after {
+      content: "▸";
+      margin-left: 10px;
+      font-size: 0.7em;
+      letter-spacing: 0;
+      color: var(--ink-faint);
+    }
+  }
+
+  &[open] .toc-label::after {
+    content: "▾";
   }
 
   ul {
@@ -296,9 +322,15 @@
 
   a {
     color: var(--ink-soft);
+    border-bottom: 0;
 
     &:hover {
       color: var(--vermilion);
+    }
+
+    &.active {
+      color: var(--vermilion);
+      font-weight: 600;
     }
   }
 }

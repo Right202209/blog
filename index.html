@@ -75,21 +75,61 @@ layout: default
     <section class="folio-section reveal reveal-4">
       <h2 class="section-heading"><span class="heading-ordinal">{% if pinned_posts.size > 0 %}丙{% else %}乙{% endif %}</span>{{ t.section_index }}</h2>
 
-      {% if feed_posts.size > 0 %}
-      <div class="ledger-list">
-        {% for post in feed_posts %}
-          {% include post-card.html post=post index=forloop.index truncate=150 %}
-        {% endfor %}
-      </div>
-      {% else %}
-      <p class="empty-note">{{ t.empty_index }}</p>
-      {% endif %}
+      <div class="index-grid">
+        <div class="index-feed">
+          {% if feed_posts.size > 0 %}
+          <div class="ledger-list">
+            {% for post in feed_posts %}
+              {% include post-card.html post=post index=forloop.index truncate=150 %}
+            {% endfor %}
+          </div>
+          {% else %}
+          <p class="empty-note">{{ t.empty_index }}</p>
+          {% endif %}
 
-      {% if feed_source.size > feed_posts.size %}
-      <p class="folio-more">
-        <a href="{{ site.baseurl }}/archive">{{ t.browse_archive_cta }} →</a>
-      </p>
-      {% endif %}
+          {% if feed_source.size > feed_posts.size %}
+          <p class="folio-more">
+            <a href="{{ site.baseurl }}/archive">{{ t.browse_archive_cta }} →</a>
+          </p>
+          {% endif %}
+        </div>
+
+        <aside class="index-aside">
+          {% if site.tags.size > 0 %}
+          <div class="dir-module">
+            <h3 class="dir-title">{{ t.dir_tags }}</h3>
+            {% capture tag_pairs %}{% for tag in site.tags %}{{ tag[1].size | plus: 1000 }}::{{ tag[0] }}|{% endfor %}{% endcapture %}
+            {% assign tag_sorted = tag_pairs | split: '|' | sort | reverse %}
+            <ul class="dir-list">
+              {% for pair in tag_sorted limit: 10 %}
+                {% assign bits = pair | split: '::' %}
+                <li>
+                  <a href="{{ site.baseurl }}/tags#{{ bits[1] | slugify }}">{{ bits[1] }}</a>
+                  <span class="dir-count">{{ bits[0] | minus: 1000 }}</span>
+                </li>
+              {% endfor %}
+            </ul>
+            {% if tag_sorted.size > 10 %}
+            <a class="dir-all" href="{{ site.baseurl }}/tags">{{ t.dir_all }} →</a>
+            {% endif %}
+          </div>
+          {% endif %}
+
+          <div class="dir-module">
+            <h3 class="dir-title">{{ t.dir_years }}</h3>
+            {% assign year_groups = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
+            <ul class="dir-list">
+              {% for year in year_groups %}
+                <li>
+                  <a href="{{ site.baseurl }}/archive">{{ year.name }}</a>
+                  <span class="dir-count">{{ year.items.size }}</span>
+                </li>
+              {% endfor %}
+            </ul>
+            <a class="dir-all" href="{{ site.baseurl }}/archive">{{ t.dir_all }} →</a>
+          </div>
+        </aside>
+      </div>
     </section>
 
   </div>
