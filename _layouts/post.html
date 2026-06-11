@@ -11,34 +11,36 @@ layout: default
   {% assign reading_time = 1 %}
 {% endif %}
 
-<div class="content-wrap ch">
+<div class="content-wrap">
   <div class="container">
     <div class="content-two-col post-layout">
       <main class="content-main">
-        <article class="page-block post-block article-shell corner-decor">
-          <div class="corner-decor-tl"></div>
-          <div class="corner-decor-br"></div>
-          <a class="back-link" href="{{ site.baseurl }}/">[← {{ t.back_home }}]</a>
+        <article class="article-folio reveal">
+          <a class="back-link" href="{{ site.baseurl }}/">← {{ t.back_home }}</a>
 
           <header class="post-header">
-            <p class="section-label">{{ t.post_label }}</p>
-            <h1>{{ page.title }}</h1>
-            <div class="post-meta-row">
-              <span>{{ t.author_label }}: {{ post_author }}</span>
-              <span>{{ t.date_label }}: {{ page.date | date: "%Y-%m-%d" }}</span>
-              <span>{{ t.read_label }}: {{ reading_time }} {{ t.reading_time }}</span>
+            <span class="post-side-label" aria-hidden="true">{{ t.post_label }}</span>
+            <h1 class="post-title">{{ page.title }}</h1>
+            <p class="entry-meta post-meta-row">
+              <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y.%m.%d" }}</time>
+              <span class="meta-dot" aria-hidden="true">·</span>
+              <span>{{ post_author }}</span>
+              <span class="meta-dot" aria-hidden="true">·</span>
+              <span>{{ reading_time }} {{ t.reading_time }}</span>
               <span id="busuanzi_container_page_pv" style="display:none;">
-                {{ t.views_label }}: <span id="busuanzi_value_page_pv"></span> {{ t.times }}
+                <span class="meta-dot" aria-hidden="true">·</span>
+                {{ t.views }} <span id="busuanzi_value_page_pv"></span> {{ t.times }}
               </span>
-            </div>
+            </p>
 
             {% if page.tags and page.tags.size > 0 %}
-            <div class="topic-list post-topics">
+            <p class="post-topics">
               {% for tag in page.tags %}
-              <a href="{{ site.url }}{{ site.baseurl }}/tags#{{ tag | slugify }}">#{{ tag }}</a>
+              <a class="meta-tag" href="{{ site.url }}{{ site.baseurl }}/tags#{{ tag | slugify }}">#{{ tag }}</a>
               {% endfor %}
-            </div>
+            </p>
             {% endif %}
+            <div class="header-rule" aria-hidden="true"></div>
           </header>
 
           <div class="entry">
@@ -52,7 +54,7 @@ layout: default
           </section>
         </article>
 
-        <div class="pagination post-pagination">
+        <nav class="pagination post-pagination">
           {% if page.previous.url %}
             <span class="prev">
               <a href="{{ site.url }}{{ site.baseurl }}{{ page.previous.url }}">← {{ t.prev }}</a>
@@ -63,13 +65,13 @@ layout: default
               <a href="{{ site.url }}{{ site.baseurl }}{{ page.next.url }}">{{ t.next }} →</a>
             </span>
           {% endif %}
-        </div>
+        </nav>
       </main>
 
       {% if page.toc == true %}
       <aside class="content-aside">
         <div class="toc-box">
-          <p class="section-label">{{ t.toc_label }}</p>
+          <p class="toc-label">{{ t.toc_label }}</p>
           {% include toc.html html=content %}
         </div>
       </aside>

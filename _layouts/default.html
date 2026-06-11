@@ -3,61 +3,30 @@
   {% include head.html %}
   {% assign page_layout = page.layout | default: 'default' %}
   {% assign lang = page.lang | default: site.lang | default: 'zh' %}
-  {% assign is_home = false %}
-  {% assign is_post = false %}
   {% assign page_kind = 'page' %}
   {% if page.url == '/' %}
-    {% assign is_home = true %}
     {% assign page_kind = 'home' %}
-  {% endif %}
-  {% if page_layout == 'post' or page.collection == 'posts' or page.date %}
-    {% assign is_post = true %}
+  {% elsif page_layout == 'post' or page.collection == 'posts' or page.date %}
     {% assign page_kind = 'post' %}
   {% endif %}
-  <body class="layout-{{ page_layout }} page-{{ page_kind }}{% if is_home %} layout-home{% endif %}{% if is_post %} read-mode{% endif %}">
-    <div class="screen-layer-scanlines" aria-hidden="true"></div>
-    <div class="screen-layer-glow" aria-hidden="true"></div>
-    <div class="screen-layer-flicker" aria-hidden="true"></div>
+  <body class="layout-{{ page_layout }} page-{{ page_kind }}">
+    <div class="paper-grain" aria-hidden="true"></div>
+    <div class="paper-columns" aria-hidden="true"></div>
 
     <div class="site-shell">
-      <div class="shell-frame">
-        {% include nav.html %}
+      {% include nav.html %}
 
-        <div class="main">
-          {{ content }}
-        </div>
+      <main class="main">
+        {{ content }}
+      </main>
 
-        {% include footer.html %}
-      </div>
+      {% include footer.html %}
     </div>
 
     {% include analytics.html %}
 
     <script>
       (function () {
-        function setupCrtToggle() {
-          const btn = document.getElementById("crt-toggle");
-          if (!btn) return;
-          
-          const isOff = localStorage.getItem("crt-off") === "true";
-          if (isOff) {
-            document.body.classList.add("crt-off");
-            btn.textContent = "[X]";
-          }
-
-          btn.addEventListener("click", () => {
-            const turningOff = !document.body.classList.contains("crt-off");
-            document.body.classList.toggle("crt-off", turningOff);
-            localStorage.setItem("crt-off", turningOff);
-            btn.textContent = turningOff ? "[X]" : "[O]";
-          });
-        }
-
-        function randomBetween(min, max) {
-          return min + Math.round(Math.random() * (max - min));
-        }
-        
-        // ... (existing pickSlogan function)
         function pickSlogan() {
           var slogan = document.getElementById("slogan");
           if (!slogan) return;
@@ -75,13 +44,10 @@
             {% endif %}
           ];
 
-          slogan.textContent = lines[randomBetween(0, lines.length - 1)];
+          slogan.textContent = lines[Math.floor(Math.random() * lines.length)];
         }
 
-        window.addEventListener("DOMContentLoaded", function () {
-          pickSlogan();
-          setupCrtToggle();
-        });
+        window.addEventListener("DOMContentLoaded", pickSlogan);
       })();
     </script>
   </body>

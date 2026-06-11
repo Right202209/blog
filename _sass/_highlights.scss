@@ -1,129 +1,193 @@
-/* === 代码高亮 (琥珀磷光配色) === */
-pre,
-code {
-  font-family: inherit;
+//
+// 考据 · Ink & Paper — code highlighting (rouge)
+// ink on a recessed sheet of darker paper
+//
+
+code, pre {
+  font-family: var(--font-mono);
 }
 
+// inline code
 code.highlighter-rouge {
-  color: var(--accent-yellow);
+  font-size: 0.84em;
+  color: var(--vermilion-deep);
+  background: rgba(178, 58, 39, 0.07);
+  border: 1px solid rgba(178, 58, 39, 0.14);
+  border-radius: 3px;
+  padding: 1px 6px;
 }
 
-pre.highlight {
-  margin: 0;
+// block frame
+div.highlighter-rouge {
+  margin: 1.6em 0;
 }
 
 .highlight {
-  background: #0a0a08;
-  color: var(--text-main);
+  background: #efe7d2;
+  color: #3a342a;
+  border: 1px solid var(--hairline);
+  border-left: 3px solid var(--vermilion);
+  border-radius: 2px;
+  box-shadow: inset 0 1px 4px rgba(40, 35, 26, 0.06);
+
+  pre {
+    margin: 0;
+    padding: 18px 20px;
+    overflow-x: auto;
+    font-size: 0.82rem;
+    line-height: 1.75;
+  }
+
+  code {
+    background: none;
+    border: 0;
+    padding: 0;
+  }
 }
 
-/* 注释 */
+// comments — 注 in faded ink
 .highlight .c,
 .highlight .cm,
 .highlight .c1,
 .highlight .cs,
-.highlight .cp {
-  color: #7a6e50;
+.highlight .cp,
+.highlight .cd {
+  color: #9a8d72;
   font-style: italic;
 }
 
-/* 错误 */
-.highlight .err,
-.highlight .gr,
-.highlight .gt {
-  color: #ff6e40;
+// errors
+.highlight .err {
+  color: #8c2b1c;
+  background: rgba(178, 58, 39, 0.12);
 }
 
-/* 关键字 */
+// keywords — vermilion
 .highlight .k,
 .highlight .kc,
 .highlight .kd,
+.highlight .kn,
 .highlight .kp,
 .highlight .kr,
+.highlight .kv,
 .highlight .ow {
-  color: #ffb000;
-  font-weight: 600;
+  color: #a13524;
+  font-weight: 500;
 }
 
-/* 运算符 & 标签 */
-.highlight .o,
-.highlight .nt {
-  color: var(--text-main);
-}
-
-/* 辅助信息 */
-.highlight .gh,
-.highlight .gu,
-.highlight .gp,
-.highlight .go,
-.highlight .w,
-.highlight .nn,
-.highlight .bp {
-  color: #8a7a50;
-}
-
-/* 类型 & 函数名 */
+// types & declarations
 .highlight .kt,
-.highlight .nb,
 .highlight .nc,
-.highlight .nf,
-.highlight .ne {
-  color: #39ff14;
+.highlight .ne,
+.highlight .nn {
+  color: #275f73;
+  font-weight: 500;
 }
 
-/* 变量 */
+// functions
+.highlight .nf,
+.highlight .fm {
+  color: #275f73;
+}
+
+// names, attributes, tags
 .highlight .na,
+.highlight .nt,
+.highlight .nx {
+  color: #6b4a12;
+}
+
+// builtins, constants, decorators
+.highlight .nb,
 .highlight .no,
-.highlight .ni,
-.highlight .nv,
+.highlight .nd,
+.highlight .bp,
 .highlight .vc,
 .highlight .vg,
 .highlight .vi {
-  color: #ffd080;
+  color: #7a5418;
 }
 
-/* 数字 */
-.highlight .m,
-.highlight .mf,
-.highlight .mh,
-.highlight .mi,
-.highlight .mo,
-.highlight .il {
-  color: #ff9060;
-}
-
-/* 字符串 */
+// strings — olive ink
 .highlight .s,
+.highlight .sa,
 .highlight .sb,
 .highlight .sc,
+.highlight .dl,
 .highlight .sd,
-.highlight .s1,
 .highlight .s2,
 .highlight .se,
 .highlight .sh,
 .highlight .si,
 .highlight .sx,
-.highlight .ss,
-.highlight .sr {
-  color: #80ff80;
+.highlight .sr,
+.highlight .s1,
+.highlight .ss {
+  color: #58702d;
 }
 
-/* Diff 删除 */
-.highlight .gd,
-.highlight .gd .x {
-  color: #ff6e40;
-  background: rgba(255, 110, 64, 0.1);
+// numbers
+.highlight .m,
+.highlight .mb,
+.highlight .mf,
+.highlight .mh,
+.highlight .mi,
+.highlight .il,
+.highlight .mo,
+.highlight .mx {
+  color: #9a6515;
 }
 
-/* Diff 添加 */
-.highlight .gi,
-.highlight .gi .x {
-  color: #39ff14;
-  background: rgba(57, 255, 20, 0.06);
+// operators & punctuation
+.highlight .o,
+.highlight .p,
+.highlight .pi {
+  color: #5c5343;
 }
 
-.highlight .ge,
-.highlight .gs {
-  font-style: italic;
+// generic / diff
+.highlight .gd {
+  color: #8c2b1c;
+  background: rgba(178, 58, 39, 0.1);
+}
+
+.highlight .gi {
+  color: #58702d;
+  background: rgba(88, 112, 45, 0.12);
+}
+
+.highlight .gh,
+.highlight .gu {
+  color: #275f73;
   font-weight: 600;
+}
+
+.highlight .ge {
+  font-style: italic;
+}
+
+.highlight .gs {
+  font-weight: 600;
+}
+
+.highlight .gp {
+  color: #9a8d72;
+}
+
+.highlight .w {
+  color: inherit;
+}
+
+// scrollbar inside code blocks
+.highlight pre::-webkit-scrollbar {
+  height: 8px;
+}
+
+.highlight pre::-webkit-scrollbar-thumb {
+  background: var(--hairline);
+  border-radius: 4px;
+}
+
+.highlight pre::-webkit-scrollbar-track {
+  background: transparent;
 }

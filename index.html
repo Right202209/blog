@@ -6,148 +6,91 @@ layout: default
 {% assign t = site.data.i18n.languages[lang] %}
 {% assign latest_post = site.posts.first %}
 {% assign pinned_posts = site.posts | where: "pinned", true %}
-{% assign featured_pinned_posts = pinned_posts | slice: 0, 2 %}
-{% assign latest_date = latest_post.date | date: "%Y-%m-%d" %}
+{% assign latest_date = latest_post.date | date: "%Y.%m.%d" %}
 {% assign non_pinned_posts = site.posts | where_exp: "post", "post.pinned != true" %}
-{% assign overflow_pinned_posts = pinned_posts | slice: 2, pinned_posts.size %}
 {% assign feed_source = non_pinned_posts %}
 {% if latest_post and latest_post.pinned != true %}
   {% assign feed_source = non_pinned_posts | where_exp: "post", "post.url != latest_post.url" %}
 {% endif %}
 {% assign feed_posts = feed_source | slice: 0, site.paginate %}
 
-<div class="content-wrap ch home-dashboard">
+<div class="content-wrap home-folio">
   <div class="container">
-    <section class="dashboard-hero dashboard-panel">
-      <div class="dashboard-hero-main">
-        <p class="hero-eyebrow">{{ site.name }} / {{ t.terminal_boot }}</p>
-        <p class="section-label">{{ t.system_init }}</p>
-        <div style="display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;">
-          <h1 id="slogan" style="margin: 0;">{{ site.description }}</h1>
-          <span class="cursor-blink" style="font-size: 2rem; color: var(--crt-cyan); text-shadow: 0 0 10px var(--crt-cyan); line-height: 1;">█</span>
-        </div>
-        <div class="hero-summary terminal-init-sequence">
-          <p class="sequence-line">{{ t.kernel_ok }}</p>
-          <p class="sequence-line">{{ t.archive_ok }}</p>
-          <p class="sequence-line">{{ t.feed_ok }}</p>
-          <br />
-          <p class="sequence-intro">&gt; {{ site.description }} {{ t.site_intro }}</p>
-        </div>
+
+    <header class="folio-hero reveal">
+      <span class="hero-side-label" aria-hidden="true">{{ t.vol_label }}</span>
+      <div class="hero-main">
+        <p class="hero-eyebrow">{{ site.name }} · {{ t.brand_sub }}</p>
+        <h1 id="slogan" class="hero-slogan">{{ site.description }}</h1>
+        <p class="hero-note">{{ t.site_intro }}</p>
         <div class="hero-actions">
-          <a href="{{ site.baseurl }}/archive">[{{ t.open_archive }}]</a>
-          <a href="{{ site.baseurl }}/about">[{{ t.open_about }}]</a>
+          <a href="{{ site.baseurl }}/archive">{{ t.open_archive }}</a>
+          <a href="{{ site.baseurl }}/about">{{ t.open_about }}</a>
         </div>
       </div>
+      <div class="hero-seal" aria-hidden="true">
+        <span>証</span><span>據</span>
+      </div>
+    </header>
 
-      <div class="dashboard-hero-meta">
-        <section class="dashboard-panel panel-compact system-panel status-block">
-          <pre class="ascii-art">
-  ___ 
- / _ \ 
-| | | |
-| |_| |
- \___/ 
-          </pre>
-          <div class="status-details">
-            <p>USER: GUEST</p>
-            <p>STATUS: ONLINE</p>
-          </div>
-          <hr class="status-divider" />
-          <div class="panel-heading panel-heading-compact">
-            <div>
-              <p class="section-label">{{ t.system_readout }}</p>
-              <h2>{{ t.runtime_overview }}</h2>
-            </div>
-          </div>
-          <dl class="metric-list">
-            <div>
-              <dt>{{ t.posts_metric }}.count</dt>
-              <dd>{{ site.posts | size }}</dd>
-            </div>
-            <div>
-              <dt>{{ t.updated }}.sync</dt>
-              <dd>{{ latest_date }}</dd>
-            </div>
-          </dl>
-        </section>
+    <p class="folio-stats reveal reveal-1">
+      <span>{{ t.stats_total }} {{ site.posts | size }} {{ t.posts_unit }}</span>
+      <span class="meta-dot" aria-hidden="true">·</span>
+      <span>{{ t.updated }} {{ latest_date }}</span>
+    </p>
+
+    {% if latest_post %}
+    <section class="folio-section spotlight reveal reveal-2">
+      <h2 class="section-heading"><span class="heading-ordinal">甲</span>{{ t.fresh_ink }}</h2>
+      <article class="spotlight-entry">
+        <h3 class="spotlight-title"><a href="{{ site.baseurl }}{{ latest_post.url }}">{{ latest_post.title }}</a></h3>
+        <p class="spotlight-excerpt">
+          {% if latest_post.content contains site.excerpt_separator or latest_post.content != latest_post.excerpt %}
+            {{ latest_post.excerpt | strip_html | strip_newlines | truncate: 220 }}
+          {% else %}
+            {{ latest_post.content | strip_html | strip_newlines | truncate: 220 }}
+          {% endif %}
+        </p>
+        <p class="entry-meta">
+          <time datetime="{{ latest_post.date | date_to_xmlschema }}">{{ latest_post.date | date: "%Y.%m.%d" }}</time>
+          <span class="meta-dot" aria-hidden="true">·</span>
+          <span>{{ latest_post.author | default: site.name }}</span>
+          <a class="spotlight-link" href="{{ site.baseurl }}{{ latest_post.url }}">{{ t.read_more }} →</a>
+        </p>
+      </article>
+    </section>
+    {% endif %}
+
+    {% if pinned_posts.size > 0 %}
+    <section class="folio-section reveal reveal-3">
+      <h2 class="section-heading"><span class="heading-ordinal">乙</span>{{ t.section_pinned }}</h2>
+      <div class="ledger-list">
+        {% for post in pinned_posts %}
+          {% include post-card.html post=post index=forloop.index label=t.pinned truncate=140 %}
+        {% endfor %}
       </div>
     </section>
+    {% endif %}
 
-    <main class="dashboard-main">
-        {% if latest_post %}
-        <section class="dashboard-panel spotlight-panel">
-          <div class="panel-heading">
-            <div>
-              <p class="section-label">{{ t.boot_log }}</p>
-              <h2><a href="{{ site.baseurl }}{{ latest_post.url }}">{{ latest_post.title }}</a></h2>
-            </div>
-            <p class="panel-meta">{{ latest_post.author | default: site.name }} · {{ latest_post.date | date: "%Y-%m-%d" }}</p>
-          </div>
-          <p class="spotlight-excerpt">
-            {% if latest_post.content contains site.excerpt_separator or latest_post.content != latest_post.excerpt %}
-              {{ latest_post.excerpt | strip_html | strip_newlines | truncate: 240 }}
-            {% else %}
-              {{ latest_post.content | strip_html | strip_newlines | truncate: 240 }}
-            {% endif %}
-          </p>
-          <a class="panel-link" href="{{ site.baseurl }}{{ latest_post.url }}">[{{ t.exec_read_log }}]</a>
-        </section>
-        {% endif %}
+    <section class="folio-section reveal reveal-4">
+      <h2 class="section-heading"><span class="heading-ordinal">{% if pinned_posts.size > 0 %}丙{% else %}乙{% endif %}</span>{{ t.section_index }}</h2>
 
-        <section class="dashboard-panel">
-          <div class="panel-heading">
-            <div>
-              <p class="section-label">{{ t.priority_queue }}</p>
-              <h2>{{ t.pinned_records }}</h2>
-            </div>
-            <p class="panel-meta">{{ t.total_files }}: {{ pinned_posts | size }}</p>
-          </div>
+      {% if feed_posts.size > 0 %}
+      <div class="ledger-list">
+        {% for post in feed_posts %}
+          {% include post-card.html post=post index=forloop.index truncate=150 %}
+        {% endfor %}
+      </div>
+      {% else %}
+      <p class="empty-note">{{ t.empty_index }}</p>
+      {% endif %}
 
-          {% if pinned_posts.size > 0 %}
-          <div class="highlight-grid">
-            {% for post in featured_pinned_posts %}
-              {% include post-card.html post=post label="PINNED" class="dashboard-card post-card highlight-card" truncate=150 %}
-            {% endfor %}
-          </div>
-          {% if overflow_pinned_posts.size > 0 %}
-          <div class="feed-list overflow-feed">
-            {% for post in overflow_pinned_posts %}
-              {% include post-card.html post=post label="PINNED" class="dashboard-card post-card overflow-card" truncate=150 %}
-            {% endfor %}
-          </div>
-          {% endif %}
-          {% else %}
-          <p class="empty-panel">{{ t.queue_empty }}</p>
-          {% endif %}
-        </section>
+      {% if feed_source.size > feed_posts.size %}
+      <p class="folio-more">
+        <a href="{{ site.baseurl }}/archive">{{ t.browse_archive_cta }} →</a>
+      </p>
+      {% endif %}
+    </section>
 
-        <section class="dashboard-panel">
-          <div class="panel-heading">
-            <div>
-              <p class="section-label">{{ t.log_directory }}</p>
-              <h2>{{ t.recent_entries }}</h2>
-            </div>
-            <p class="panel-meta">{{ t.stream_latest }}</p>
-          </div>
-
-          {% if feed_posts.size > 0 %}
-          <div class="feed-list">
-            {% for post in feed_posts %}
-              {% include post-card.html post=post class="dashboard-card post-card feed-card" truncate=170 %}
-            {% endfor %}
-          </div>
-          {% else %}
-          <p class="empty-panel">{{ t.no_records_loaded }}</p>
-          {% endif %}
-
-          {% if feed_source.size > feed_posts.size %}
-          <div class="pagination pagination-single">
-            <span class="next">
-              <a href="{{ site.baseurl }}/archive">[{{ t.browse_archive_cta }}]</a>
-            </span>
-          </div>
-          {% endif %}
-        </section>
-    </main>
   </div>
 </div>

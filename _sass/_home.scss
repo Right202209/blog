@@ -1,320 +1,198 @@
-.home-dashboard {
-  padding-bottom: 6px;
+//
+// 考据 · Ink & Paper — homepage folio
+//
+
+.home-folio {
+  padding-top: 56px;
 }
 
-.dashboard-hero {
+// ----------------------------------------------------------- hero
+
+.folio-hero {
+  position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1.45fr) minmax(240px, 0.55fr);
-  gap: var(--section-gap);
+  grid-template-columns: auto 1fr auto;
+  gap: 30px;
   align-items: start;
-  padding: 28px 24px;
-  margin-bottom: var(--section-gap);
+  padding-bottom: 40px;
 }
 
-.dashboard-hero-main,
-.dashboard-main,
-.dashboard-hero-meta {
-  display: grid;
-  gap: var(--section-gap);
+// vertical 卷首语 label, like a margin annotation
+.hero-side-label {
+  writing-mode: vertical-rl;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.82rem;
+  letter-spacing: 0.5em;
+  color: var(--vermilion);
+  border-left: 1px solid var(--hairline);
+  padding-left: 12px;
+  margin-top: 8px;
 }
 
-.home-dashboard .dashboard-main {
-  grid-template-columns: minmax(0, 1fr);
-  width: 100%;
+.hero-main {
+  min-width: 0;
 }
 
-.dashboard-hero-meta {
-  align-content: start;
-  gap: 12px;
-}
-
-.dashboard-hero-main {
-  align-content: start;
-  gap: 14px;
-}
-
-.dashboard-hero h1,
-.panel-heading h2,
-.post-card h3,
-.spotlight-panel h2,
-.tag-group h2 {
-  font-family: 'Maple Mono', 'Fira Code', monospace;
-  font-weight: 700;
-  line-height: 1.02;
-  letter-spacing: 0.06em;
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 16px;
 }
 
-.dashboard-hero-main h1 {
-  font-family: 'Maple Mono', 'Fira Code', monospace;
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 700;
-  margin: 0;
-  color: var(--crt-magenta);
-  text-shadow: 0 0 5px rgba(255, 176, 0, 0.6), 0 0 10px rgba(255, 176, 0, 0.3);
+.hero-slogan {
+  font-size: 2.35rem;
+  font-weight: 900;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  margin: 0 0 18px;
 }
 
-.sequence-line {
-  color: var(--crt-yellow);
-}
-
-.status-block {
-  color: var(--crt-magenta);
-}
-
-.post-card:hover {
-  background-color: var(--crt-magenta);
-  color: black;
-}
-
-.post-card:hover a,
-.post-card:hover .post-excerpt,
-.post-card:hover .card-command {
-  color: black;
-}
-
-.topic-list a {
-  border: 1px solid var(--crt-yellow);
-  color: var(--crt-yellow);
-}
-
-.post-card:hover .topic-list a {
-  background-color: black;
-  color: var(--crt-magenta);
-  border-color: black;
-}
-
-.hero-summary {
-  max-width: 56ch;
-  margin-top: 6px;
-  font-size: 14px;
-  line-height: 1.65;
-}
-
-.hero-summary p+p {
-  margin-top: 6px;
+.hero-note {
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+  max-width: 34em;
+  margin-bottom: 24px;
 }
 
 .hero-actions {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 8px;
+  gap: 22px;
+
+  a {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.92rem;
+    letter-spacing: 0.16em;
+    color: var(--ink);
+    border: 1px solid var(--hairline);
+    border-radius: 3px;
+    padding: 7px 18px;
+    transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+
+    &:hover {
+      color: var(--vermilion);
+      border-color: var(--vermilion);
+      transform: translateY(-2px);
+    }
+  }
 }
 
-.panel-compact {
-  padding: 18px;
+// the 証據 seal stamp
+.hero-seal {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  place-items: center;
+  width: 86px;
+  height: 86px;
+  margin-top: 14px;
+  padding: 8px 0;
+  background: linear-gradient(160deg, var(--vermilion), var(--vermilion-deep));
+  color: #f8f2e2;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1.7rem;
+  line-height: 1;
+  border-radius: 10px 6px 9px 5px;
+  transform: rotate(2.5deg);
+  box-shadow: inset 0 0 0 2px rgba(248, 242, 226, 0.3),
+    inset 0 0 16px rgba(70, 16, 8, 0.5),
+    2px 3px 0 rgba(40, 35, 26, 0.16);
+  user-select: none;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  &:hover {
+    transform: rotate(0deg) scale(1.03);
+  }
 }
 
-.panel-heading {
+// ------------------------------------------------------- stats line
+
+.folio-stats {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 14px;
-  margin-bottom: 14px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--border-soft);
+  align-items: baseline;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.1em;
+  color: var(--ink-soft);
+  border-top: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline-soft);
+  padding: 10px 6px;
+  margin-bottom: 52px;
+
+  .meta-dot {
+    margin: 0 10px;
+    color: var(--hairline);
+  }
 }
 
-.panel-heading-compact {
-  margin-bottom: 14px;
+// ---------------------------------------------------------- sections
+
+.folio-section {
+  margin-bottom: 58px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
-.panel-heading h2,
-.post-card h3,
-.spotlight-panel h2,
-.tag-group h2 {
-  text-shadow: 0 0 6px rgba(255, 176, 0, 0.2);
-}
+// -------------------------------------------------- spotlight: 新墨
 
-.spotlight-panel h2 {
-  font-size: clamp(2rem, 3vw, 3rem);
-}
-
-.metric-list {
-  display: grid;
-  gap: 12px;
-}
-
-.metric-list div {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 12px;
-  padding-top: 14px;
-  border-top: 1px solid var(--border-soft);
-}
-
-.metric-list div:first-child {
-  padding-top: 0;
-  border-top: 0;
-}
-
-.metric-list dt {
-  color: var(--text-dim);
-  letter-spacing: 0.14em;
-  font-size: 12px;
-  text-transform: uppercase;
-}
-
-.metric-list dd {
-  color: var(--accent-yellow);
-  font-family: "VT323", monospace;
-  font-size: 2.3rem;
-  line-height: 0.95;
-  text-shadow: 0 0 6px rgba(255, 255, 0, 0.22);
-}
-
-
-.dashboard-panel {
-  padding: 20px;
+.spotlight-entry {
   position: relative;
-  border: 1px solid var(--border-soft);
+  padding: 4px 0 4px 26px;
+  border-left: 3px solid var(--vermilion);
 }
 
-.dashboard-panel::before {
-  content: "";
-  position: absolute;
-  top: -1px;
-  right: -1px;
-  width: 10px;
-  height: 10px;
-  border-top: 1px solid var(--crt-cyan);
-  border-right: 1px solid var(--crt-cyan);
-  pointer-events: none;
-  opacity: 0.3;
-}
+.spotlight-title {
+  font-size: 1.55rem;
+  font-weight: 900;
+  line-height: 1.5;
+  margin: 0 0 10px;
 
-.dashboard-panel::after {
-  content: "";
-  position: absolute;
-  bottom: -1px;
-  left: -1px;
-  width: 10px;
-  height: 10px;
-  border-bottom: 1px solid var(--crt-cyan);
-  border-left: 1px solid var(--crt-cyan);
-  pointer-events: none;
-  opacity: 0.3;
-}
+  a {
+    color: var(--ink);
 
-.spotlight-panel,
-.system-panel {
-  display: grid;
-  gap: 14px;
+    &:hover {
+      color: var(--vermilion);
+    }
+  }
 }
 
 .spotlight-excerpt {
-  max-width: 62ch;
-  font-size: 14px;
-  line-height: 1.75;
+  font-size: 0.96rem;
+  line-height: 1.95;
+  color: var(--ink-soft);
+  max-width: 42em;
+  margin-bottom: 14px;
 }
 
-.highlight-grid,
-.feed-list {
-  display: grid;
-  gap: 14px;
+.spotlight-link {
+  margin-left: 16px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--vermilion);
 }
 
-.highlight-grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
+// --------------------------------------------------------- more link
 
-.dashboard-card,
-.post-card {
-  display: grid;
-  gap: 12px;
-}
+.folio-more {
+  margin-top: 22px;
+  text-align: right;
 
-.dashboard-card {
-  padding: 16px;
-}
+  a {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.92rem;
+    letter-spacing: 0.14em;
+    color: var(--ink-soft);
 
-.post-card {
-  align-content: start;
-  min-height: 100%;
-}
-
-.post-card:hover {
-  background: var(--accent-magenta);
-  border-color: var(--accent-magenta);
-  color: #000;
-  text-shadow: none;
-  box-shadow: none;
-}
-
-.post-card:hover::before {
-  border-color: rgba(0, 0, 0, 0.12);
-}
-
-.post-card:hover a,
-.post-card:hover .post-excerpt,
-.post-card:hover .post-meta,
-.post-card:hover .card-kicker,
-.post-card:hover .card-command {
-  color: #000;
-}
-
-.post-card:hover .topic-list a {
-  background: #000;
-  color: var(--accent-yellow);
-  border-color: #000;
-  box-shadow: none;
-}
-
-.post-card-head {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 8px 12px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--border-soft);
-}
-
-.post-card::after {
-  content: "";
-  position: absolute;
-  top: -1px;
-  left: -1px;
-  width: 8px;
-  height: 8px;
-  border-top: 1px solid var(--accent-green);
-  border-left: 1px solid var(--accent-green);
-  pointer-events: none;
-}
-
-.post-card::before {
-  inset: 1px;
-  border-color: rgba(255, 176, 0, 0.04);
-}
-
-.post-card h3 {
-  font-size: 1.95rem;
-  line-height: 1.08;
-}
-
-.post-excerpt {
-  font-size: 13px;
-  line-height: 1.75;
-}
-
-.card-command {
-  padding-top: 10px;
-  border-top: 1px solid var(--border-soft);
-  color: var(--accent-yellow);
-}
-
-
-
-
-.empty-panel {
-  padding: 12px 0 4px;
-  color: var(--text-dim);
-}
-
-.overflow-feed {
-  margin-top: 16px;
-}
-
-.pagination-single {
-  margin-top: 20px;
+    &:hover {
+      color: var(--vermilion);
+    }
+  }
 }
