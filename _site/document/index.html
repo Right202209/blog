@@ -7,6 +7,7 @@
     <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+    <meta name="theme-color" content="#faf7f0">
 
     
     <meta name="description" content="LOFFER是个可以帮助你get off from LOFTER的软件（我知道这个pun很烂）。这是一个可以直接发布在GitHub page的Jekyll博客，你不需要编写代码或使用命令行即可配置属于你的LOFFER。本文为针对完全没有代码基础的朋友的基础教程。注意LOFFER是一个博客模板。虽然意图有针对lof..." />
@@ -343,10 +344,13 @@ comments: true
       </main>
 
       
+      
+      
       <aside class="content-aside">
-        <div class="toc-box">
-          <p class="toc-label">目录</p>
-          <ul>
+        <details class="toc-box" id="post-toc" open>
+          <summary class="toc-label">目录</summary>
+          <nav class="toc-body">
+            <ul>
   <li><a href="#注意">注意</a></li>
   <li><a href="#图文教程">图文教程</a>
     <ul>
@@ -366,12 +370,59 @@ comments: true
   <li><a href="#致谢">致谢</a></li>
   <li><a href="#帮助这个项目">帮助这个项目</a></li>
 </ul>
-        </div>
+          </nav>
+        </details>
       </aside>
       
     </div>
   </div>
 </div>
+
+<script>
+  (function () {
+    var toc = document.getElementById("post-toc");
+    if (!toc) return;
+
+    // fold the directory by default on narrow screens
+    if (window.matchMedia("(max-width: 980px)").matches) {
+      toc.removeAttribute("open");
+    }
+
+    var heads = [];
+    toc.querySelectorAll("a[href^='#']").forEach(function (a) {
+      var id = decodeURIComponent(a.getAttribute("href").slice(1));
+      var h = document.getElementById(id);
+      if (h) heads.push([h, a]);
+    });
+    if (!heads.length) return;
+
+    var active = null;
+    function update() {
+      var current = heads[0][1];
+      for (var i = 0; i < heads.length; i++) {
+        if (heads[i][0].getBoundingClientRect().top <= 96) current = heads[i][1];
+      }
+      if (current !== active) {
+        if (active) active.classList.remove("active");
+        active = current;
+        active.classList.add("active");
+      }
+    }
+
+    var ticking = false;
+    window.addEventListener("scroll", function () {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () {
+        ticking = false;
+        update();
+      });
+    }, { passive: true });
+
+    window.addEventListener("load", update);
+    update();
+  })();
+</script>
 
       </main>
 

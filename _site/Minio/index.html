@@ -7,6 +7,7 @@
     <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+    <meta name="theme-color" content="#faf7f0">
 
     
     <meta name="description" content="一份Git的基础使用教程，包括MinIO的安装、使用、常用命令。Github github.com/minio/minio官网 MinIO部署与安装Docker安装运行以下命令以使用临时数据卷将 MinIO 的最新稳定映像作为容器运行：docker pull minio/minio  docker run -d ..." />
@@ -245,29 +246,79 @@ docker run <span class="nt">-d</span> <span class="nt">-p</span> 9000:9000 <span
       </main>
 
       
+      
+      
       <aside class="content-aside">
-        <div class="toc-box">
-          <p class="toc-label">目录</p>
-          <ul>
-  <li><a href="#部署与安装"><strong>部署与安装</strong></a>
+        <details class="toc-box" id="post-toc" open>
+          <summary class="toc-label">目录</summary>
+          <nav class="toc-body">
+            <ul>
+  <li><a href="#部署与安装">部署与安装</a>
     <ul>
-      <li><a href="#docker安装"><strong>Docker安装</strong></a></li>
-      <li><a href="#linux安装"><strong>Linux安装</strong></a></li>
-      <li><a href="#windows"><strong>Windows</strong></a></li>
+      <li><a href="#docker安装">Docker安装</a></li>
+      <li><a href="#linux安装">Linux安装</a></li>
+      <li><a href="#windows">Windows</a></li>
     </ul>
   </li>
-  <li><a href="#使用"><strong>使用</strong></a>
+  <li><a href="#使用">使用</a>
     <ul>
       <li><a href="#使用命令行工具">使用命令行工具</a></li>
     </ul>
   </li>
 </ul>
-        </div>
+          </nav>
+        </details>
       </aside>
       
     </div>
   </div>
 </div>
+
+<script>
+  (function () {
+    var toc = document.getElementById("post-toc");
+    if (!toc) return;
+
+    // fold the directory by default on narrow screens
+    if (window.matchMedia("(max-width: 980px)").matches) {
+      toc.removeAttribute("open");
+    }
+
+    var heads = [];
+    toc.querySelectorAll("a[href^='#']").forEach(function (a) {
+      var id = decodeURIComponent(a.getAttribute("href").slice(1));
+      var h = document.getElementById(id);
+      if (h) heads.push([h, a]);
+    });
+    if (!heads.length) return;
+
+    var active = null;
+    function update() {
+      var current = heads[0][1];
+      for (var i = 0; i < heads.length; i++) {
+        if (heads[i][0].getBoundingClientRect().top <= 96) current = heads[i][1];
+      }
+      if (current !== active) {
+        if (active) active.classList.remove("active");
+        active = current;
+        active.classList.add("active");
+      }
+    }
+
+    var ticking = false;
+    window.addEventListener("scroll", function () {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () {
+        ticking = false;
+        update();
+      });
+    }, { passive: true });
+
+    window.addEventListener("load", update);
+    update();
+  })();
+</script>
 
       </main>
 

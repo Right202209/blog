@@ -7,6 +7,7 @@
     <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+    <meta name="theme-color" content="#faf7f0">
 
     
     <meta name="description" content="数据结构。1. 数组（Array）      解释：        数组是一种线性数据结构，由一系列连续的内存单元组成，用于存储相同类型的元素。        基本操作：        访问、插入、删除、查找。        示例代码（Python）：    # 创建数组arr = [1, 2, 3, 4, 5]..." />
@@ -2737,10 +2738,13 @@
       </main>
 
       
+      
+      
       <aside class="content-aside">
-        <div class="toc-box">
-          <p class="toc-label">目录</p>
-          <ul>
+        <details class="toc-box" id="post-toc" open>
+          <summary class="toc-label">目录</summary>
+          <nav class="toc-body">
+            <ul>
   <li><a href="#1-数组array">1. 数组（Array）</a></li>
   <li><a href="#2-链表linked-list">2. 链表（Linked List）</a></li>
   <li><a href="#栈">栈</a></li>
@@ -2776,14 +2780,7 @@
       <li><a href="#堆heap-1">堆（Heap）：</a></li>
       <li><a href="#哈希表hash-table-1">哈希表（Hash Table）：</a></li>
       <li><a href="#图算法graph-algorithms-1">图算法（Graph Algorithms）：</a></li>
-      <li><a href="#遍历traversal">遍历（Traversal）：</a>
-        <ul>
-          <li><a href="#数组遍历">数组遍历：</a></li>
-          <li><a href="#链表遍历">链表遍历：</a></li>
-          <li><a href="#树的遍历">树的遍历：</a></li>
-          <li><a href="#图的遍历">图的遍历：</a></li>
-        </ul>
-      </li>
+      <li><a href="#遍历traversal">遍历（Traversal）：</a></li>
       <li><a href="#排序sorting">排序（Sorting）：</a></li>
       <li><a href="#搜索searching">搜索（Searching）：</a></li>
     </ul>
@@ -2860,12 +2857,59 @@
     </ul>
   </li>
 </ul>
-        </div>
+          </nav>
+        </details>
       </aside>
       
     </div>
   </div>
 </div>
+
+<script>
+  (function () {
+    var toc = document.getElementById("post-toc");
+    if (!toc) return;
+
+    // fold the directory by default on narrow screens
+    if (window.matchMedia("(max-width: 980px)").matches) {
+      toc.removeAttribute("open");
+    }
+
+    var heads = [];
+    toc.querySelectorAll("a[href^='#']").forEach(function (a) {
+      var id = decodeURIComponent(a.getAttribute("href").slice(1));
+      var h = document.getElementById(id);
+      if (h) heads.push([h, a]);
+    });
+    if (!heads.length) return;
+
+    var active = null;
+    function update() {
+      var current = heads[0][1];
+      for (var i = 0; i < heads.length; i++) {
+        if (heads[i][0].getBoundingClientRect().top <= 96) current = heads[i][1];
+      }
+      if (current !== active) {
+        if (active) active.classList.remove("active");
+        active = current;
+        active.classList.add("active");
+      }
+    }
+
+    var ticking = false;
+    window.addEventListener("scroll", function () {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () {
+        ticking = false;
+        update();
+      });
+    }, { passive: true });
+
+    window.addEventListener("load", update);
+    update();
+  })();
+</script>
 
       </main>
 
