@@ -1,33 +1,27 @@
-//
-// 考据 · Ink & Paper — homepage folio
-//
+// Droit-inspired homepage.
 
 .home-folio {
   padding-top: 56px;
 }
 
-// ----------------------------------------------------------- hero
-
 .folio-hero {
   position: relative;
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto minmax(0, 1fr) auto;
   gap: 30px;
-  align-items: start;
-  padding-bottom: 40px;
+  align-items: center;
+  min-height: 40vh;
+  padding: 42px 0 54px;
+  text-align: center;
 }
 
-// vertical 卷首语 label, like a margin annotation
 .hero-side-label {
   writing-mode: vertical-rl;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 0.82rem;
-  letter-spacing: 0.5em;
-  color: var(--vermilion);
-  border-left: 1px solid var(--hairline);
-  padding-left: 12px;
-  margin-top: 8px;
+  color: #fff;
+  font-size: 0.72rem;
+  letter-spacing: 0.48em;
+  opacity: 0.72;
+  text-shadow: 0 0 8px rgba(255,255,255,0.35);
 }
 
 .hero-main {
@@ -35,169 +29,141 @@
 }
 
 .hero-eyebrow {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
   color: var(--ink-faint);
-  margin-bottom: 16px;
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
 }
 
 .hero-slogan {
-  font-size: 2.35rem;
-  font-weight: 900;
-  line-height: 1.5;
-  letter-spacing: 0.02em;
   margin: 0 0 18px;
+  color: #fff;
+  font-size: clamp(2.2rem, 7vw, 4.7rem);
+  font-weight: 200;
+  line-height: 1.12;
+  animation: whiteShadow 1.5s ease-in-out infinite alternate;
 }
 
 .hero-note {
-  font-size: 0.95rem;
-  color: var(--ink-soft);
-  max-width: 34em;
-  margin-bottom: 24px;
+  max-width: 38em;
+  margin: 0 auto 28px;
+  color: #ccc;
+  font-size: 0.96rem;
+  line-height: 1.85;
+  text-shadow: 0 0 4px rgba(255,255,255,0.18);
 }
 
 .hero-actions {
   display: flex;
-  gap: 22px;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
 
   a {
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 0.92rem;
-    letter-spacing: 0.16em;
-    color: var(--ink);
+    min-width: 118px;
+    color: #fff;
     border: 1px solid var(--hairline);
-    border-radius: 3px;
-    padding: 7px 18px;
-    transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    border-radius: 999px;
+    padding: 6px 18px 7px;
+    font-size: 0.78rem;
+    letter-spacing: 0.2em;
 
     &:hover {
       color: var(--vermilion);
-      border-color: var(--vermilion);
+      border-color: rgba(255,150,59,0.7);
       transform: translateY(-2px);
     }
   }
 }
 
-// the 証據 seal stamp
 .hero-seal {
   display: grid;
   grid-template-rows: 1fr 1fr;
   place-items: center;
   width: 86px;
   height: 86px;
-  margin-top: 14px;
   padding: 8px 0;
-  background: linear-gradient(160deg, var(--vermilion), var(--vermilion-deep));
-  color: #f8f2e2;
-  font-family: var(--font-display);
-  font-weight: 900;
-  font-size: 1.7rem;
+  color: #fff;
+  border: 1px solid var(--hairline);
+  border-radius: 50%;
+  background: rgba(255,255,255,0.035);
+  box-shadow: 0 0 24px rgba(255,255,255,0.1), inset 0 0 16px rgba(255,255,255,0.04);
+  font-size: 1.45rem;
   line-height: 1;
-  border-radius: 10px 6px 9px 5px;
-  transform: rotate(2.5deg);
-  box-shadow: inset 0 0 0 2px rgba(248, 242, 226, 0.3),
-    inset 0 0 16px rgba(70, 16, 8, 0.5),
-    2px 3px 0 rgba(40, 35, 26, 0.16);
   user-select: none;
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.28s ease, color 0.28s ease, border-color 0.28s ease;
 
   &:hover {
-    transform: rotate(0deg) scale(1.03);
+    color: var(--vermilion);
+    border-color: rgba(255,150,59,0.7);
+    transform: translateY(-2px);
   }
 }
-
-// ------------------------------------------------------- stats line
 
 .folio-stats {
   display: flex;
+  justify-content: center;
   align-items: baseline;
-  font-family: var(--font-mono);
-  font-size: 0.76rem;
-  letter-spacing: 0.1em;
-  color: var(--ink-soft);
-  border-top: 1px solid var(--hairline);
+  color: var(--ink-faint);
+  border-top: 1px solid var(--hairline-soft);
   border-bottom: 1px solid var(--hairline-soft);
-  padding: 10px 6px;
-  margin-bottom: 52px;
+  padding: 11px 6px;
+  margin-bottom: 54px;
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
 
   .meta-dot {
-    margin: 0 10px;
-    color: var(--hairline);
+    margin: 0 11px;
+    color: rgba(255,255,255,0.22);
   }
 }
-
-// ---------------------------------------------------------- sections
 
 .folio-section {
   margin-bottom: 58px;
 
-  &:last-child {
-    margin-bottom: 0;
-  }
+  &:last-child { margin-bottom: 0; }
 }
-
-// -------------------------------------------------- spotlight: 新墨
 
 .spotlight-entry {
   position: relative;
-  padding: 4px 0 4px 26px;
-  border-left: 3px solid var(--vermilion);
+  padding: 8px 0 8px 26px;
+  border-left: 3px solid rgba(255,150,59,0.75);
 }
 
 .spotlight-title {
-  font-size: 1.55rem;
-  font-weight: 900;
-  line-height: 1.5;
   margin: 0 0 10px;
+  font-size: 1.55rem;
+  font-weight: 300;
+  line-height: 1.5;
 
-  a {
-    color: var(--ink);
-
-    &:hover {
-      color: var(--vermilion);
-    }
-  }
+  a { color: #fff; }
 }
 
 .spotlight-excerpt {
-  font-size: 0.96rem;
-  line-height: 1.95;
-  color: var(--ink-soft);
-  max-width: 42em;
+  max-width: 44em;
   margin-bottom: 14px;
+  color: var(--ink-faint);
+  font-size: 0.96rem;
+  line-height: 1.9;
 }
 
 .spotlight-link {
   margin-left: 16px;
-  font-family: var(--font-display);
-  font-weight: 600;
-  letter-spacing: 0.1em;
   color: var(--vermilion);
+  letter-spacing: 0.08em;
 }
-
-// --------------------------------------------------------- more link
 
 .folio-more {
   margin-top: 22px;
   text-align: right;
 
   a {
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 0.92rem;
-    letter-spacing: 0.14em;
-    color: var(--ink-soft);
-
-    &:hover {
-      color: var(--vermilion);
-    }
+    color: #b6b6b6;
+    font-size: 0.9rem;
+    letter-spacing: 0.12em;
   }
 }
-
-// -------------------------------------- index: feed + directory aside
 
 .index-grid {
   display: grid;
@@ -206,9 +172,7 @@
   align-items: start;
 }
 
-.index-feed {
-  min-width: 0;
-}
+.index-feed { min-width: 0; }
 
 .index-aside {
   position: sticky;
@@ -216,17 +180,16 @@
   display: flex;
   flex-direction: column;
   gap: 32px;
-  border-left: 1px solid var(--hairline);
+  border-left: 1px solid var(--hairline-soft);
   padding-left: 22px;
 }
 
 .dir-title {
-  font-family: var(--font-display);
-  font-weight: 900;
-  font-size: 0.8rem;
-  letter-spacing: 0.34em;
-  color: var(--vermilion);
   margin-bottom: 10px;
+  color: var(--vermilion);
+  font-size: 0.78rem;
+  font-weight: 300;
+  letter-spacing: 0.28em;
 }
 
 .dir-list {
@@ -239,44 +202,32 @@
     align-items: baseline;
     justify-content: space-between;
     gap: 12px;
-    padding: 4px 0;
-    border-bottom: 1px dashed var(--hairline-soft);
+    padding: 5px 0;
+    border-bottom: 1px solid var(--hairline-soft);
 
-    &:last-child {
-      border-bottom: 0;
-    }
+    &:last-child { border-bottom: 0; }
   }
 
   a {
     min-width: 0;
-    color: var(--ink-soft);
-    font-size: 0.88rem;
+    color: var(--ink-faint);
+    font-size: 0.86rem;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-
-    &:hover {
-      color: var(--vermilion);
-    }
   }
 
   .dir-count {
     flex: 0 0 auto;
-    font-family: var(--font-mono);
+    color: rgba(255,255,255,0.42);
     font-size: 0.72rem;
-    color: var(--ink-faint);
   }
 }
 
 .dir-all {
   display: inline-block;
   margin-top: 10px;
-  font-family: var(--font-mono);
+  color: rgba(255,255,255,0.42);
   font-size: 0.72rem;
   letter-spacing: 0.08em;
-  color: var(--ink-faint);
-
-  &:hover {
-    color: var(--vermilion);
-  }
 }

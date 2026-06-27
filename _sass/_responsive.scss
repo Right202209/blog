@@ -1,6 +1,4 @@
-//
-// 考据 · Ink & Paper — responsive
-//
+// Responsive adjustments for the Droit-inspired theme.
 
 @media (max-width: 980px) {
   .post-side-label {
@@ -9,7 +7,7 @@
     display: inline-block;
     padding: 2px 12px;
     margin-bottom: 14px;
-    transform: rotate(-1.5deg);
+    letter-spacing: 0.18em;
   }
 
   .post-layout,
@@ -26,7 +24,7 @@
 
   .toc-box {
     border-left: 0;
-    border-top: 1px solid var(--hairline);
+    border-top: 1px solid var(--hairline-soft);
     border-bottom: 1px solid var(--hairline-soft);
     padding: 14px 4px;
   }
@@ -41,7 +39,7 @@
     flex-wrap: wrap;
     gap: 26px 48px;
     border-left: 0;
-    border-top: 1px solid var(--hairline);
+    border-top: 1px solid var(--hairline-soft);
     padding: 24px 0 0;
     margin-top: 10px;
 
@@ -53,6 +51,8 @@
 }
 
 @media (max-width: 760px) {
+  html { font-size: 18px; }
+
   .site-nav {
     flex-direction: column;
     align-items: flex-start;
@@ -61,86 +61,64 @@
   }
 
   .nav-links {
-    gap: 20px;
+    gap: 18px;
+    flex-wrap: wrap;
 
-    a {
-      letter-spacing: 0.12em;
-    }
+    a { letter-spacing: 0.12em; }
   }
 
-  .home-folio {
-    padding-top: 36px;
-  }
+  .home-folio { padding-top: 28px; }
 
   .folio-hero {
     grid-template-columns: 1fr;
-    gap: 0;
+    gap: 18px;
+    min-height: 0;
+    padding-top: 24px;
   }
 
   .hero-side-label {
     writing-mode: horizontal-tb;
-    border-left: 0;
-    border-bottom: 1px solid var(--hairline);
-    padding: 0 0 8px;
-    margin: 0 0 22px;
-    letter-spacing: 0.5em;
+    justify-self: center;
+    letter-spacing: 0.36em;
   }
 
   .hero-seal {
     position: absolute;
-    top: 44px;
+    top: 34px;
     right: 0;
-    width: 66px;
-    height: 66px;
-    font-size: 1.3rem;
-    margin-top: 0;
+    width: 60px;
+    height: 60px;
+    font-size: 1.08rem;
   }
 
   .hero-slogan {
-    font-size: 1.7rem;
-    padding-right: 80px;
-  }
-
-  .hero-actions {
-    flex-wrap: wrap;
-    gap: 12px;
+    font-size: 2.3rem;
+    padding-right: 70px;
   }
 
   .folio-stats {
     flex-wrap: wrap;
+    justify-content: flex-start;
     margin-bottom: 40px;
   }
 
-  .folio-section {
-    margin-bottom: 44px;
-  }
-
-  .spotlight-title {
-    font-size: 1.25rem;
-  }
+  .folio-section { margin-bottom: 44px; }
+  .spotlight-title { font-size: 1.25rem; }
 
   .ledger-entry {
     grid-template-columns: 44px 1fr;
     gap: 12px;
-    padding: 18px 8px 20px 2px;
+    padding: 18px 6px 20px 2px;
   }
 
   .entry-num {
-    font-size: 0.92rem;
-    letter-spacing: 0.1em;
+    font-size: 0.88rem;
+    letter-spacing: 0.08em;
   }
 
-  .entry-title {
-    font-size: 1.06rem;
-  }
-
-  .post-title {
-    font-size: 1.5rem;
-  }
-
-  .archive-row a {
-    white-space: normal;
-  }
+  .entry-title { font-size: 1.05rem; }
+  .post-title { font-size: 1.62rem; }
+  .archive-row a { white-space: normal; }
 
   .footer-inner {
     flex-direction: column;
@@ -149,39 +127,28 @@
 }
 
 @media (max-width: 480px) {
-  html {
-    font-size: 16px;
-  }
+  html { font-size: 16px; }
 
   .container,
   .site-nav,
   .site-footer {
-    padding-left: 18px;
-    padding-right: 18px;
+    width: calc(100% - 36px);
   }
 
-  .paper-columns,
-  .paper-motes {
-    display: none;
-  }
+  .content-wrap { padding-top: 32px; }
 
   .hero-seal {
-    width: 56px;
-    height: 56px;
-    font-size: 1.1rem;
-    top: 40px;
+    width: 52px;
+    height: 52px;
+    font-size: 0.98rem;
   }
 
   .hero-slogan {
-    font-size: 1.45rem;
-    padding-right: 68px;
+    font-size: 1.9rem;
+    padding-right: 58px;
   }
 
-  .section-heading {
-    letter-spacing: 0.22em;
-  }
-
-  .entry-excerpt {
-    -webkit-line-clamp: 3;
-  }
+  .hero-note { font-size: 0.9rem; }
+  .section-heading { letter-spacing: 0.18em; }
+  .entry-excerpt { -webkit-line-clamp: 3; }
 }

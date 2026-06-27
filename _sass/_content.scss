@@ -1,6 +1,4 @@
-//
-// 考据 · Ink & Paper — articles, pages, archive, tags
-//
+// Droit-inspired article, archive, tag, and page styles.
 
 .content-two-col {
   display: grid;
@@ -8,9 +6,7 @@
   gap: 40px;
 }
 
-.post-layout {
-  align-items: start;
-}
+.post-layout { align-items: start; }
 
 .page-post .content-two-col,
 .post-layout {
@@ -22,27 +18,15 @@
   grid-template-columns: minmax(0, 1fr);
 }
 
-.content-main {
-  min-width: 0;
-}
-
-// ------------------------------------------------------ article folio
-
-.article-folio {
-  position: relative;
-}
+.content-main { min-width: 0; }
+.article-folio { position: relative; }
 
 .back-link {
   display: inline-block;
-  font-family: var(--font-mono);
+  color: var(--ink-faint);
   font-size: 0.74rem;
   letter-spacing: 0.1em;
-  color: var(--ink-faint);
   margin-bottom: 30px;
-
-  &:hover {
-    color: var(--vermilion);
-  }
 }
 
 .post-header {
@@ -50,95 +34,79 @@
   margin-bottom: 38px;
 }
 
-// vertical 文 label hanging in the left margin
 .post-side-label {
   position: absolute;
-  top: 6px;
+  top: 5px;
   left: -58px;
   writing-mode: vertical-rl;
-  font-family: var(--font-display);
-  font-weight: 900;
-  font-size: 0.8rem;
-  letter-spacing: 0.4em;
   color: var(--vermilion);
-  border: 1.5px solid var(--vermilion);
-  border-radius: 4px 2px 4px 2px;
+  border: 1px solid rgba(255,150,59,0.7);
+  border-radius: 999px;
   padding: 8px 4px;
-  transform: rotate(-2deg);
+  font-size: 0.74rem;
+  letter-spacing: 0.34em;
+  box-shadow: 0 0 12px rgba(255,150,59,0.14);
 }
 
 .post-title {
-  font-size: 2rem;
-  font-weight: 900;
-  line-height: 1.55;
   margin-bottom: 16px;
+  color: #fff;
+  font-size: 2.1rem;
+  font-weight: 200;
+  line-height: 1.45;
+  animation: whiteShadow 1.5s ease-in-out infinite alternate;
 }
 
-.post-meta-row {
-  margin-bottom: 10px;
-}
-
-.post-topics {
-  margin-bottom: 4px;
-
-  .meta-tag {
-    font-family: var(--font-mono);
-    font-size: 0.76rem;
-  }
-}
+.post-meta-row { margin-bottom: 10px; }
+.post-topics { margin-bottom: 4px; }
 
 .header-rule {
-  height: 5px;
-  border-top: 1px solid var(--hairline);
-  border-bottom: 1px solid var(--hairline-soft);
+  height: 1px;
   margin-top: 20px;
+  background: linear-gradient(90deg, var(--hairline), transparent);
 }
 
-// --------------------------------------------------- entry typography
-
 .entry {
+  color: #d4d4d4;
   font-size: 1rem;
   line-height: 2;
-  color: var(--ink);
 
-  > * + * {
-    margin-top: 1.1em;
-  }
+  > * + * { margin-top: 1.1em; }
 
   h1, h2, h3, h4, h5, h6 {
     margin-top: 2em;
+    color: #fff;
     line-height: 1.5;
+    font-weight: 300;
   }
 
-  h1 { font-size: 1.6rem; font-weight: 900; }
-  h2 { font-size: 1.4rem; font-weight: 900; }
-  h3 { font-size: 1.2rem; }
+  h1 { font-size: 1.65rem; }
+  h2 { font-size: 1.42rem; }
+  h3 { font-size: 1.22rem; }
   h4 { font-size: 1.05rem; }
   h5, h6 { font-size: 1rem; }
 
-  // vermilion section mark in the heading's margin
   h2::before,
   h3::before {
     content: "§";
     color: var(--vermilion);
-    font-weight: 600;
     margin-right: 0.55em;
     font-size: 0.85em;
   }
 
   a {
-    border-bottom: 1px solid rgba(178, 58, 39, 0.4);
+    color: #fff;
+    border-bottom: 1px solid rgba(255,150,59,0.42);
     padding-bottom: 1px;
 
     &:hover {
+      color: var(--vermilion);
       border-bottom-color: var(--vermilion);
-      background-color: rgba(178, 58, 39, 0.06);
+      background: rgba(255,150,59,0.06);
     }
   }
 
-  ul, ol {
-    padding-left: 1.6em;
-  }
+  ul, ol { padding-left: 1.6em; }
 
   ul {
     list-style: none;
@@ -150,7 +118,7 @@
         content: "";
         position: absolute;
         left: -1.15em;
-        top: 0.85em;
+        top: 0.86em;
         width: 0.42em;
         height: 0.42em;
         border: 1.5px solid var(--vermilion);
@@ -161,44 +129,34 @@
   }
 
   ol {
-    list-style: cjk-ideographic;
+    list-style: decimal;
 
-    > li::marker {
-      color: var(--vermilion);
-      font-family: var(--font-display);
-      font-weight: 600;
-    }
+    > li::marker { color: var(--vermilion); }
   }
 
-  li + li {
-    margin-top: 0.35em;
-  }
+  li + li { margin-top: 0.35em; }
 
   blockquote {
     position: relative;
     margin: 1.4em 0;
     padding: 14px 22px;
-    border-left: 3px solid var(--vermilion);
-    background: linear-gradient(90deg, rgba(178, 58, 39, 0.05), transparent 80%);
-    color: var(--ink-soft);
-    font-style: normal;
+    color: #c7c7c7;
+    border-left: 3px solid rgba(255,150,59,0.75);
+    background: linear-gradient(90deg, rgba(255,150,59,0.08), rgba(255,255,255,0.018));
 
-    p + p {
-      margin-top: 0.7em;
-    }
+    p + p { margin-top: 0.7em; }
   }
 
   img {
-    max-width: 100%;
     display: block;
+    max-width: 100%;
     margin: 1.6em auto;
-    border: 1px solid var(--hairline);
-    border-radius: 2px;
     padding: 6px;
-    background: rgba(254, 253, 251, 0.6);
+    border: 1px solid var(--hairline-soft);
+    border-radius: 6px;
+    background: rgba(255,255,255,0.035);
   }
 
-  // 鱼尾-style thematic break
   hr {
     border: 0;
     margin: 2.4em auto;
@@ -219,13 +177,13 @@
   table {
     width: 100%;
     margin: 1.6em 0;
+    color: #d4d4d4;
     font-size: 0.9rem;
-    border-top: 2px solid var(--ink);
-    border-bottom: 2px solid var(--ink);
+    border-top: 1px solid var(--hairline);
+    border-bottom: 1px solid var(--hairline);
 
     th {
-      font-family: var(--font-display);
-      font-weight: 600;
+      color: #fff;
       text-align: left;
       border-bottom: 1px solid var(--hairline);
       padding: 8px 12px;
@@ -236,31 +194,19 @@
       border-bottom: 1px solid var(--hairline-soft);
     }
 
-    tr:last-child td {
-      border-bottom: 0;
-    }
+    tr:last-child td { border-bottom: 0; }
   }
 
   dl {
-    dt {
-      font-family: var(--font-display);
-      font-weight: 600;
-    }
-
-    dd {
-      margin-left: 1.6em;
-      color: var(--ink-soft);
-    }
+    dt { color: #fff; }
+    dd { margin-left: 1.6em; color: var(--ink-faint); }
   }
 
   sup a {
     border-bottom: 0;
-    font-family: var(--font-mono);
     font-size: 0.78em;
   }
 }
-
-// ----------------------------------------------------------- toc box
 
 .content-aside {
   position: sticky;
@@ -273,25 +219,21 @@
 }
 
 .toc-box {
-  border-left: 1px solid var(--hairline);
+  border-left: 1px solid var(--hairline-soft);
   padding: 4px 0 4px 18px;
   font-size: 0.84rem;
 
   .toc-label {
     display: block;
-    font-family: var(--font-display);
-    font-weight: 900;
-    font-size: 0.8rem;
-    letter-spacing: 0.34em;
     color: var(--vermilion);
     margin-bottom: 10px;
     cursor: pointer;
     user-select: none;
     list-style: none;
+    font-size: 0.78rem;
+    letter-spacing: 0.28em;
 
-    &::-webkit-details-marker {
-      display: none;
-    }
+    &::-webkit-details-marker { display: none; }
 
     &::after {
       content: "▸";
@@ -302,17 +244,13 @@
     }
   }
 
-  &[open] .toc-label::after {
-    content: "▾";
-  }
+  &[open] .toc-label::after { content: "▾"; }
 
   ul {
     list-style: none;
     padding-left: 0;
 
-    ul {
-      padding-left: 1em;
-    }
+    ul { padding-left: 1em; }
   }
 
   li {
@@ -321,31 +259,21 @@
   }
 
   a {
-    color: var(--ink-soft);
+    color: var(--ink-faint);
     border-bottom: 0;
 
-    &:hover {
-      color: var(--vermilion);
-    }
-
+    &:hover,
     &.active {
       color: var(--vermilion);
-      font-weight: 600;
     }
   }
 }
-
-// ---------------------------------------------------------- comments
 
 .post-comments {
   margin-top: 64px;
 
-  &:empty {
-    display: none;
-  }
+  &:empty { display: none; }
 }
-
-// ------------------------------------------------- archive & tags
 
 .list-filter {
   display: flex;
@@ -354,32 +282,26 @@
   margin-bottom: 26px;
 
   label {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    letter-spacing: 0.26em;
-    text-transform: uppercase;
     color: var(--ink-faint);
+    font-size: 0.7rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
   }
 
   input {
     flex: 1;
+    color: #fff;
     background: transparent;
     border: 0;
     border-bottom: 1px solid var(--hairline);
     font-family: var(--font-body);
     font-size: 0.92rem;
-    color: var(--ink);
     padding: 6px 2px;
     outline: none;
     transition: border-color 0.2s ease;
 
-    &::placeholder {
-      color: var(--ink-faint);
-    }
-
-    &:focus {
-      border-bottom-color: var(--vermilion);
-    }
+    &::placeholder { color: var(--ink-faint); }
+    &:focus { border-bottom-color: var(--vermilion); }
   }
 }
 
@@ -387,30 +309,25 @@
   display: flex;
   align-items: baseline;
   gap: 20px;
-  padding: 9px 4px;
-  border-bottom: 1px dashed var(--hairline-soft);
+  padding: 10px 4px;
+  border-bottom: 1px solid var(--hairline-soft);
 
   time {
     flex: 0 0 auto;
-    font-family: var(--font-mono);
-    font-size: 0.76rem;
     color: var(--ink-faint);
+    font-size: 0.76rem;
   }
 
   a {
-    color: var(--ink);
+    color: #fff;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 
-    &:hover {
-      color: var(--vermilion);
-    }
+    &:hover { color: var(--vermilion); }
   }
 
-  &:hover {
-    background-color: rgba(178, 58, 39, 0.035);
-  }
+  &:hover { background: rgba(255,255,255,0.025); }
 }
 
 .tags-nav {
@@ -420,12 +337,11 @@
   margin-bottom: 36px;
 
   a {
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    color: var(--ink-soft);
+    color: var(--ink-faint);
     border: 1px solid var(--hairline);
-    border-radius: 3px;
+    border-radius: 999px;
     padding: 2px 10px;
+    font-size: 0.8rem;
 
     &:hover {
       color: var(--vermilion);
@@ -441,16 +357,15 @@
     display: flex;
     align-items: center;
     gap: 12px;
+    color: #fff;
     font-size: 1.05rem;
-    font-weight: 600;
+    font-weight: 300;
     letter-spacing: 0.2em;
     margin-bottom: 12px;
 
     &::before {
       content: "#";
       color: var(--vermilion);
-      font-family: var(--font-mono);
-      font-weight: 500;
     }
 
     &::after {

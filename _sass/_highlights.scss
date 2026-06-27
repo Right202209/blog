@@ -1,34 +1,29 @@
-//
-// 考据 · Ink & Paper — code highlighting (rouge)
-// ink on a recessed sheet of darker paper
-//
+// Rouge highlighting tuned for the dark Droit-inspired theme.
 
 code, pre {
   font-family: var(--font-mono);
 }
 
-// inline code
 code.highlighter-rouge {
-  font-size: 0.84em;
   color: var(--vermilion-deep);
-  background: rgba(178, 58, 39, 0.07);
-  border: 1px solid rgba(178, 58, 39, 0.14);
-  border-radius: 3px;
+  background: rgba(255, 150, 59, 0.09);
+  border: 1px solid rgba(255, 150, 59, 0.2);
+  border-radius: 4px;
   padding: 1px 6px;
+  font-size: 0.84em;
 }
 
-// block frame
 div.highlighter-rouge {
   margin: 1.6em 0;
 }
 
 .highlight {
-  background: #eae8dc;
-  color: #3a342a;
-  border: 1px solid var(--hairline);
-  border-left: 3px solid var(--vermilion);
-  border-radius: 2px;
-  box-shadow: inset 0 1px 4px rgba(40, 35, 26, 0.06);
+  color: #d8d8d8;
+  background: rgba(0, 0, 0, 0.24);
+  border: 1px solid var(--hairline-soft);
+  border-left: 3px solid rgba(255, 150, 59, 0.75);
+  border-radius: 6px;
+  box-shadow: inset 0 1px 8px rgba(0, 0, 0, 0.25);
 
   pre {
     margin: 0;
@@ -45,24 +40,21 @@ div.highlighter-rouge {
   }
 }
 
-// comments — 注 in faded ink
 .highlight .c,
 .highlight .cm,
 .highlight .c1,
 .highlight .cs,
 .highlight .cp,
 .highlight .cd {
-  color: #9a8d72;
+  color: #7f858f;
   font-style: italic;
 }
 
-// errors
 .highlight .err {
-  color: #8c2b1c;
-  background: rgba(178, 58, 39, 0.12);
+  color: #ffb067;
+  background: rgba(255, 150, 59, 0.12);
 }
 
-// keywords — vermilion
 .highlight .k,
 .highlight .kc,
 .highlight .kd,
@@ -71,33 +63,22 @@ div.highlighter-rouge {
 .highlight .kr,
 .highlight .kv,
 .highlight .ow {
-  color: #a13524;
+  color: #ff963b;
   font-weight: 500;
 }
 
-// types & declarations
 .highlight .kt,
 .highlight .nc,
 .highlight .ne,
-.highlight .nn {
-  color: #275f73;
-  font-weight: 500;
-}
-
-// functions
+.highlight .nn,
 .highlight .nf,
 .highlight .fm {
-  color: #275f73;
+  color: #80d4ff;
 }
 
-// names, attributes, tags
 .highlight .na,
 .highlight .nt,
-.highlight .nx {
-  color: #6b4a12;
-}
-
-// builtins, constants, decorators
+.highlight .nx,
 .highlight .nb,
 .highlight .no,
 .highlight .nd,
@@ -105,10 +86,9 @@ div.highlighter-rouge {
 .highlight .vc,
 .highlight .vg,
 .highlight .vi {
-  color: #7a5418;
+  color: #ffd27d;
 }
 
-// strings — olive ink
 .highlight .s,
 .highlight .sa,
 .highlight .sb,
@@ -123,10 +103,9 @@ div.highlighter-rouge {
 .highlight .sr,
 .highlight .s1,
 .highlight .ss {
-  color: #58702d;
+  color: #b8e986;
 }
 
-// numbers
 .highlight .m,
 .highlight .mb,
 .highlight .mf,
@@ -135,59 +114,36 @@ div.highlighter-rouge {
 .highlight .il,
 .highlight .mo,
 .highlight .mx {
-  color: #9a6515;
+  color: #ffbf66;
 }
 
-// operators & punctuation
 .highlight .o,
 .highlight .p,
 .highlight .pi {
-  color: #5c5343;
+  color: #cfcfcf;
 }
 
-// generic / diff
 .highlight .gd {
-  color: #8c2b1c;
-  background: rgba(178, 58, 39, 0.1);
+  color: #ffb067;
+  background: rgba(255, 150, 59, 0.1);
 }
 
 .highlight .gi {
-  color: #58702d;
-  background: rgba(88, 112, 45, 0.12);
+  color: #b8e986;
+  background: rgba(184, 233, 134, 0.1);
 }
 
 .highlight .gh,
 .highlight .gu {
-  color: #275f73;
+  color: #80d4ff;
   font-weight: 600;
 }
 
-.highlight .ge {
-  font-style: italic;
-}
+.highlight .ge { font-style: italic; }
+.highlight .gs { font-weight: 600; }
+.highlight .gp { color: #7f858f; }
+.highlight .w { color: inherit; }
 
-.highlight .gs {
-  font-weight: 600;
-}
-
-.highlight .gp {
-  color: #9a8d72;
-}
-
-.highlight .w {
-  color: inherit;
-}
-
-// scrollbar inside code blocks
-.highlight pre::-webkit-scrollbar {
-  height: 8px;
-}
-
-.highlight pre::-webkit-scrollbar-thumb {
-  background: var(--hairline);
-  border-radius: 4px;
-}
-
-.highlight pre::-webkit-scrollbar-track {
-  background: transparent;
-}
+.highlight pre::-webkit-scrollbar { height: 8px; }
+.highlight pre::-webkit-scrollbar-thumb { background: var(--hairline); border-radius: 4px; }
+.highlight pre::-webkit-scrollbar-track { background: transparent; }
