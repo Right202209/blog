@@ -1,0 +1,138 @@
+{% assign lang = page.lang | default: site.lang | default: "zh" %}
+{% assign t = site.data.i18n.languages[lang] %}
+{% assign comment_cta = t.comment_cta | default: "Click to comment" %}
+{% assign comments_enabled = false %}
+{% if site.disqus or site.utteranc.repo or site.gitalk.clientID %}
+  {% assign comments_enabled = true %}
+{% endif %}
+
+{% if comments_enabled %}
+<section class="post-comments" data-comments-area>
+  <button
+    class="comments-toggle"
+    type="button"
+    data-comments-toggle
+    aria-controls="comments-panel"
+    aria-expanded="false">
+    <span>{{ comment_cta }}</span>
+  </button>
+
+  <div class="comments-panel" id="comments-panel" data-comments-panel hidden>
+    {% include disqus.html %}
+    {% include utteranc.html %}
+    {% include gitalk.html %}
+  </div>
+
+  <noscript>
+    <p class="comments-noscript">Please enable JavaScript to view comments.</p>
+  </noscript>
+</section>
+
+<script>
+  (function () {
+    function appendScript(src, target, attrs, onload) {
+      var script = document.createElement("script");
+      script.src = src;
+      script.async = true;
+
+      if (attrs) {
+        Object.keys(attrs).forEach(function (name) {
+          if (attrs[name]) script.setAttribute(name, attrs[name]);
+        });
+      }
+
+      if (onload) script.onload = onload;
+      (target || document.head || document.body).appendChild(script);
+    }
+
+    function appendStyle(href) {
+      if (document.querySelector("link[href='" + href + "']")) return;
+
+      var link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = href;
+      document.head.appendChild(link);
+    }
+
+    function initComments(area) {
+      var button = area.querySelector("[data-comments-toggle]");
+      var panel = area.querySelector("[data-comments-panel]");
+      var loaded = false;
+
+      if (!button || !panel) return;
+
+      function loadDisqus() {
+        var disqus = panel.querySelector("[data-comments-provider='disqus']");
+        if (!disqus) return;
+
+        window.disqus_shortname = disqus.getAttribute("data-shortname");
+        appendScript("//" + window.disqus_shortname + ".disqus.com/embed.js");
+      }
+
+      function loadUtteranc() {
+        var utteranc = panel.querySelector("[data-comments-provider='utteranc']");
+        if (!utteranc) return;
+
+        appendScript("https://utteranc.es/client.js", utteranc, {
+          "repo": utteranc.getAttribute("data-repo"),
+          "issue-term": utteranc.getAttribute("data-issue-term"),
+          "label": utteranc.getAttribute("data-label"),
+          "theme": utteranc.getAttribute("data-theme"),
+          "crossorigin": utteranc.getAttribute("data-crossorigin")
+        });
+      }
+
+      function loadGitalk() {
+        var gitalkNode = panel.querySelector("[data-comments-provider='gitalk']");
+        if (!gitalkNode) return;
+
+        function renderGitalk() {
+          if (!window.Gitalk) {
+            area.classList.add("has-error");
+            return;
+          }
+
+          var gitalk = new Gitalk({
+            clientID: gitalkNode.getAttribute("data-client-id"),
+            clientSecret: gitalkNode.getAttribute("data-client-secret"),
+            repo: gitalkNode.getAttribute("data-repo"),
+            owner: gitalkNode.getAttribute("data-owner"),
+            admin: [gitalkNode.getAttribute("data-owner")],
+            id: window.location.pathname,
+            distractionFreeMode: false,
+            title: gitalkNode.getAttribute("data-title"),
+            language: "zh-CN",
+            proxy: gitalkNode.getAttribute("data-proxy")
+          });
+
+          gitalk.render("gitalk-container");
+        }
+
+        appendStyle("https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css");
+
+        if (window.Gitalk) {
+          renderGitalk();
+        } else {
+          appendScript("https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js", document.head, null, renderGitalk);
+        }
+      }
+
+      button.addEventListener("click", function () {
+        if (loaded) return;
+
+        loaded = true;
+        panel.hidden = false;
+        button.setAttribute("aria-expanded", "true");
+        button.hidden = true;
+        area.classList.add("is-loaded");
+
+        loadDisqus();
+        loadUtteranc();
+        loadGitalk();
+      });
+    }
+
+    document.querySelectorAll("[data-comments-area]").forEach(initComments);
+  })();
+</script>
+{% endif %}

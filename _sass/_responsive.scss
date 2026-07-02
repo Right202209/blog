@@ -2,7 +2,11 @@
 // 考据 · Ink & Paper — responsive
 //
 
-@media (max-width: 980px) {
+$bp-content-collapse: 980px;
+$bp-nav-collapse: 760px;
+$bp-compact: 480px;
+
+@media (max-width: $bp-content-collapse) {
   .post-side-label {
     position: static;
     writing-mode: horizontal-tb;
@@ -39,10 +43,10 @@
     position: static;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 26px 48px;
+    gap: var(--space-6) 48px;
     border-left: 0;
     border-top: 1px solid var(--hairline);
-    padding: 24px 0 0;
+    padding: var(--space-5) 0 0;
     margin-top: 10px;
 
     .dir-module {
@@ -52,7 +56,7 @@
   }
 }
 
-@media (max-width: 760px) {
+@media (max-width: $bp-nav-collapse) {
   .site-nav {
     flex-direction: column;
     align-items: flex-start;
@@ -69,10 +73,12 @@
   }
 
   .home-folio {
-    padding-top: 36px;
+    padding-top: var(--home-offset-compact);
   }
 
   .folio-hero {
+    --hero-seal-size: 66px;
+    --hero-seal-font-size: 1.3rem;
     grid-template-columns: 1fr;
     gap: 0;
   }
@@ -90,15 +96,12 @@
     position: absolute;
     top: 44px;
     right: 0;
-    width: 66px;
-    height: 66px;
-    font-size: 1.3rem;
     margin-top: 0;
   }
 
   .hero-slogan {
     font-size: 1.7rem;
-    padding-right: 80px;
+    padding-right: calc(var(--hero-seal-size) + var(--space-4));
   }
 
   .hero-actions {
@@ -112,7 +115,7 @@
   }
 
   .folio-section {
-    margin-bottom: 44px;
+    margin-bottom: var(--section-gap-compact);
   }
 
   .spotlight-title {
@@ -148,7 +151,7 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: $bp-compact) {
   html {
     font-size: 16px;
   }
@@ -156,8 +159,8 @@
   .container,
   .site-nav,
   .site-footer {
-    padding-left: 18px;
-    padding-right: 18px;
+    padding-left: var(--layout-pad-compact);
+    padding-right: var(--layout-pad-compact);
   }
 
   .paper-columns,
@@ -165,16 +168,18 @@
     display: none;
   }
 
+  .folio-hero {
+    --hero-seal-size: 56px;
+    --hero-seal-font-size: 1.1rem;
+  }
+
   .hero-seal {
-    width: 56px;
-    height: 56px;
-    font-size: 1.1rem;
     top: 40px;
   }
 
   .hero-slogan {
     font-size: 1.45rem;
-    padding-right: 68px;
+    padding-right: calc(var(--hero-seal-size) + var(--space-3));
   }
 
   .section-heading {

@@ -47,11 +47,7 @@ layout: default
             {{ content }}
           </div>
 
-          <section class="post-comments">
-            {% include disqus.html %}
-            {% include utteranc.html %}
-            {% include gitalk.html %}
-          </section>
+          {% include comments.html %}
         </article>
 
         <nav class="pagination post-pagination">

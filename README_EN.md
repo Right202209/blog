@@ -6,26 +6,27 @@ Chinese version: `README.md`
 
 ## Current Features
 
-- CRT-styled shell with mono typography, scanlines, soft glow layers, and shell-frame corner accents
-- Dashboard-like homepage with hero, featured latest post, pinned highlights, feed cards, and an auxiliary info rail
+- Ink & Paper editorial theme with warm paper, ruled columns, grain, faint ink motes, and vermilion seal accents
+- Folio-style homepage with opening note, latest post, pinned entries, ledger feed, and directory rail
 - Read-mode post layout with a focused content column plus sticky TOC that tracks the active heading while scrolling
 - Pinned posts, tags, archive timeline, and pagination
 - Optional integrations: MathJax 3, Utterances / Gitalk / Disqus, Busuanzi stats
 
 ## Theme Structure Overview
 
-- `_layouts/default.html`: injects the shared `site-shell`, shell frame, sticky nav, and rotating homepage slogan script
-- `index.html`: homepage dashboard composed of the hero, featured post, pinned cards, feed, and right-side overview/topic panels
-- `_layouts/post.html`: read-mode post template with back link, reading time, tag chips, and optional TOC rail
-- `_sass/_shell.scss`: global CRT shell, layered background, navigation, panel containers, and read-mode grid
-- `_sass/_home.scss`: homepage dashboard, hero, card, and info-rail styling
-- `_sass/_content.scss`: post typography, code blocks, archive/tag list styling, and TOC presentation
-- `_sass/_responsive.scss`: responsive column collapse plus reduced-motion and reduced-transparency handling
+- `_layouts/default.html`: injects the paper background layers, shared `site-shell`, top navigation, footer, and homepage slogan script
+- `index.html`: homepage folio composed of hero, latest post, pinned entries, ledger feed, and directory rail
+- `_layouts/post.html`: read-mode post template with back link, reading time, tags, and optional TOC rail
+- `_sass/_shell.scss`: global tokens, base typography, paper effects, navigation, shared ledger components, and footer
+- `_sass/_home.scss`: homepage folio, opening note, seal, stats row, and directory rail styling
+- `_sass/_content.scss`: post typography, archive/tag list styling, and TOC presentation
+- `_sass/_highlights.scss`: Rouge code highlighting
+- `_sass/_responsive.scss`: responsive column collapse, compact mobile behavior, and reduced-motion handling
 
 ## Project Structure
 
-- `index.html`: homepage hero, article stream, and info rail
-- `style.scss`: global styles, motion, responsive layout, and canvas background
+- `index.html`: homepage folio hero, ledger feed, and directory rail
+- `style.scss`: global Sass entry point for partials, motion, and responsive layout
 - `_layouts/`: default, page, and post layouts
 - `_includes/`: nav, footer, TOC, comments, and metadata fragments
 - `_posts/`: blog posts
@@ -82,7 +83,7 @@ You can use a GitHub Issue with the `Content Update` template to create, update,
 
 ## Recent Updates
 
-- 2026-03-22: refined the CRT shell so the homepage hero/cards/info rail and post read-mode styling feel consistent
+- 2026-06-27: synchronized Ink & Paper theme docs and added frontend style token relationships
 - 2026-03-22: updated repository docs, verification notes, and codemap coverage for the homepage and post theme refinements
 - 2026-03-13: homepage upgraded to a two-column layout with an info rail
 - 2026-03-13: article TOC now tracks the active section while scrolling

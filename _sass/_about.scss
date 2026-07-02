@@ -43,8 +43,8 @@
   padding: 18px 16px 16px;
   background: var(--paper);
   border: 1px solid var(--hairline-soft);
-  border-radius: 6px 3px 6px 3px;
-  box-shadow: 1px 2px 0 rgba(40, 35, 26, 0.06);
+  border-radius: var(--radius-seal-xs);
+  box-shadow: 1px 2px 0 var(--shadow-ink-soft);
 }
 
 .card-glyph {
@@ -57,8 +57,9 @@
   font-weight: 900;
   font-size: 0.95rem;
   color: var(--vermilion);
+  background: var(--accent-wash-faint);
   border: 1.5px solid var(--vermilion);
-  border-radius: 5px 2px 5px 2px;
+  border-radius: var(--radius-seal-sm);
   transform: rotate(-2deg);
 }
 
@@ -106,6 +107,7 @@
 
 // small companion to the home hero-seal
 .about-seal {
+  position: relative;
   display: grid;
   grid-template-rows: 1fr 1fr;
   place-items: center;
@@ -113,22 +115,32 @@
   width: 64px;
   height: 64px;
   padding: 6px 0;
-  background: linear-gradient(160deg, var(--vermilion), var(--vermilion-deep));
-  color: #f8f2e2 !important;
+  background: var(--seal-paste);
+  color: var(--seal-ink) !important;
   font-family: var(--font-display);
   font-weight: 900;
   font-size: 1.2rem;
   line-height: 1;
-  border-radius: 8px 5px 7px 4px;
+  text-shadow: 0 1px 1px var(--seal-press-soft);
+  border-radius: var(--radius-seal-md);
   transform: rotate(2.5deg);
-  box-shadow: inset 0 0 0 2px rgba(248, 242, 226, 0.3),
-    inset 0 0 12px rgba(70, 16, 8, 0.5),
-    2px 3px 0 rgba(40, 35, 26, 0.16);
+  box-shadow: inset 0 0 12px var(--seal-press),
+    2px 3px 0 var(--shadow-ink);
   user-select: none;
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform var(--duration-slow) var(--ease-stamp);
+
+  // carved inner frame, set in from the stamped edge
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 4px;
+    border: 1px solid var(--seal-frame);
+    border-radius: var(--radius-seal-frame);
+    pointer-events: none;
+  }
 
   &:hover {
     transform: rotate(0deg) scale(1.05);
-    background: linear-gradient(160deg, var(--vermilion), var(--vermilion-deep));
+    background: var(--seal-paste);
   }
 }

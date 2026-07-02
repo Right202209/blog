@@ -39,7 +39,6 @@
   <link rel="stylesheet" type="text/css" href="/blog/style.css" />
   <link rel="alternate" type="application/rss+xml" title="Right - 以证据为起点，以方法为路径。" href="/blog/feed.xml" />
   <link rel="shortcut icon" href="images/favicon.ico">
-  
   <script type="text/javascript" id="MathJax-script" async
     src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
   </script>
@@ -107,7 +106,7 @@
             <span class="post-side-label" aria-hidden="true">文</span>
             <h1 class="post-title">Minio</h1>
             <p class="entry-meta post-meta-row">
-              <time datetime="2024-08-24T00:00:00+08:00">2024.08.24</time>
+              <time datetime="2024-08-24T00:00:00-04:00">2024.08.24</time>
               <span class="meta-dot" aria-hidden="true">·</span>
               <span>Right</span>
               <span class="meta-dot" aria-hidden="true">·</span>
@@ -214,21 +213,154 @@ docker run <span class="nt">-d</span> <span class="nt">-p</span> 9000:9000 <span
 
           </div>
 
-          <section class="post-comments">
-            
-            
-<script src="https://utteranc.es/client.js"
-        repo="Right202209/blog"
-        issue-term="issue-term"
-        label="utteranc"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
+          
+
+
+
+
+
+
+<section class="post-comments" data-comments-area>
+  <button
+    class="comments-toggle"
+    type="button"
+    data-comments-toggle
+    aria-controls="comments-panel"
+    aria-expanded="false">
+    <span>Click to comment</span>
+  </button>
+
+  <div class="comments-panel" id="comments-panel" data-comments-panel hidden>
+    
+    
+<div
+  class="comments"
+  data-comments-provider="utteranc"
+  data-repo="Right202209/blog"
+  data-issue-term="issue-term"
+  data-label="utteranc"
+  data-theme="github-light"
+  data-crossorigin="anonymous">
+</div>
+
+
+    
+  </div>
+
+  <noscript>
+    <p class="comments-noscript">Please enable JavaScript to view comments.</p>
+  </noscript>
+</section>
+
+<script>
+  (function () {
+    function appendScript(src, target, attrs, onload) {
+      var script = document.createElement("script");
+      script.src = src;
+      script.async = true;
+
+      if (attrs) {
+        Object.keys(attrs).forEach(function (name) {
+          if (attrs[name]) script.setAttribute(name, attrs[name]);
+        });
+      }
+
+      if (onload) script.onload = onload;
+      (target || document.head || document.body).appendChild(script);
+    }
+
+    function appendStyle(href) {
+      if (document.querySelector("link[href='" + href + "']")) return;
+
+      var link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = href;
+      document.head.appendChild(link);
+    }
+
+    function initComments(area) {
+      var button = area.querySelector("[data-comments-toggle]");
+      var panel = area.querySelector("[data-comments-panel]");
+      var loaded = false;
+
+      if (!button || !panel) return;
+
+      function loadDisqus() {
+        var disqus = panel.querySelector("[data-comments-provider='disqus']");
+        if (!disqus) return;
+
+        window.disqus_shortname = disqus.getAttribute("data-shortname");
+        appendScript("//" + window.disqus_shortname + ".disqus.com/embed.js");
+      }
+
+      function loadUtteranc() {
+        var utteranc = panel.querySelector("[data-comments-provider='utteranc']");
+        if (!utteranc) return;
+
+        appendScript("https://utteranc.es/client.js", utteranc, {
+          "repo": utteranc.getAttribute("data-repo"),
+          "issue-term": utteranc.getAttribute("data-issue-term"),
+          "label": utteranc.getAttribute("data-label"),
+          "theme": utteranc.getAttribute("data-theme"),
+          "crossorigin": utteranc.getAttribute("data-crossorigin")
+        });
+      }
+
+      function loadGitalk() {
+        var gitalkNode = panel.querySelector("[data-comments-provider='gitalk']");
+        if (!gitalkNode) return;
+
+        function renderGitalk() {
+          if (!window.Gitalk) {
+            area.classList.add("has-error");
+            return;
+          }
+
+          var gitalk = new Gitalk({
+            clientID: gitalkNode.getAttribute("data-client-id"),
+            clientSecret: gitalkNode.getAttribute("data-client-secret"),
+            repo: gitalkNode.getAttribute("data-repo"),
+            owner: gitalkNode.getAttribute("data-owner"),
+            admin: [gitalkNode.getAttribute("data-owner")],
+            id: window.location.pathname,
+            distractionFreeMode: false,
+            title: gitalkNode.getAttribute("data-title"),
+            language: "zh-CN",
+            proxy: gitalkNode.getAttribute("data-proxy")
+          });
+
+          gitalk.render("gitalk-container");
+        }
+
+        appendStyle("https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css");
+
+        if (window.Gitalk) {
+          renderGitalk();
+        } else {
+          appendScript("https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js", document.head, null, renderGitalk);
+        }
+      }
+
+      button.addEventListener("click", function () {
+        if (loaded) return;
+
+        loaded = true;
+        panel.hidden = false;
+        button.setAttribute("aria-expanded", "true");
+        button.hidden = true;
+        area.classList.add("is-loaded");
+
+        loadDisqus();
+        loadUtteranc();
+        loadGitalk();
+      });
+    }
+
+    document.querySelectorAll("[data-comments-area]").forEach(initComments);
+  })();
 </script>
 
 
-            
-          </section>
         </article>
 
         <nav class="pagination post-pagination">

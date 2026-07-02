@@ -6,26 +6,27 @@ English version: `README_EN.md`
 
 ## 当前主题特性
 
-- CRT 风格外壳：单色系终端字体、扫描线、渐变辉光和 shell frame 边角装饰
-- 首页双栏仪表盘：hero、最新推荐、置顶高亮、文章流和右侧信息侧轨
+- Ink & Paper 纸本文献风格：暖色纸张、朱丝栏、纸纹、浮墨字形和朱印强调
+- 首页 folio 结构：卷首语、最新文章、置顶条目、文章账册和右侧目录侧栏
 - 文章阅读模式：正文主列 + 吸附式目录侧栏，目录项会随滚动高亮当前章节
 - 内容组织：置顶文章、标签页、归档时间线、分页
 - 可选扩展：MathJax 3、Utterances / Gitalk / Disqus、Busuanzi 统计
 
 ## 主题结构概览
 
-- `_layouts/default.html`：统一注入 `site-shell`、shell frame、顶部导航和随机首页标语脚本
-- `index.html`：首页仪表盘，组合 hero、推荐文章、置顶卡片、文章流和右侧标签/概览面板
+- `_layouts/default.html`：统一注入纸纹背景、朱丝栏、浮墨层、顶部导航和页脚
+- `index.html`：首页 folio，组合 hero、最新文章、置顶文章、文章账册和目录侧栏
 - `_layouts/post.html`：文章页阅读模式，提供返回首页链接、阅读时长、标签和可选 TOC 侧栏
-- `_sass/_shell.scss`：全站 CRT 外壳、背景层、导航、卡片容器和阅读模式栅格
-- `_sass/_home.scss`：首页 dashboard / hero / card / info rail 细节样式
-- `_sass/_content.scss`：文章内容排版、代码块、归档/标签列表和 TOC 样式
-- `_sass/_responsive.scss`：响应式降栏、移动端栅格折叠和 reduced-motion / reduced-transparency 适配
+- `_sass/_shell.scss`：全站 token、基础排版、纸张背景、导航、共享账册组件和页脚
+- `_sass/_home.scss`：首页 folio、卷首语、朱印、统计行和目录侧栏样式
+- `_sass/_content.scss`：文章内容排版、归档/标签列表和 TOC 样式
+- `_sass/_highlights.scss`：Rouge 代码高亮样式
+- `_sass/_responsive.scss`：响应式降栏、移动端压缩和 reduced-motion 适配
 
 ## 项目结构
 
-- `index.html`：首页，包含 hero、文章流和右侧信息侧轨
-- `style.scss`：全站主样式，包含背景画布、动效和响应式布局
+- `index.html`：首页，包含 folio hero、文章账册和右侧目录侧栏
+- `style.scss`：全站主样式入口，组合 Sass partial、动效和响应式布局
 - `_layouts/`：页面、文章、默认布局
 - `_includes/`：导航、页脚、目录、评论和元信息片段
 - `_posts/`：博客文章
@@ -82,7 +83,7 @@ English version: `README_EN.md`
 
 ## 最近更新
 
-- 2026-03-22：细化 CRT 主题外壳，首页 hero / 卡片 / 信息侧轨与文章阅读模式样式同步收敛
+- 2026-06-27：同步 Ink & Paper 主题文档，并补齐前端样式 token 关系
 - 2026-03-22：补充首页仪表盘与文章阅读模式的文档、运行检查项和 codemap
 - 2026-03-13：首页改为双栏布局，并补充右侧信息侧轨
 - 2026-03-13：文章目录支持随滚动高亮
