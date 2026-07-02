@@ -115,7 +115,7 @@
   width: 64px;
   height: 64px;
   padding: 6px 0;
-  background: var(--seal-paste);
+  background: $seal-paste;
   color: var(--seal-ink) !important;
   font-family: var(--font-display);
   font-weight: 900;
@@ -141,6 +141,6 @@
 
   &:hover {
     transform: rotate(0deg) scale(1.05);
-    background: var(--seal-paste);
+    background: $seal-paste;
   }
 }
