@@ -22,15 +22,13 @@
   --mote-accent: rgba(178, 58, 39, 0.055);
 
   --seal-ink: #f8f2e2;
-  --seal-highlight: rgba(248, 242, 226, 0.3);
-  --seal-highlight-soft: rgba(248, 242, 226, 0.28);
   --seal-press: rgba(70, 16, 8, 0.5);
   --seal-press-soft: rgba(70, 16, 8, 0.45);
   --seal-frame: rgba(248, 242, 226, 0.5);
   --seal-paste-light: rgba(248, 242, 226, 0.16);
   --seal-paste-deep: rgba(70, 16, 8, 0.3);
   // mottled cinnabar paste: grain speckle + uneven patches over the base gradient
-  --seal-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='s'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.25 0 0 0 0 0.07 0 0 0 0 0.04 0 0 0 0.16 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23s)'/%3E%3C/svg%3E");
+  --seal-grain: url("data:image/svg+xml,%3Csvg%20xmlns=%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width=%22120%22%20height=%22120%22%3E%3Cfilter%20id=%22s%22%3E%3CfeTurbulence%20type=%22fractalNoise%22%20baseFrequency=%220.9%22%20numOctaves=%222%22%20stitchTiles=%22stitch%22%2F%3E%3CfeColorMatrix%20type=%22matrix%22%20values=%220%200%200%200%200.25%200%200%200%200%200.07%200%200%200%200%200.04%200%200%200%200.16%200%22%2F%3E%3C%2Ffilter%3E%3Crect%20width=%22100%25%22%20height=%22100%25%22%20filter=%22url%28%23s%29%22%2F%3E%3C%2Fsvg%3E");
   --seal-paste: var(--seal-grain),
     radial-gradient(90% 75% at 30% 22%, var(--seal-paste-light), transparent 58%),
     radial-gradient(115% 95% at 74% 82%, var(--seal-paste-deep), transparent 62%),
@@ -71,7 +69,6 @@
   --grid-gap-wide: 60px;
   --sticky-top: 32px;
 
-  --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
   --space-4: 16px;

@@ -1,6 +1,8 @@
 {% assign lang = page.lang | default: site.lang | default: "zh" %}
 {% assign t = site.data.i18n.languages[lang] %}
-{% assign comment_cta = t.comment_cta | default: "Click to comment" %}
+{% assign comment_cta = t.comment_cta | default: "Click to load comments" %}
+{% assign comments_noscript = t.comments_noscript | default: "Please enable JavaScript to view comments." %}
+{% assign comments_error = t.comments_error | default: "Comments failed to load. Please try again later." %}
 {% assign comments_enabled = false %}
 {% if site.disqus or site.utteranc.repo or site.gitalk.clientID %}
   {% assign comments_enabled = true %}
@@ -17,20 +19,25 @@
     <span>{{ comment_cta }}</span>
   </button>
 
-  <div class="comments-panel" id="comments-panel" data-comments-panel hidden>
+  <div
+    class="comments-panel"
+    id="comments-panel"
+    data-comments-panel
+    hidden>
+    <p class="comments-error" role="alert">{{ comments_error }}</p>
     {% include disqus.html %}
     {% include utteranc.html %}
     {% include gitalk.html %}
   </div>
 
   <noscript>
-    <p class="comments-noscript">Please enable JavaScript to view comments.</p>
+    <p class="comments-noscript">{{ comments_noscript }}</p>
   </noscript>
 </section>
 
 <script>
   (function () {
-    function appendScript(src, target, attrs, onload) {
+    function appendScript(src, target, attrs, onload, onerror) {
       var script = document.createElement("script");
       script.src = src;
       script.async = true;
@@ -42,6 +49,7 @@
       }
 
       if (onload) script.onload = onload;
+      if (onerror) script.onerror = onerror;
       (target || document.head || document.body).appendChild(script);
     }
 
@@ -85,27 +93,34 @@
       function loadGitalk() {
         var gitalkNode = panel.querySelector("[data-comments-provider='gitalk']");
         if (!gitalkNode) return;
+        function showGitalkError() {
+          area.classList.add("has-error");
+        }
 
         function renderGitalk() {
           if (!window.Gitalk) {
-            area.classList.add("has-error");
+            showGitalkError();
             return;
           }
 
-          var gitalk = new Gitalk({
-            clientID: gitalkNode.getAttribute("data-client-id"),
-            clientSecret: gitalkNode.getAttribute("data-client-secret"),
-            repo: gitalkNode.getAttribute("data-repo"),
-            owner: gitalkNode.getAttribute("data-owner"),
-            admin: [gitalkNode.getAttribute("data-owner")],
-            id: window.location.pathname,
-            distractionFreeMode: false,
-            title: gitalkNode.getAttribute("data-title"),
-            language: "zh-CN",
-            proxy: gitalkNode.getAttribute("data-proxy")
-          });
+          try {
+            var gitalk = new Gitalk({
+              clientID: gitalkNode.getAttribute("data-client-id"),
+              clientSecret: gitalkNode.getAttribute("data-client-secret"),
+              repo: gitalkNode.getAttribute("data-repo"),
+              owner: gitalkNode.getAttribute("data-owner"),
+              admin: [gitalkNode.getAttribute("data-owner")],
+              id: window.location.pathname,
+              distractionFreeMode: false,
+              title: gitalkNode.getAttribute("data-title"),
+              language: "zh-CN",
+              proxy: gitalkNode.getAttribute("data-proxy")
+            });
 
-          gitalk.render("gitalk-container");
+            gitalk.render("gitalk-container");
+          } catch (error) {
+            showGitalkError();
+          }
         }
 
         appendStyle("https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css");
@@ -113,7 +128,7 @@
         if (window.Gitalk) {
           renderGitalk();
         } else {
-          appendScript("https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js", document.head, null, renderGitalk);
+          appendScript("https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js", document.head, null, renderGitalk, showGitalkError);
         }
       }
 

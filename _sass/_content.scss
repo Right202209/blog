@@ -386,6 +386,22 @@
   margin-top: 22px;
 }
 
+
+.comments-error {
+  display: none;
+  margin: 0 0 14px;
+  padding: 10px 12px;
+  border-left: 3px solid var(--vermilion);
+  background: var(--accent-wash-faint);
+  color: var(--vermilion-deep);
+  font-size: 0.86rem;
+  line-height: 1.7;
+}
+
+.post-comments.has-error .comments-error {
+  display: block;
+}
+
 .comments-panel[hidden],
 .comments-toggle[hidden] {
   display: none;
