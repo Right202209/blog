@@ -83,8 +83,11 @@ gitalk:
 google_analytics:
 
 utteranc:
-  repo: Right202209/blog # Your github repo path, also see: https://utteranc.es
-  theme: github-light
+  repo: 
+  # Your github repo path, also see: https://utteranc.es
+  theme: 
+  # repo: Right202209/blog # Your github repo path, also see: https://utteranc.es
+  # theme: github-light
 
 #
 # !! 以下所有设置都不需要更改 !!
