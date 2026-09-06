@@ -1,63 +1,19 @@
 <!DOCTYPE html>
-<html lang="{{ page.lang | default: site.lang | default: 'zh-cn' }}">
+{% assign lang = page.lang | default: site.lang | default: 'zh' %}
+{% assign t = site.data.i18n.languages[lang] | default: site.data.i18n.languages.zh %}
+<html lang="{{ lang }}">
   {% include head.html %}
-  {% assign page_layout = page.layout | default: 'default' %}
-  {% assign lang = page.lang | default: site.lang | default: 'zh' %}
-  {% assign page_kind = 'page' %}
-  {% if page.url == '/' %}
-    {% assign page_kind = 'home' %}
-  {% elsif page_layout == 'post' or page.collection == 'posts' or page.date %}
-    {% assign page_kind = 'post' %}
-  {% endif %}
-  <body class="layout-{{ page_layout }} page-{{ page_kind }}">
-    <div class="paper-grain" aria-hidden="true"></div>
-    <div class="paper-columns" aria-hidden="true"></div>
-    <div class="paper-motes" aria-hidden="true">
-      <span class="mote mote-glyph mote-1" data-depth="0.35"><span>考</span></span>
-      <span class="mote mote-glyph mote-2" data-depth="0.6"><span>據</span></span>
-      <span class="mote mote-glyph mote-3" data-depth="0.45"><span>墨</span></span>
-      <span class="mote mote-wash mote-4" data-depth="0.25"><span></span></span>
-      <span class="mote mote-wash mote-5" data-depth="0.5"><span></span></span>
-    </div>
-
+  <body id="top" class="layout-{{ page.layout | default: 'default' }}">
+    <a class="skip-link" href="#main-content">{{ t.skip_content }}</a>
+    <div class="site-background" aria-hidden="true"></div>
     <div class="site-shell">
       {% include nav.html %}
-
-      <main class="main">
+      <main id="main-content" class="main" tabindex="-1">
         {{ content }}
       </main>
-
       {% include footer.html %}
     </div>
-
+    <script src="{{ '/assets/js/site.js' | relative_url }}" defer></script>
     {% include analytics.html %}
-
-    <script>
-      (function () {
-        function pickSlogan() {
-          var slogan = document.getElementById("slogan");
-          if (!slogan) return;
-
-          var lines = [
-            "{{ site.description | escape }}",
-            {% if lang == 'en' %}
-            "Write the judgment down, then let evidence correct it.",
-            "Record techniques, methods, and knowledge worth reusing.",
-            "When the noise rises, keep the page and the thinking clear."
-            {% else %}
-            "把判断写下来，再让证据修正它。",
-            "记录技术、方法，以及能长期复用的经验。",
-            "在噪音很多的时候，尽量保留清晰的页面和思路。"
-            {% endif %}
-          ];
-
-          slogan.textContent = lines[Math.floor(Math.random() * lines.length)];
-        }
-
-        window.addEventListener("DOMContentLoaded", pickSlogan);
-      })();
-    </script>
-
-    {% include animations.html %}
   </body>
 </html>

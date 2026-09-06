@@ -1,0 +1,5 @@
+<div class="list-filter" data-filter-controls hidden>
+  <label for="{{ include.kind }}-filter">{{ t.filter }}</label>
+  <input id="{{ include.kind }}-filter" data-filter-input type="search" placeholder="{{ include.placeholder }}" autocomplete="off" spellcheck="false" aria-describedby="{{ include.kind }}-status">
+</div>
+<p id="{{ include.kind }}-status" class="filter-status" data-filter-status data-result-label="{{ t.filter_results }}" data-empty-label="{{ t.filter_empty }}" role="status" aria-live="polite" hidden></p>

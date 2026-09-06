@@ -2,77 +2,62 @@
 layout: default
 ---
 
-{% assign lang = page.lang | default: site.lang | default: "zh" %}
-{% assign t = site.data.i18n.languages[lang] %}
+{% assign lang = page.lang | default: site.lang | default: 'zh' %}
+{% assign t = site.data.i18n.languages[lang] | default: site.data.i18n.languages.zh %}
 {% assign post_author = page.author | default: page.Author | default: site.name %}
 {% assign words = content | strip_html | number_of_words %}
-{% assign reading_time = words | plus: 199 | divided_by: 200 %}
-{% if reading_time < 1 %}
-  {% assign reading_time = 1 %}
+{% assign reading_time = words | plus: 199 | divided_by: 200 | at_least: 1 %}
+{% assign has_toc = false %}
+{% if page.toc != false %}
+  {% if content contains '<h2' or content contains '<h3' or content contains '<h4' %}
+    {% assign has_toc = true %}
+  {% endif %}
 {% endif %}
 
 <div class="content-wrap">
   <div class="container">
-    <div class="content-two-col post-layout">
-      <main class="content-main">
-        <article class="article-folio reveal">
-          <a class="back-link" href="{{ site.baseurl }}/">← {{ t.back_home }}</a>
-
-          <header class="post-header">
-            <span class="post-side-label" aria-hidden="true">{{ t.post_label }}</span>
-            <h1 class="post-title">{{ page.title }}</h1>
+    <div class="post-layout{% unless has_toc %} post-layout-single{% endunless %}">
+      <div class="content-main">
+        <article class="article-content">
+          <a class="back-link" href="{{ '/' | relative_url }}">← {{ t.back_home }}</a>
+          <header class="post-header reveal">
+            <p class="eyebrow">Notes / {{ page.date | date: '%Y' }}</p>
+            <h1 class="post-title">{{ page.title | escape }}</h1>
             <p class="entry-meta post-meta-row">
-              <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y.%m.%d" }}</time>
-              <span class="meta-dot" aria-hidden="true">·</span>
-              <span>{{ post_author }}</span>
-              <span class="meta-dot" aria-hidden="true">·</span>
+              <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: '%Y.%m.%d' }}</time>
+              <span aria-hidden="true">/</span>
+              <span>{{ post_author | escape }}</span>
+              <span aria-hidden="true">/</span>
               <span>{{ reading_time }} {{ t.reading_time }}</span>
               <span id="busuanzi_container_page_pv" style="display:none;">
-                <span class="meta-dot" aria-hidden="true">·</span>
-                {{ t.views }} <span id="busuanzi_value_page_pv"></span> {{ t.times }}
+                · {{ t.views }} <span id="busuanzi_value_page_pv"></span> {{ t.times }}
               </span>
             </p>
-
-            {% if page.tags and page.tags.size > 0 %}
-            <p class="post-topics">
+            {% if page.tags.size > 0 %}
+            <div class="post-topics">
               {% for tag in page.tags %}
-              <a class="meta-tag" href="{{ site.url }}{{ site.baseurl }}/tags#{{ tag | slugify }}">#{{ tag }}</a>
+              <a class="meta-tag" href="{{ '/tags/' | relative_url }}#{{ tag | slugify }}">#{{ tag | escape }}</a>
               {% endfor %}
-            </p>
+            </div>
             {% endif %}
-            <div class="header-rule" aria-hidden="true"></div>
           </header>
-
-          <div class="entry">
-            {{ content }}
-          </div>
-
-          {% include comments.html %}
+          <div class="entry">{{ content }}</div>
+          {% if page.comments != false %}{% include comments.html %}{% endif %}
         </article>
-
-        <nav class="pagination post-pagination">
+        <nav class="pagination post-pagination" aria-label="{{ t.home }}">
           {% if page.previous.url %}
-            <span class="prev">
-              <a href="{{ site.url }}{{ site.baseurl }}{{ page.previous.url }}">← {{ t.prev }}</a>
-            </span>
+          <a class="prev" href="{{ page.previous.url | relative_url }}"><span>← {{ t.prev }}</span><strong>{{ page.previous.title | escape }}</strong></a>
           {% endif %}
           {% if page.next.url %}
-            <span class="next">
-              <a href="{{ site.url }}{{ site.baseurl }}{{ page.next.url }}">{{ t.next }} →</a>
-            </span>
+          <a class="next" href="{{ page.next.url | relative_url }}"><span>{{ t.next }} →</span><strong>{{ page.next.title | escape }}</strong></a>
           {% endif %}
         </nav>
-      </main>
-
-      {% assign has_headings = false %}
-      {% if content contains '<h2' or content contains '<h3' or content contains '<h4' %}
-        {% assign has_headings = true %}
-      {% endif %}
-      {% if page.toc != false and has_headings %}
+      </div>
+      {% if has_toc %}
       <aside class="content-aside">
         <details class="toc-box" id="post-toc" open>
           <summary class="toc-label">{{ t.toc_label }}</summary>
-          <nav class="toc-body">
+          <nav class="toc-body" aria-label="{{ t.toc_label }}">
             {% include toc.html html=content sanitize=true h_min=2 h_max=4 %}
           </nav>
         </details>
@@ -81,49 +66,3 @@ layout: default
     </div>
   </div>
 </div>
-
-<script>
-  (function () {
-    var toc = document.getElementById("post-toc");
-    if (!toc) return;
-
-    // fold the directory by default on narrow screens
-    if (window.matchMedia("(max-width: 980px)").matches) {
-      toc.removeAttribute("open");
-    }
-
-    var heads = [];
-    toc.querySelectorAll("a[href^='#']").forEach(function (a) {
-      var id = decodeURIComponent(a.getAttribute("href").slice(1));
-      var h = document.getElementById(id);
-      if (h) heads.push([h, a]);
-    });
-    if (!heads.length) return;
-
-    var active = null;
-    function update() {
-      var current = heads[0][1];
-      for (var i = 0; i < heads.length; i++) {
-        if (heads[i][0].getBoundingClientRect().top <= 96) current = heads[i][1];
-      }
-      if (current !== active) {
-        if (active) active.classList.remove("active");
-        active = current;
-        active.classList.add("active");
-      }
-    }
-
-    var ticking = false;
-    window.addEventListener("scroll", function () {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(function () {
-        ticking = false;
-        update();
-      });
-    }, { passive: true });
-
-    window.addEventListener("load", update);
-    update();
-  })();
-</script>

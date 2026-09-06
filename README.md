@@ -1,65 +1,57 @@
-# Right's Blog
+# Droit · Notes
 
-这是一个基于 Jekyll 构建的个人博客项目，部署目标是 GitHub Pages。
+基于 Jekyll 的个人博客，部署在 GitHub Pages 的 `/blog` 路径。主题与 `Right202209.github.io` 的 `optimization-patch` 分支保持一致。
 
-English version: `README_EN.md`
+English version: [README_EN.md](README_EN.md)
 
-## 当前主题特性
+## 当前主题
 
-- Ink & Paper 纸本文献风格：暖色纸张、朱丝栏、纸纹、浮墨字形和朱印强调
-- 首页 folio 结构：卷首语、最新文章、置顶条目、文章账册和右侧目录侧栏
-- 文章阅读模式：正文主列 + 吸附式目录侧栏，目录项会随滚动高亮当前章节
-- 内容组织：置顶文章、标签页、归档时间线、分页
-- 可选扩展：MathJax 3、Utterances / Gitalk / Disqus、Busuanzi 统计
+- 与主页共用 Droit 头像、名称与签名，使用深灰渐变、灰白文字、细分隔线和橙色交互色
+- 首页展示个人简介、最新笔记、分页列表，以及常读笔记、主题和年份入口
+- 文章页提供阅读时长、随滚动高亮的目录、暗色代码块及上一篇 / 下一篇导航
+- 归档按年份组织，标签按主题组织；支持搜索、匹配数量和空结果提示
+- 使用本地图标与系统字体，支持键盘导航、移动端、无 JavaScript 阅读与减少动态效果
+- 保留 MathJax、Utterances / Gitalk / Disqus 评论等可选能力
 
-## 主题结构概览
+## 主题结构
 
-- `_layouts/default.html`：统一注入纸纹背景、朱丝栏、浮墨层、顶部导航和页脚
-- `index.html`：首页 folio，组合 hero、最新文章、置顶文章、文章账册和目录侧栏
-- `_layouts/post.html`：文章页阅读模式，提供返回首页链接、阅读时长、标签和可选 TOC 侧栏
-- `_sass/_shell.scss`：全站 token、基础排版、纸张背景、导航、共享账册组件和页脚
-- `_sass/_home.scss`：首页 folio、卷首语、朱印、统计行和目录侧栏样式
-- `_sass/_content.scss`：文章内容排版、归档/标签列表和 TOC 样式
-- `_sass/_highlights.scss`：Rouge 代码高亮样式
-- `_sass/_responsive.scss`：响应式降栏、移动端压缩和 reduced-motion 适配
+- `_layouts/default.html`：全站背景、导航、正文入口、页脚与本地脚本
+- `index.html`、`_includes/post-card.html`：首页与分页文章列表
+- `_layouts/post.html`：文章、阅读信息、可选目录与评论
+- `_sass/_shell.scss`：统一颜色、字体、尺寸变量与共享组件
+- `_sass/_home.scss`、`_content.scss`、`_about.scss`：首页、阅读和关于页
+- `_sass/_highlights.scss`、`_responsive.scss`：代码高亮与响应式适配
+- `assets/js/site.js`：列表筛选与目录交互
 
-## 项目结构
-
-- `index.html`：首页，包含 folio hero、文章账册和右侧目录侧栏
-- `style.scss`：全站主样式入口，组合 Sass partial、动效和响应式布局
-- `_layouts/`：页面、文章、默认布局
-- `_includes/`：导航、页脚、目录、评论和元信息片段
-- `_posts/`：博客文章
-- `_config.yml`：站点名称、描述、导航、评论和基础路径等配置
+详细设计约定见 [DESIGN.md](DESIGN.md)，开发流程见 [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md)。
 
 ## 本地开发
 
-当前仓库没有提交 `Gemfile`，因此本地预览依赖你机器上的 Jekyll 环境。
+安装 Ruby 和 Bundler 后，在仓库目录执行：
 
-1. 安装 Ruby
-2. 安装 Jekyll：
-   ```bash
-   gem install jekyll bundler
-   ```
-3. 在项目目录启动：
-   ```bash
-   jekyll serve --baseurl /blog
-   ```
-4. 访问 `http://localhost:4000/blog`
+```bash
+bundle install
+bundle exec jekyll serve --baseurl /blog
+```
 
-如果你更习惯 `bundle exec jekyll serve`，可以自行补一个 `Gemfile` 后再使用。
+访问 `http://localhost:4000/blog/`。构建检查：
+
+```bash
+bundle exec jekyll build --strict_front_matter
+```
+
+`Gemfile` 使用与 GitHub Pages 兼容的 Jekyll 3.10 及现有插件。
 
 ## 常用配置
 
 主要配置位于 `_config.yml`：
 
-- `name`：站点名称
-- `description`：首页主标题 / 站点描述
-- `url`：线上域名
-- `baseurl`：子路径，当前为 `/blog`
-- `avatar`：侧栏头像
+- `name`、`description`、`tagline`：名称、签名与简介
+- `home_url`：个人主页地址
+- `url`、`baseurl`：线上域名与博客路径
+- `avatar`、`favicon`：本地头像和站点图标
 - `footer-links`：页脚社交链接
-- `utteranc.repo`：Utterances 评论仓库
+- `utteranc.repo`：Utterances 评论仓库，默认使用暗色主题
 
 ## 通过 GitHub Issue 更新内容
 
@@ -82,6 +74,8 @@ English version: `README_EN.md`
 - 会自动补齐常用 front matter，如 `layout`、`title`、`date`、`author`、`tags`、`toc`、`pinned`
 
 ## 最近更新
+
+- 2026-09-06：与 Droit 主页面统一视觉，重构分页、筛选和阅读布局，补充 Bundler 构建配置
 
 - 2026-06-27：同步 Ink & Paper 主题文档，并补齐前端样式 token 关系
 - 2026-03-22：补充首页仪表盘与文章阅读模式的文档、运行检查项和 codemap

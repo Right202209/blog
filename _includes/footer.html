@@ -1,24 +1,20 @@
-{% assign lang = page.lang | default: site.lang | default: "zh" %}
-{% assign t = site.data.i18n.languages[lang] %}
-
 <footer class="site-footer">
-  <div class="footer-rule" aria-hidden="true"></div>
   <div class="footer-inner">
-    <p class="footer-colophon">
-      <span class="footer-mark" aria-hidden="true">▪</span>
-      {{ site.footer-text }}
-    </p>
-    <div class="footer-links">
+    <div class="footer-copy">
+      <p class="footer-signature">{{ site.description | escape }}</p>
+      <p class="footer-meta">© {{ site.time | date: '%Y' }} {{ site.name }} <span aria-hidden="true">·</span> {{ site.footer-text }}</p>
+    </div>
+    <nav class="footer-links" aria-label="{{ t.social_links }}">
+      <a href="{{ site.home_url }}">{% include icon.html name='home' %}<span>{{ t.main_site }}</span></a>
       {% if site.footer-links.github %}
-      <a href="https://github.com/{{ site.footer-links.github }}">GitHub</a>
+      <a href="https://github.com/{{ site.footer-links.github }}">{% include icon.html name='github' %}<span>GitHub</span></a>
       {% endif %}
       {% if site.footer-links.email %}
-      <a href="mailto:{{ site.footer-links.email }}">Email</a>
+      <a href="mailto:{{ site.footer-links.email }}">{% include icon.html name='mail' %}<span>Email</span></a>
       {% endif %}
       {% if site.footer-links.rss %}
-      <a href="{{ site.baseurl }}/feed.xml">RSS</a>
+      <a href="{{ '/feed.xml' | relative_url }}">{% include icon.html name='rss' %}<span>RSS</span></a>
       {% endif %}
-    </div>
-    <p class="footer-meta">© {{ site.time | date: "%Y" }} {{ site.name }} · {{ t.footer_note }}</p>
+    </nav>
   </div>
 </footer>

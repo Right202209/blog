@@ -2,135 +2,125 @@
 layout: default
 ---
 
-{% assign lang = page.lang | default: site.lang | default: "zh" %}
-{% assign t = site.data.i18n.languages[lang] %}
+{% assign lang = page.lang | default: site.lang | default: 'zh' %}
+{% assign t = site.data.i18n.languages[lang] | default: site.data.i18n.languages.zh %}
+{% assign current_page = paginator.page | default: 1 %}
 {% assign latest_post = site.posts.first %}
-{% assign pinned_posts = site.posts | where: "pinned", true %}
-{% assign latest_date = latest_post.date | date: "%Y.%m.%d" %}
-{% assign non_pinned_posts = site.posts | where_exp: "post", "post.pinned != true" %}
-{% assign feed_source = non_pinned_posts %}
-{% if latest_post and latest_post.pinned != true %}
-  {% assign feed_source = non_pinned_posts | where_exp: "post", "post.url != latest_post.url" %}
+{% assign pinned_posts = site.posts | where: 'pinned', true %}
+{% assign feed_posts = paginator.posts | default: site.posts %}
+{% if current_page == 1 and latest_post %}
+  {% assign feed_posts = feed_posts | where_exp: 'post', 'post.url != latest_post.url' %}
 {% endif %}
-{% assign feed_posts = feed_source | slice: 0, site.paginate %}
 
-<div class="content-wrap home-folio">
+<div class="content-wrap home-notes">
   <div class="container">
-
-    <header class="folio-hero reveal">
-      <span class="hero-side-label" aria-hidden="true">{{ t.vol_label }}</span>
-      <div class="hero-main">
-        <p class="hero-eyebrow">{{ site.name }} · {{ t.brand_sub }}</p>
-        <h1 id="slogan" class="hero-slogan">{{ site.description }}</h1>
-        <p class="hero-note">{{ t.site_intro }}</p>
-        <div class="hero-actions">
-          <a href="{{ site.baseurl }}/archive">{{ t.open_archive }}</a>
-          <a href="{{ site.baseurl }}/about">{{ t.open_about }}</a>
-        </div>
-      </div>
-      <div class="hero-seal" aria-hidden="true">
-        <span>証</span><span>據</span>
-      </div>
+    {% if current_page == 1 %}
+    <header class="home-hero reveal">
+      <a class="hero-avatar-link" href="{{ site.home_url }}" aria-label="{{ t.main_site }} · {{ site.name }}">
+        <img class="hero-avatar" src="{{ site.avatar | relative_url }}" width="100" height="100" alt="{{ site.name | escape }}">
+      </a>
+      <h1 class="hero-title">{{ site.name }}</h1>
+      <p class="hero-signature">{{ site.description | escape }}</p>
+      <p class="hero-tagline">{{ site.tagline | escape }}</p>
+      <nav class="hero-links" aria-label="{{ t.navigation }}">
+        <a href="#notes">{% include icon.html name='book' %}<span>{{ t.browse_notes }}</span></a>
+        <a href="{{ '/archive/' | relative_url }}">{% include icon.html name='archive' %}<span>{{ t.archive }}</span></a>
+        {% if site.footer-links.github %}
+        <a href="https://github.com/{{ site.footer-links.github }}">{% include icon.html name='github' %}<span>GitHub</span></a>
+        {% endif %}
+      </nav>
     </header>
-
-    <p class="folio-stats reveal reveal-1">
-      <span>{{ t.stats_total }} {{ site.posts | size }} {{ t.posts_unit }}</span>
-      <span class="meta-dot" aria-hidden="true">·</span>
-      <span>{{ t.updated }} {{ latest_date }}</span>
-    </p>
-
-    {% if latest_post %}
-    <section class="folio-section spotlight reveal reveal-2">
-      <h2 class="section-heading"><span class="heading-ordinal">甲</span>{{ t.fresh_ink }}</h2>
-      <article class="spotlight-entry">
-        <h3 class="spotlight-title"><a href="{{ site.baseurl }}{{ latest_post.url }}">{{ latest_post.title }}</a></h3>
-        <p class="spotlight-excerpt">
-          {% if latest_post.content contains site.excerpt_separator or latest_post.content != latest_post.excerpt %}
-            {{ latest_post.excerpt | strip_html | strip_newlines | truncate: 220 }}
-          {% else %}
-            {{ latest_post.content | strip_html | strip_newlines | truncate: 220 }}
-          {% endif %}
-        </p>
-        <p class="entry-meta">
-          <time datetime="{{ latest_post.date | date_to_xmlschema }}">{{ latest_post.date | date: "%Y.%m.%d" }}</time>
-          <span class="meta-dot" aria-hidden="true">·</span>
-          <span>{{ latest_post.author | default: site.name }}</span>
-          <a class="spotlight-link" href="{{ site.baseurl }}{{ latest_post.url }}">{{ t.read_more }} →</a>
-        </p>
-      </article>
-    </section>
+    {% else %}
+    <header class="page-header reveal">
+      <p class="eyebrow">Notes / {{ current_page }}</p>
+      <h1 class="post-title">{{ t.older_notes }}</h1>
+      <p class="page-description">{{ t.site_intro }}</p>
+    </header>
     {% endif %}
 
-    {% if pinned_posts.size > 0 %}
-    <section class="folio-section reveal reveal-3">
-      <h2 class="section-heading"><span class="heading-ordinal">乙</span>{{ t.section_pinned }}</h2>
-      <div class="ledger-list">
-        {% for post in pinned_posts %}
-          {% include post-card.html post=post index=forloop.index label=t.pinned truncate=140 %}
-        {% endfor %}
-      </div>
-    </section>
-    {% endif %}
+    <div class="notes-heading" id="notes">
+      <p>{{ t.site_intro }}</p>
+      <span class="notes-count">{{ site.posts | size }} {{ t.posts_unit }}</span>
+    </div>
 
-    <section class="folio-section reveal reveal-4">
-      <h2 class="section-heading"><span class="heading-ordinal">{% if pinned_posts.size > 0 %}丙{% else %}乙{% endif %}</span>{{ t.section_index }}</h2>
+    <div class="index-grid">
+      <div class="index-feed">
+        {% if current_page == 1 and latest_post %}
+        <section class="spotlight reveal" aria-labelledby="latest-heading">
+          <h2 class="section-label" id="latest-heading"><span class="status-dot" aria-hidden="true"></span>{{ t.latest }}</h2>
+          <article>
+            <p class="entry-meta"><time datetime="{{ latest_post.date | date_to_xmlschema }}">{{ latest_post.date | date: '%Y.%m.%d' }}</time><span aria-hidden="true">/</span>{{ latest_post.author | default: latest_post.Author | default: site.name }}</p>
+            <h3 class="spotlight-title"><a href="{{ latest_post.url | relative_url }}">{{ latest_post.title | escape }}</a></h3>
+            <p class="spotlight-excerpt">{{ latest_post.excerpt | strip_html | normalize_whitespace | truncate: 180 }}</p>
+            <a class="text-link" href="{{ latest_post.url | relative_url }}">{{ t.read_more }} {% include icon.html name='arrow-right' %}</a>
+          </article>
+        </section>
+        {% endif %}
 
-      <div class="index-grid">
-        <div class="index-feed">
-          {% if feed_posts.size > 0 %}
-          <div class="ledger-list">
+        {% if feed_posts.size > 0 %}
+        <section class="notes-section" aria-labelledby="recent-heading">
+          <h2 class="section-heading" id="recent-heading">{% if current_page == 1 %}{{ t.section_index }}{% else %}{{ t.older_notes }}{% endif %}<span class="heading-caption">NOTES</span></h2>
+          <div class="post-list">
             {% for post in feed_posts %}
-              {% include post-card.html post=post index=forloop.index truncate=150 %}
+              {% include post-card.html post=post %}
             {% endfor %}
           </div>
-          {% else %}
-          <p class="empty-note">{{ t.empty_index }}</p>
-          {% endif %}
+        </section>
+        {% elsif latest_post == nil %}
+        <p class="empty-note">{{ t.empty_index }}</p>
+        {% endif %}
 
-          {% if feed_source.size > feed_posts.size %}
-          <p class="folio-more">
-            <a href="{{ site.baseurl }}/archive">{{ t.browse_archive_cta }} →</a>
-          </p>
+        {% if paginator.total_pages > 1 %}
+        <nav class="pagination" aria-label="{{ t.archive }}">
+          {% if paginator.previous_page %}
+          <a class="prev" href="{{ paginator.previous_page_path | relative_url }}">← {{ t.newer_posts }}</a>
           {% endif %}
-        </div>
-
-        <aside class="index-aside">
-          {% if site.tags.size > 0 %}
-          <div class="dir-module">
-            <h3 class="dir-title">{{ t.dir_tags }}</h3>
-            {% capture tag_pairs %}{% for tag in site.tags %}{{ tag[1].size | plus: 1000 }}::{{ tag[0] }}|{% endfor %}{% endcapture %}
-            {% assign tag_sorted = tag_pairs | split: '|' | sort | reverse %}
-            <ul class="dir-list">
-              {% for pair in tag_sorted limit: 10 %}
-                {% assign bits = pair | split: '::' %}
-                <li>
-                  <a href="{{ site.baseurl }}/tags#{{ bits[1] | slugify }}">{{ bits[1] }}</a>
-                  <span class="dir-count">{{ bits[0] | minus: 1000 }}</span>
-                </li>
-              {% endfor %}
-            </ul>
-            {% if tag_sorted.size > 10 %}
-            <a class="dir-all" href="{{ site.baseurl }}/tags">{{ t.dir_all }} →</a>
-            {% endif %}
-          </div>
+          <span class="pagination-count">{{ current_page }} / {{ paginator.total_pages }}</span>
+          {% if paginator.next_page %}
+          <a class="next" href="{{ paginator.next_page_path | relative_url }}">{{ t.older_posts }} →</a>
           {% endif %}
-
-          <div class="dir-module">
-            <h3 class="dir-title">{{ t.dir_years }}</h3>
-            {% assign year_groups = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
-            <ul class="dir-list">
-              {% for year in year_groups %}
-                <li>
-                  <a href="{{ site.baseurl }}/archive">{{ year.name }}</a>
-                  <span class="dir-count">{{ year.items.size }}</span>
-                </li>
-              {% endfor %}
-            </ul>
-            <a class="dir-all" href="{{ site.baseurl }}/archive">{{ t.dir_all }} →</a>
-          </div>
-        </aside>
+        </nav>
+        {% endif %}
+        {% if site.posts.size > 0 %}
+        <p class="all-notes"><a class="text-link" href="{{ '/archive/' | relative_url }}">{{ t.browse_archive_cta }} {% include icon.html name='arrow-right' %}</a></p>
+        {% endif %}
       </div>
-    </section>
 
+      <aside class="index-aside" aria-label="{{ t.archive }}">
+        {% if pinned_posts.size > 0 %}
+        <section class="dir-module">
+          <h2 class="dir-title">{% include icon.html name='pin' %}{{ t.section_pinned }}</h2>
+          <ul class="pinned-list">
+            {% for post in pinned_posts %}
+            <li><a href="{{ post.url | relative_url }}">{{ post.title | escape }}<span aria-hidden="true">↗</span></a></li>
+            {% endfor %}
+          </ul>
+        </section>
+        {% endif %}
+        {% if site.tags.size > 0 %}
+        <section class="dir-module">
+          <h2 class="dir-title">{% include icon.html name='tag' %}{{ t.dir_tags }}</h2>
+          <div class="topic-cloud">
+            {% assign sorted_tags = site.tags | sort %}
+            {% for tag in sorted_tags limit: 10 %}
+            <a href="{{ '/tags/' | relative_url }}#{{ tag[0] | slugify }}">{{ tag[0] | escape }}<span>{{ tag[1].size }}</span></a>
+            {% endfor %}
+          </div>
+          <a class="dir-all" href="{{ '/tags/' | relative_url }}">{{ t.dir_all }} →</a>
+        </section>
+        {% endif %}
+        {% if site.posts.size > 0 %}
+        <section class="dir-module">
+          <h2 class="dir-title">{% include icon.html name='archive' %}{{ t.dir_years }}</h2>
+          {% assign year_groups = site.posts | group_by_exp: 'post', "post.date | date: '%Y'" %}
+          <ul class="dir-list">
+            {% for year in year_groups %}
+            <li><a href="{{ '/archive/' | relative_url }}#year-{{ year.name }}">{{ year.name }}<span>{{ year.items.size }}</span></a></li>
+            {% endfor %}
+          </ul>
+        </section>
+        {% endif %}
+      </aside>
+    </div>
   </div>
 </div>

@@ -2,18 +2,19 @@
 layout: default
 ---
 
-{% assign lang = page.lang | default: site.lang | default: "zh" %}
-{% assign t = site.data.i18n.languages[lang] %}
-
+{% assign lang = page.lang | default: site.lang | default: 'zh' %}
+{% assign t = site.data.i18n.languages[lang] | default: site.data.i18n.languages.zh %}
 <div class="content-wrap">
   <div class="container">
-    <article class="article-folio page-folio reveal">
-      <header class="post-header">
-        <span class="post-side-label" aria-hidden="true">{{ t.page_label_side }}</span>
-        <h1 class="post-title">{{ page.title }}</h1>
-        <div class="header-rule" aria-hidden="true"></div>
+    <article class="page-content">
+      <header class="page-header reveal">
+        <p class="eyebrow">{{ page.eyebrow | default: 'Notes' }}</p>
+        <h1 class="post-title">{{ t[page.title_key] | default: page.title | escape }}</h1>
+        {% if page.description_key %}
+        <p class="page-description">{{ t[page.description_key] }}</p>
+        {% endif %}
       </header>
-      <div class="entry">
+      <div class="{% if page.list_page %}page-list{% else %}entry{% endif %}">
         {{ content }}
       </div>
     </article>

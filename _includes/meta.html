@@ -1,29 +1,22 @@
-    <meta charset="utf-8" />
-    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-    <meta name="theme-color" content="#faf7f0">
-
-    {% if page.excerpt %}
-    <meta name="description" content="{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}" />
-    <meta property="og:description" content="{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}" />
-    {% else %}
-    <meta name="description" content="{{ site.description }}">
-    <meta property="og:description" content="{{ site.description }}" />
-    {% endif %}
-    <meta name="author" content="{{ site.name }}" />
-    <link rel="canonical" href="{{ page.url | absolute_url }}">
-
-    <meta property="og:type" content="{% if page.title %}article{% else %}website{% endif %}" />
-    <meta property="og:url" content="{{ page.url | absolute_url }}" />
-    <meta property="og:site_name" content="{{ site.name }}" />
-    <meta property="og:image" content="{{ site.avatar | absolute_url }}" />
-
-    {% if page.title %}
-    <meta property="og:title" content="{{ page.title }}" />
-    <meta property="twitter:title" content="{{ page.title }}" />
-    {% endif %}
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:site" content="@{{ site.footer-links.twitter }}" />
-    <meta name="twitter:description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}" />
-    <meta name="twitter:image" content="{{ site.avatar | absolute_url }}" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#222325">
+<meta name="color-scheme" content="dark">
+{% assign page_description = page.description | default: page.excerpt | default: site.description | strip_html | normalize_whitespace | truncate: 160 %}
+{% assign page_title = page.title | default: site.name %}
+<meta name="description" content="{{ page_description | escape }}">
+<meta name="author" content="{{ page.author | default: page.Author | default: site.name | escape }}">
+<link rel="canonical" href="{{ page.url | absolute_url }}">
+<meta property="og:type" content="{% if page.collection == 'posts' %}article{% else %}website{% endif %}">
+<meta property="og:url" content="{{ page.url | absolute_url }}">
+<meta property="og:site_name" content="{{ site.name | escape }}">
+<meta property="og:title" content="{{ page_title | escape }}">
+<meta property="og:description" content="{{ page_description | escape }}">
+<meta property="og:image" content="{{ site.avatar | absolute_url }}">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="{{ page_title | escape }}">
+<meta name="twitter:description" content="{{ page_description | escape }}">
+<meta name="twitter:image" content="{{ site.avatar | absolute_url }}">
+{% if site.footer-links.twitter %}
+<meta name="twitter:site" content="@{{ site.footer-links.twitter | escape }}">
+{% endif %}

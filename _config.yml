@@ -4,8 +4,10 @@
 
 
 # 描述/签名
-name: Right
-description: 以证据为起点，以方法为路径。
+name: Droit
+description: Code & Input & Output
+tagline: An Ignorant Learner
+home_url: https://right202209.github.io/
 lang: zh
 
 # 输入你的网站域名（如果你没有添加自己的域名，而是直接用GitHub pages分配的域名的话可以省略）
@@ -22,10 +24,10 @@ baseurl: /blog
 #
 
 # 你的博客logo图片URL，建议尺寸不超过300px × 300px
-avatar: https://right202209.github.io/blog/images/logo.jpg
+avatar: /images/droit.jpg
 
 # 你的favicon（出现在浏览器tab上）图片URL，建议使用较小(64px × 64px)的图片
-favicon: images/favicon.ico
+favicon: /images/droit.ico
 
 
 # 菜单中的按钮
@@ -125,5 +127,9 @@ exclude:
   - Gemfile.lock
   - LICENSE
   - README.md
+  - README_EN.md
+  - DESIGN.md
+  - docs
+  - vendor
   - CNAME
   - ex.md

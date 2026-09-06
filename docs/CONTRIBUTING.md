@@ -1,74 +1,40 @@
 # Contributing
 
-This document summarizes the current development workflow for this Jekyll blog repository.
+## Setup
 
-## Development Environment
+Install Ruby and Bundler, then run:
 
-### Prerequisites
-- Ruby installed locally
-- Jekyll available on your machine
-- Bundler available if you choose to use `bundle exec`
+```bash
+bundle install
+bundle exec jekyll serve --baseurl /blog
+```
 
-### Setup
-1. Install Ruby on your machine.
-2. Install Jekyll and Bundler:
-   ```bash
-   gem install jekyll bundler
-   ```
-3. Start the local site preview from the repository root:
-   ```bash
-   jekyll serve --baseurl /blog
-   ```
-4. Open `http://localhost:4000/blog` in your browser.
+Preview at `http://localhost:4000/blog/`. Dependencies are declared in `Gemfile`.
 
-> Note: this repository currently does not include a committed `Gemfile`, so `bundle exec` commands depend on you adding your own Bundler setup first.
+## Commands
 
-## Available Commands
+| Command | Purpose |
+| --- | --- |
+| `bundle install` | Install the repository's build dependencies |
+| `bundle exec jekyll serve --baseurl /blog` | Preview the blog with its deployed base path |
+| `bundle exec jekyll build --strict_front_matter` | Validate Liquid, Markdown, Sass, and page generation |
+| `bundle exec jekyll clean` | Remove Jekyll-generated output |
 
-<!-- AUTO-GENERATED:COMMANDS START -->
-| Command | Description |
-|---------|-------------|
-| `gem install jekyll bundler` | Install local Jekyll and Bundler tooling on a machine without repository-managed dependencies. |
-| `jekyll serve --baseurl /blog` | Start a local development server for the blog at `http://localhost:4000/blog`. |
-| `bundle install` | Install dependencies only if you add or restore a local `Gemfile` workflow. |
-| `bundle exec jekyll serve` | Start the site through Bundler when a local `Gemfile` is present. |
-| `bundle exec jekyll build` | Build the static site through Bundler when a local `Gemfile` is present. |
-| `bundle exec jekyll clean` | Remove generated build artifacts through Bundler when a local `Gemfile` is present. |
-<!-- AUTO-GENERATED:COMMANDS END -->
+## Frontend verification
 
-## Testing and Verification
+Build first, then review the homepage, subsequent feed page, long article, math article, archive, tags, about, and 404. Cover desktop and 320–390px mobile widths, current navigation, article links, topic/year anchors, search and empty results, TOC scrolling and folding, keyboard focus, and reduced motion.
 
-<!-- AUTO-GENERATED:TESTING START -->
-Current repository verification is build- and rendering-oriented:
+Verify that article text and navigation remain usable without JavaScript. Long code, tables, and formulas should scroll within their own containers. The default home and list pages need no third-party fonts or animation scripts.
 
-1. Run a local preview with the repository's current default setup:
-   ```bash
-   jekyll serve --baseurl /blog
-   ```
-2. If you have added a local `Gemfile`, you can also verify through Bundler:
-   ```bash
-   bundle exec jekyll build
-   bundle exec jekyll serve
-   ```
-3. Manually verify key pages:
-   - homepage hero, featured spotlight, pinned highlights, feed cards, and right-side info rail
-   - a normal post page in read mode, including sticky TOC behavior and reading metadata
-   - `/archive`
-   - `/tags`
-4. For CRT theme/layout changes, also verify responsive collapse below 1100px and reduced-motion / reduced-transparency fallbacks from `_sass/_responsive.scss`.
-5. For content automation changes, review `.github/workflows/issue-update.yml` and `.github/scripts/issue-update.js` together and validate the expected file paths and front matter output.
+There is no repository-local unit test runner. Changes are checked through the Jekyll build and browser rendering.
 
-There is no repository-local unit test suite, package script runner, or committed CI test harness beyond the issue-update workflow.
-<!-- AUTO-GENERATED:TESTING END -->
+## Conventions
 
-## Code Style and Workflow
-
-<!-- AUTO-GENERATED:STYLE START -->
-- Templates are Jekyll/Liquid-based and should keep using existing site data sources such as `site.posts`, `site.tags`, `_config.yml`, and `_data/i18n.yml`.
-- Global styles are compiled from `style.scss`, which imports focused Sass partials for the CRT shell, homepage dashboard, content typography, and responsive behavior.
-- Blog posts live in `_posts/` and currently use front matter such as `layout`, `title`, `date`, `author`, `tags`, `comments`, `toc`, `pinned`, and `published`.
-- Prefer small, focused edits and preserve the existing shell/layout structure unless a task explicitly calls for broader refactoring.
-<!-- AUTO-GENERATED:STYLE END -->
+- Use existing Jekyll collections and front matter for posts, pinned notes, dates, authors, and tags.
+- Use `relative_url` for local routes and assets; keep existing post permalinks.
+- Extend the shared tokens in `_sass/_shell.scss` and consult [DESIGN.md](../DESIGN.md).
+- Keep UI text in `_data/i18n.yml`, icons in `_includes/icon.html`, and shared interactions in `assets/js/site.js`.
+- Update relevant theme documentation when changing the layout or build workflow.
 
 ## Content Update Workflow
 
@@ -99,11 +65,9 @@ The repository includes a GitHub Actions workflow for issue-driven content updat
 
 ## Pull Request Checklist
 
-- [ ] Preview the site locally
-- [ ] Verify homepage hero, spotlight, pinned cards, feed, and info rail still render correctly
-- [ ] Verify post read mode, sticky TOC, and reading metadata still render correctly
-- [ ] Verify archive and tags pages still render correctly
-- [ ] Confirm Liquid templates compile without errors
-- [ ] Confirm Sass changes compile correctly
-- [ ] If changing issue automation, verify the workflow and script stay aligned
-- [ ] Keep generated documentation sections in sync with source-of-truth files
+- [ ] Jekyll builds without Liquid or Sass errors
+- [ ] Homepage, pagination, and pinned links render correctly
+- [ ] Article metadata, code, tables, math, TOC, and navigation work
+- [ ] Archive/tag filtering and anchors work, including no matches
+- [ ] Mobile, keyboard focus, no-JavaScript reading, and reduced motion remain usable
+- [ ] Documentation matches the final implementation

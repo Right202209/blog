@@ -1,65 +1,57 @@
-# Right's Blog
+# Droit · Notes
 
-A Jekyll-based personal blog for GitHub Pages deployment.
+A Jekyll blog at `/blog`, matching the Droit personal homepage in the `optimization-patch` branch of `Right202209.github.io`.
 
-Chinese version: `README.md`
+Chinese version: [README.md](README.md)
 
-## Current Features
+## Current Theme
 
-- Ink & Paper editorial theme with warm paper, ruled columns, grain, faint ink motes, and vermilion seal accents
-- Folio-style homepage with opening note, latest post, pinned entries, ledger feed, and directory rail
-- Read-mode post layout with a focused content column plus sticky TOC that tracks the active heading while scrolling
-- Pinned posts, tags, archive timeline, and pagination
-- Optional integrations: MathJax 3, Utterances / Gitalk / Disqus, Busuanzi stats
+- Shared Droit portrait, name, and signature, with charcoal gradients, gray text, fine rules, and orange interactions
+- Centered profile, latest note, paginated feed, selected notes, topics, and year links
+- Reading metadata, an active-section TOC, dark code blocks, and previous/next navigation
+- Archives by year and notes by topic, with search, distinct result counts, and empty states
+- Local SVG icons, system fonts, keyboard navigation, mobile layouts, reading without JavaScript, and reduced motion
+- Optional MathJax and lazy Utterances / Gitalk / Disqus comments
 
-## Theme Structure Overview
+## Theme Structure
 
-- `_layouts/default.html`: injects the paper background layers, shared `site-shell`, top navigation, footer, and homepage slogan script
-- `index.html`: homepage folio composed of hero, latest post, pinned entries, ledger feed, and directory rail
-- `_layouts/post.html`: read-mode post template with back link, reading time, tags, and optional TOC rail
-- `_sass/_shell.scss`: global tokens, base typography, paper effects, navigation, shared ledger components, and footer
-- `_sass/_home.scss`: homepage folio, opening note, seal, stats row, and directory rail styling
-- `_sass/_content.scss`: post typography, archive/tag list styling, and TOC presentation
-- `_sass/_highlights.scss`: Rouge code highlighting
-- `_sass/_responsive.scss`: responsive column collapse, compact mobile behavior, and reduced-motion handling
+- `_layouts/default.html`: background, navigation, skip link, main content, footer, and local script
+- `index.html` and `_includes/post-card.html`: homepage and paginated notes
+- `_layouts/post.html`: articles, metadata, optional TOC, and comments
+- `_sass/_shell.scss`: shared palette, typography, layout tokens, and components
+- `_sass/_home.scss`, `_content.scss`, and `_about.scss`: page layouts
+- `_sass/_highlights.scss` and `_responsive.scss`: syntax colors and responsive behavior
+- `assets/js/site.js`: filtering and TOC interactions
 
-## Project Structure
-
-- `index.html`: homepage folio hero, ledger feed, and directory rail
-- `style.scss`: global Sass entry point for partials, motion, and responsive layout
-- `_layouts/`: default, page, and post layouts
-- `_includes/`: nav, footer, TOC, comments, and metadata fragments
-- `_posts/`: blog posts
-- `_config.yml`: site metadata and feature configuration
+See [DESIGN.md](DESIGN.md) for design rules and [CONTRIBUTING.md](docs/CONTRIBUTING.md) for development.
 
 ## Local Development
 
-This repository currently does not include a `Gemfile`, so local preview depends on your machine-wide Jekyll setup.
+With Ruby and Bundler installed, run:
 
-1. Install Ruby
-2. Install Jekyll:
-   ```bash
-   gem install jekyll bundler
-   ```
-3. Start the site:
-   ```bash
-   jekyll serve --baseurl /blog
-   ```
-4. Open `http://localhost:4000/blog`
+```bash
+bundle install
+bundle exec jekyll serve --baseurl /blog
+```
 
-If you prefer `bundle exec jekyll serve`, add your own `Gemfile` first.
+Open `http://localhost:4000/blog/`. Validate the build with:
+
+```bash
+bundle exec jekyll build --strict_front_matter
+```
+
+The Gemfile uses GitHub Pages-compatible Jekyll 3.10 and the existing plugins.
 
 ## Configuration
 
-Main settings are in `_config.yml`:
+In `_config.yml`:
 
-- `name`: site name
-- `description`: homepage headline / site description
-- `url`: production domain
-- `baseurl`: base path, currently `/blog`
-- `avatar`: sidebar avatar
-- `footer-links`: footer social links
-- `utteranc.repo`: Utterances comment repository
+- `name`, `description`, `tagline`: shared profile identity
+- `home_url`: main personal homepage
+- `url`, `baseurl`: production origin and blog path
+- `avatar`, `favicon`: local portrait and icon
+- `footer-links`: social links
+- `utteranc.repo`: comment repository; the default theme is dark
 
 ## Update via GitHub Issue
 
@@ -82,6 +74,8 @@ You can use a GitHub Issue with the `Content Update` template to create, update,
 - Common front matter is auto-filled, such as `layout`, `title`, `date`, `author`, `tags`, `toc`, and `pinned`
 
 ## Recent Updates
+
+- 2026-09-06: matched the Droit homepage, refreshed reading and list layouts, fixed feed pagination, and added a Bundler build setup
 
 - 2026-06-27: synchronized Ink & Paper theme docs and added frontend style token relationships
 - 2026-03-22: updated repository docs, verification notes, and codemap coverage for the homepage and post theme refinements

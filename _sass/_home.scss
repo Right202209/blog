@@ -1,293 +1,237 @@
-//
-// 考据 · Ink & Paper — homepage folio
-//
+// The homepage carries the same centered profile as the main site.
 
-.home-folio {
-  padding-top: var(--home-offset);
+.home-notes { padding-top: 0; }
+
+.home-hero {
+  padding: 58px 0 52px;
+  text-align: center;
 }
 
-// ----------------------------------------------------------- hero
-
-.folio-hero {
-  position: relative;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  gap: var(--space-6);
-  align-items: start;
-  padding-bottom: var(--space-7);
+.hero-avatar-link {
+  display: inline-block;
+  border-radius: 50%;
 }
 
-// vertical 卷首语 label, like a margin annotation
-.hero-side-label {
-  writing-mode: vertical-rl;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 0.82rem;
-  letter-spacing: 0.5em;
-  color: var(--vermilion);
-  border-left: 1px solid var(--hairline);
-  padding-left: var(--space-3);
-  margin-top: var(--space-2);
+.hero-avatar {
+  display: block;
+  width: 100px;
+  height: 100px;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.3);
+  transition: box-shadow var(--transition);
 }
 
-.hero-main {
-  min-width: 0;
-}
+.hero-avatar-link:hover .hero-avatar { box-shadow: 0 0 22px rgba(255, 255, 255, 0.12); }
 
-.hero-eyebrow {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-  margin-bottom: var(--space-4);
-}
-
-.hero-slogan {
-  font-size: 2.35rem;
-  font-weight: 900;
-  line-height: 1.5;
+.hero-title {
+  margin: 16px 0 5px;
+  font-family: var(--font-brand);
+  font-size: 50px;
+  font-weight: 300;
+  line-height: 1.25;
   letter-spacing: 0.02em;
-  margin: 0 0 18px;
+  text-shadow: 0 0 18px rgba(255, 255, 255, 0.12);
 }
 
-.hero-note {
-  font-size: 0.95rem;
-  color: var(--ink-soft);
-  max-width: 34em;
-  margin-bottom: var(--space-5);
+.hero-signature {
+  color: #ccc;
+  font-family: var(--font-brand);
+  font-size: 15px;
+  font-weight: 300;
+  letter-spacing: 3px;
 }
 
-.hero-actions {
+.hero-tagline {
+  margin-top: 8px;
+  color: var(--faint);
+  font-family: var(--font-brand);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+}
+
+.hero-links {
   display: flex;
-  gap: var(--space-5);
+  justify-content: center;
+  max-width: 340px;
+  margin: 26px auto 0;
+  padding: 18px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
 
   a {
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 0.92rem;
-    letter-spacing: 0.16em;
-    color: var(--ink);
-    border: 1px solid var(--hairline);
-    border-radius: var(--radius-control);
-    padding: 7px 18px;
-    transition: border-color var(--duration-base) var(--ease-standard), color var(--duration-base) var(--ease-standard), transform var(--duration-base) var(--ease-standard);
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 0 10px;
+    color: #b6b6b6;
+    font-size: 12px;
+    transition: color var(--transition), transform var(--transition);
+
+    & + a { border-left: 1px solid var(--line); }
 
     &:hover {
-      color: var(--vermilion);
-      border-color: var(--vermilion);
+      color: var(--heading);
+      text-shadow: 0 0 2px rgba(246, 246, 246, 0.4);
       transform: translateY(-2px);
     }
   }
+
+  .icon { width: 22px; height: 22px; }
 }
 
-// the 証據 seal stamp
-.hero-seal {
-  position: relative;
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-  place-items: center;
-  width: var(--hero-seal-size);
-  height: var(--hero-seal-size);
-  margin-top: 14px;
-  padding: 8px 0;
-  background: $seal-paste;
-  color: var(--seal-ink);
-  font-family: var(--font-display);
-  font-weight: 900;
-  font-size: var(--hero-seal-font-size);
-  line-height: 1;
-  text-shadow: 0 1px 1px var(--seal-press-soft);
-  border-radius: var(--radius-seal-lg);
-  transform: rotate(2.5deg);
-  box-shadow: inset 0 0 16px var(--seal-press),
-    2px 3px 0 var(--shadow-ink);
-  user-select: none;
-  transition: transform var(--duration-slow) var(--ease-stamp);
+.home-notes > .container > .page-header { padding-top: 56px; }
 
-  // carved inner frame, set in from the stamped edge
-  &::after {
-    content: "";
-    position: absolute;
-    inset: 5px;
-    border: 1.5px solid var(--seal-frame);
-    border-radius: var(--radius-seal-frame);
-    pointer-events: none;
-  }
-
-  &:hover {
-    transform: rotate(0deg) scale(1.03);
-  }
-}
-
-// ------------------------------------------------------- stats line
-
-.folio-stats {
+.notes-heading {
   display: flex;
-  align-items: baseline;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 30px;
+  padding: 22px 0;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 13px;
+  scroll-margin-top: 20px;
+}
+
+.notes-count {
+  color: var(--faint);
   font-family: var(--font-mono);
-  font-size: 0.76rem;
-  letter-spacing: 0.1em;
-  color: var(--ink-soft);
-  border-top: 1px solid var(--hairline);
-  border-bottom: 1px solid var(--hairline-soft);
-  padding: 10px 6px;
-  margin-bottom: var(--section-gap);
-
-  .meta-dot {
-    margin: 0 10px;
-    color: var(--hairline);
-  }
+  font-size: 12px;
 }
-
-// ---------------------------------------------------------- sections
-
-.folio-section {
-  margin-bottom: var(--section-gap);
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-}
-
-// -------------------------------------------------- spotlight: 新墨
-
-.spotlight-entry {
-  position: relative;
-  padding: 4px 0 4px 26px;
-  border-left: 3px solid var(--vermilion);
-}
-
-.spotlight-title {
-  font-size: 1.55rem;
-  font-weight: 900;
-  line-height: 1.5;
-  margin: 0 0 10px;
-
-  a {
-    color: var(--ink);
-
-    &:hover {
-      color: var(--vermilion);
-    }
-  }
-}
-
-.spotlight-excerpt {
-  font-size: 0.96rem;
-  line-height: 1.95;
-  color: var(--ink-soft);
-  max-width: 42em;
-  margin-bottom: 14px;
-}
-
-.spotlight-link {
-  margin-left: 16px;
-  font-family: var(--font-display);
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  color: var(--vermilion);
-}
-
-// --------------------------------------------------------- more link
-
-.folio-more {
-  margin-top: 22px;
-  text-align: right;
-
-  a {
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 0.92rem;
-    letter-spacing: 0.14em;
-    color: var(--ink-soft);
-
-    &:hover {
-      color: var(--vermilion);
-    }
-  }
-}
-
-// -------------------------------------- index: feed + directory aside
 
 .index-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) var(--aside-width-index);
-  column-gap: var(--grid-gap-wide);
+  grid-template-columns: minmax(0, 1fr) var(--aside-width);
+  gap: var(--grid-gap);
   align-items: start;
 }
 
-.index-feed {
-  min-width: 0;
+.index-feed { min-width: 0; }
+
+.spotlight {
+  margin-bottom: 40px;
+  padding: 28px 30px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--surface-soft);
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 22px;
+    color: var(--accent);
+  }
+}
+
+.status-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 10px rgba(255, 150, 59, 0.22);
+}
+
+.spotlight-title {
+  margin: 10px 0 12px;
+  font-size: 27px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.spotlight-excerpt {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 20px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.9;
 }
 
 .index-aside {
   position: sticky;
-  top: var(--sticky-top);
+  top: 32px;
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
-  border-left: 1px solid var(--hairline);
-  padding-left: var(--space-5);
+  gap: 32px;
+  padding-left: 26px;
+  border-left: 1px solid var(--line);
 }
+
+.dir-module { min-width: 0; }
 
 .dir-title {
-  font-family: var(--font-display);
-  font-weight: 900;
-  font-size: 0.8rem;
-  letter-spacing: 0.34em;
-  color: var(--vermilion);
-  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 16px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 400;
+
+  .icon { width: 16px; height: 16px; color: var(--faint); }
 }
 
-.dir-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-
-  li {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 12px;
-    padding: 4px 0;
-    border-bottom: 1px dashed var(--hairline-soft);
-
-    &:last-child {
-      border-bottom: 0;
-    }
-  }
+.pinned-list {
+  li + li { margin-top: 3px; }
 
   a {
-    min-width: 0;
-    color: var(--ink-soft);
-    font-size: 0.88rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 8px 0;
+    font-size: 13px;
 
-    &:hover {
-      color: var(--vermilion);
-    }
+    span { color: var(--faint); }
   }
+}
 
-  .dir-count {
-    flex: 0 0 auto;
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    color: var(--ink-faint);
+.topic-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  a {
+    padding: 3px 9px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    color: var(--muted);
+    font-size: 11px;
+    overflow-wrap: anywhere;
+
+    span { margin-left: 6px; color: var(--faint); }
+
+    &:hover { border-color: var(--accent-line); color: var(--accent); }
   }
+}
+
+.dir-list a {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+
+  span { color: var(--faint); }
 }
 
 .dir-all {
   display: inline-block;
-  margin-top: 10px;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  color: var(--ink-faint);
+  margin-top: 12px;
+  padding: 4px 0;
+  color: var(--faint);
+  font-size: 12px;
+}
 
-  &:hover {
-    color: var(--vermilion);
-  }
+.all-notes {
+  margin-top: 24px;
+  text-align: right;
 }

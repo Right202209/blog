@@ -1,146 +1,77 @@
-// ------------------------------------------------------ about page
-
+// About page, using the shared profile palette.
 .about-stats {
   display: flex;
   flex-wrap: wrap;
-  gap: 14px 40px;
-  margin-top: 30px;
-  padding: 18px 4px;
-  border-top: 1px solid var(--hairline);
-  border-bottom: 1px solid var(--hairline-soft);
+  gap: 24px 48px;
+  margin-top: 28px;
+  padding: 24px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
 }
 
 .about-stats .stat {
   display: flex;
   align-items: baseline;
-  gap: 8px;
+  gap: 10px;
 }
 
 .stat-num {
-  font-family: var(--font-display);
-  font-weight: 900;
-  font-size: 1.8rem;
-  line-height: 1;
-  color: var(--vermilion);
+  color: var(--heading);
+  font-family: var(--font-brand);
+  font-size: 30px;
+  font-weight: 300;
   font-variant-numeric: tabular-nums;
 }
 
-.stat-label {
-  font-size: 0.82rem;
-  letter-spacing: 0.08em;
-  color: var(--ink-soft);
-}
+.stat-label { color: var(--faint); font-size: 12px; }
+.about-section { margin-top: 40px; }
 
 .about-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
   gap: 16px;
   margin-top: 20px;
 }
 
 .about-card {
-  position: relative;
-  padding: 18px 16px 16px;
-  background: var(--paper);
-  border: 1px solid var(--hairline-soft);
-  border-radius: var(--radius-seal-xs);
-  box-shadow: 1px 2px 0 var(--shadow-ink-soft);
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-soft);
+
+  .icon { width: 23px; height: 23px; margin-bottom: 14px; color: var(--muted); }
+  h3 { margin: 0 0 8px; font-size: 16px; }
+  p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.9; }
 }
 
-.card-glyph {
-  display: inline-grid;
-  place-items: center;
-  width: 30px;
-  height: 30px;
-  margin-bottom: 10px;
-  font-family: var(--font-display);
-  font-weight: 900;
-  font-size: 0.95rem;
-  color: var(--vermilion);
-  background: var(--accent-wash-faint);
-  border: 1.5px solid var(--vermilion);
-  border-radius: var(--radius-seal-sm);
-  transform: rotate(-2deg);
-}
+.entry .about-principles {
+  padding-left: 1.4em;
+  font-size: 15px;
 
-.about-card h3 {
-  margin: 0 0 6px;
-  font-size: 1rem;
-  line-height: 1.5;
-}
-
-.about-card p {
-  margin: 0;
-  font-size: 0.88rem;
-  line-height: 1.9;
-  color: var(--ink-soft);
-}
-
-.about-principles {
-  list-style: none;
-  margin: 18px 0 0;
-  padding: 0;
-}
-
-.about-principles li {
-  position: relative;
-  padding: 8px 0 8px 28px;
-
-  & + li {
-    border-top: 1px solid var(--hairline-soft);
-  }
-
-  &::before {
-    content: "—";
-    position: absolute;
-    left: 2px;
-    color: var(--vermilion);
-    font-weight: 900;
-  }
+  li { padding: 8px 0; }
 }
 
 .about-contact {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 22px;
+  gap: 18px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+
+  p { font-size: 14px; }
 }
 
-// small companion to the home hero-seal
-.about-seal {
-  position: relative;
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-  place-items: center;
-  flex-shrink: 0;
-  width: 64px;
-  height: 64px;
-  padding: 6px 0;
-  background: $seal-paste;
-  color: var(--seal-ink) !important;
-  font-family: var(--font-display);
-  font-weight: 900;
-  font-size: 1.2rem;
-  line-height: 1;
-  text-shadow: 0 1px 1px var(--seal-press-soft);
-  border-radius: var(--radius-seal-md);
-  transform: rotate(2.5deg);
-  box-shadow: inset 0 0 12px var(--seal-press),
-    2px 3px 0 var(--shadow-ink);
-  user-select: none;
-  transition: transform var(--duration-slow) var(--ease-stamp);
+.entry .about-contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  padding: 8px 0;
+  color: var(--muted);
+  font-size: 13px;
+  text-decoration: none;
 
-  // carved inner frame, set in from the stamped edge
-  &::after {
-    content: "";
-    position: absolute;
-    inset: 4px;
-    border: 1px solid var(--seal-frame);
-    border-radius: var(--radius-seal-frame);
-    pointer-events: none;
-  }
-
-  &:hover {
-    transform: rotate(0deg) scale(1.05);
-    background: $seal-paste;
-  }
+  &:hover { color: var(--accent); }
+  .icon { width: 16px; height: 16px; }
 }

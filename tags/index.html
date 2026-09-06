@@ -1,55 +1,34 @@
 ---
 layout: page
 title: 标签
+title_key: tags
+eyebrow: Topics
+description_key: tags_intro
+list_page: true
 permalink: /tags/
 ---
 
-<div class="topic-list tags-nav">
-  {% for tag in site.tags %}
-  <a href="#{{ tag[0] | slugify }}">{{ tag[0] }} ({{ tag[1] | size }})</a>
+{% assign lang = page.lang | default: site.lang | default: 'zh' %}
+{% assign t = site.data.i18n.languages[lang] | default: site.data.i18n.languages.zh %}
+{% assign sorted_tags = site.tags | sort %}
+<div class="tags-archive" data-post-filter>
+  <nav class="tags-nav" aria-label="{{ t.tags }}">
+    {% for tag in sorted_tags %}
+    <a href="#{{ tag[0] | slugify }}">#{{ tag[0] | escape }}<span>{{ tag[1].size }}</span></a>
+    {% endfor %}
+  </nav>
+  {% include list-filter.html kind='tags' placeholder=t.tags_placeholder %}
+  {% for tag in sorted_tags %}
+  <section class="tag-group" data-filter-group>
+    <h2 id="{{ tag[0] | slugify }}">{{ tag[0] | escape }}<span>{{ tag[1].size }} {{ t.posts_unit }}</span></h2>
+    {% for post in tag[1] %}
+    <div class="archive-row" data-filter-row data-filter-text="{{ post.title | escape }} {{ post.tags | join: ' ' | escape }}">
+      <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%Y.%m.%d' }}</time>
+      <a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+    </div>
+    {% endfor %}
+  </section>
+  {% else %}
+  <p class="empty-note">{{ t.empty_index }}</p>
   {% endfor %}
 </div>
-
-<div class="tags-archive">
-  <div class="list-filter">
-    <label for="tags-filter">Filter</label>
-    <input id="tags-filter" type="search" placeholder="筛选标题 / 标签" />
-  </div>
-  {% for tag in site.tags %}
-    <section class="tag-group" data-tag="{{ tag[0] | downcase | escape }}">
-      <h2 id="{{ tag[0] | slugify }}">{{ tag[0] }}</h2>
-      {% for post in tag[1] %}
-      <div class="archive-row" data-title="{{ post.title | downcase | escape }}" data-tags="{% if post.tags %}{{ post.tags | join: ',' | downcase | escape }}{% endif %}">
-        <time>{{ post.date | date: "%Y-%m-%d" }}</time>
-        <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
-      </div>
-      {% endfor %}
-    </section>
-  {% endfor %}
-</div>
-
-<script>
-  (function () {
-    var input = document.getElementById("tags-filter");
-    if (!input) return;
-    var groups = document.querySelectorAll(".tag-group");
-    input.addEventListener("input", function (event) {
-      var value = event.target.value.toLowerCase().trim();
-      groups.forEach(function (group) {
-        var rows = group.querySelectorAll(".archive-row");
-        var groupMatch = group.dataset.tag.indexOf(value) !== -1;
-        var anyVisible = false;
-        rows.forEach(function (row) {
-          var haystack = [
-            row.dataset.title || "",
-            row.dataset.tags || ""
-          ].join(" ");
-          var match = value === "" || haystack.indexOf(value) !== -1 || groupMatch;
-          row.style.display = match ? "" : "none";
-          if (match) anyVisible = true;
-        });
-        group.style.display = anyVisible ? "" : "none";
-      });
-    });
-  })();
-</script>

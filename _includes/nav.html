@@ -1,18 +1,18 @@
-{% assign lang = page.lang | default: site.lang | default: "zh" %}
-{% assign t = site.data.i18n.languages[lang] %}
-
-<nav class="site-nav">
-  <a class="nav-brand" href="{{ site.baseurl }}/">
-    <span class="brand-seal" aria-hidden="true">札</span>
-    <span class="brand-copy">
-      <strong class="brand-name">{{ site.name }}</strong>
-      <span class="brand-sub">{{ t.brand_sub }}</span>
-    </span>
-  </a>
-  <div class="nav-links">
-    <a href="{{ site.baseurl }}/" class="{% if page.url == '/' %}active{% endif %}">{{ t.home }}</a>
-    <a href="{{ site.baseurl }}/archive" class="{% if page.url == '/archive/' %}active{% endif %}">{{ t.archive }}</a>
-    <a href="{{ site.baseurl }}/tags" class="{% if page.url == '/tags/' %}active{% endif %}">{{ t.tags }}</a>
-    <a href="{{ site.baseurl }}/about" class="{% if page.url == '/about/' %}active{% endif %}">{{ t.about }}</a>
-  </div>
-</nav>
+{% assign is_index = false %}
+{% if page.url == '/' or paginator.page > 1 %}{% assign is_index = true %}{% endif %}
+<header class="site-header">
+  <nav class="site-nav" aria-label="{{ t.navigation }}">
+    <a class="nav-brand" href="{{ '/' | relative_url }}" aria-label="{{ site.name }} · {{ t.home }}">
+      <span class="brand-name">{{ site.name }}</span>
+      <span class="brand-divider" aria-hidden="true">/</span>
+      <span class="brand-sub">Notes</span>
+    </a>
+    <div class="nav-links">
+      <a href="{{ '/' | relative_url }}"{% if is_index %} class="active" aria-current="page"{% endif %}>{{ t.home }}</a>
+      <a href="{{ '/archive/' | relative_url }}"{% if page.url == '/archive/' %} class="active" aria-current="page"{% endif %}>{{ t.archive }}</a>
+      <a href="{{ '/tags/' | relative_url }}"{% if page.url == '/tags/' %} class="active" aria-current="page"{% endif %}>{{ t.tags }}</a>
+      <a href="{{ '/about/' | relative_url }}"{% if page.url == '/about/' %} class="active" aria-current="page"{% endif %}>{{ t.about }}</a>
+      <a class="main-site-link" href="{{ site.home_url }}">{{ t.main_site }} {% include icon.html name='arrow-up-right' %}</a>
+    </div>
+  </nav>
+</header>
